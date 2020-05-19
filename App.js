@@ -1,10 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Home from './src/components/Main/Home/home';
+import ListCourses from './src/components/Courses/ListCourses/list-courses';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Hello branch mockup-ui</Text>
+      {/* <Home /> */}
+      <ListCourses/>
     </View>
   );
 }
@@ -12,8 +15,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 25
   },
 });
