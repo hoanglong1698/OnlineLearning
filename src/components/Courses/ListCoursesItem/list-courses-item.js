@@ -2,29 +2,36 @@ import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity, Alert, Share } from 'react-native'
 
 const ListCoursesItem = (props) => {
+    const onPressListItem = () => {
+        props.navigation.navigate("CoursesDetail", {item: props.item})
+    }
+
+
     return (
         <TouchableOpacity
             style={styles.item}
-            onPress={() => {
-                Alert.alert('Info', 'Press on sections list',
-                    [
-                        {
-                            text: 'Cancel',
-                            onPress: () => {
-                                console.log('Press on cancel')
-                            }
-                        },
-                        {
-                            text: 'OK',
-                            onPress: () => {
-                                Share.share({
-                                    message: 'Hello share',
-                                })
-                            }
-                        }
-                    ]
-                )
-            }}>
+            onPress={onPressListItem}
+            // onPress={() => {
+            //     Alert.alert('Info', 'Press on sections list',
+            //         [
+            //             {
+            //                 text: 'Cancel',
+            //                 onPress: () => {
+            //                     console.log('Press on cancel')
+            //                 }
+            //             },
+            //             {
+            //                 text: 'OK',
+            //                 onPress: () => {
+            //                     Share.share({
+            //                         message: 'Hello share',
+            //                     })
+            //                 }
+            //             }
+            //         ]
+            //     )
+        // }}
+        >
             <Image style={styles.image} source={require('../../../../assets/icon-course.png')} />
 
             <View style={{ margin: 5 }}>
