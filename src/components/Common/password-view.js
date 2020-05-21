@@ -1,14 +1,15 @@
 import React from 'react'
 import { View, TextInput, StyleSheet } from 'react-native'
+import { color } from '../../globals/constants'
 
 const PasswordView = (props) => {
     return (
         <View style={styles.passwordView} >
             <TextInput
-                secureTextEntry
+                secureTextEntry={true}
                 style={styles.inputText}
-                placeholder="Password"
-                placeholderTextColor="#a1a1a1"
+                placeholder={props.title}
+                placeholderTextColor={color.placeholderTextColor}
             //onChangeText={text => this.setState({ email: text })} 
             />
         </View>
@@ -17,20 +18,16 @@ const PasswordView = (props) => {
 
 const styles = StyleSheet.create({
     passwordView: {
-        width: "80%",
-        borderRadius: 25,
-        borderBottomColor: '#a1a1a1',
+        alignSelf: 'stretch',
+        height: 40,
+        marginBottom: 30,
+        borderBottomColor: color.border,
         borderBottomWidth: 1,
-        height: 50,
-        marginBottom: 20,
-        justifyContent: "center",
-        paddingLeft: 20,
-        paddingTop: 15,
     },
 
     inputText: {
-        height: 50,
-        color: "#2c3051"
+        height: 45,
+        color: color.inputText,
     },
 })
 

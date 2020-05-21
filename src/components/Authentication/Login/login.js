@@ -2,22 +2,22 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import InputView from '../../Common/input-view'
 import PasswordView from '../../Common/password-view'
+import TouchableButton from '../../Common/touchable-button'
+import { color } from '../../../globals/constants'
 
 const Login = (props) => {
     return (
         <View style={styles.container}>
             <Text style={styles.logo}>Online{'\n'}Learning</Text>
 
-            <InputView title="Email"></InputView>
-            <PasswordView></PasswordView>
+            <InputView title="Email" secure="False"></InputView>
+            <PasswordView title="Password"></PasswordView>
 
             <TouchableOpacity>
                 <Text style={styles.forgot}>Forgot Password?</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.loginBtn}>
-                <Text style={styles.loginText}>LOGIN</Text>
-            </TouchableOpacity>
+            <TouchableButton title="SIGN IN"></TouchableButton>
             
             <TouchableOpacity>
                 <Text style={styles.questionText}>Don't have account?{' '}
@@ -37,40 +37,25 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        paddingHorizontal: 60,
     },
 
     logo: {
         fontWeight: "bold",
         fontSize: 50,
-        color: "#2c3051",
+        color: color.headerText,
         marginBottom: 40,
         textAlign: 'center'
     },
     
     forgot: {
-        color: "#2c3051",
+        color: color.headerText,
         fontSize: 11
-    },
-
-    loginBtn: {
-        width: "80%",
-        backgroundColor: "#ffc226",
-        borderRadius: 25,
-        height: 50,
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 40,
-        marginBottom: 20
-    },
-
-    loginText: {
-        fontWeight: 'bold',
-        color: "white"
     },
 
     signUpText: {
         fontWeight: 'bold',
-        color: "#2c3051",
+        color: color.headerText,
         fontSize: 12
     },
 
