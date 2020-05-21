@@ -1,5 +1,7 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity, Alert, Share } from 'react-native'
+import { Rating, AirbnbRating } from 'react-native-elements';
+import { color } from './../../../globals/constants';
 
 const ListCoursesItem = (props) => {
     const onPressListItem = () => {
@@ -11,42 +13,43 @@ const ListCoursesItem = (props) => {
         <TouchableOpacity
             style={styles.item}
             onPress={onPressListItem}
-            // onPress={() => {
-            //     Alert.alert('Info', 'Press on sections list',
-            //         [
-            //             {
-            //                 text: 'Cancel',
-            //                 onPress: () => {
-            //                     console.log('Press on cancel')
-            //                 }
-            //             },
-            //             {
-            //                 text: 'OK',
-            //                 onPress: () => {
-            //                     Share.share({
-            //                         message: 'Hello share',
-            //                     })
-            //                 }
-            //             }
-            //         ]
-            //     )
-        // }}
         >
             <Image style={styles.image} source={require('../../../../assets/icon-course.png')} />
 
-            <View style={{ margin: 5 }}>
-                <Text>{props.item.title}</Text>
-                <Text style={styles.darkText}>{props.item.author}</Text>
-                <Text style={styles.darkText}>{`${props.item.level} - ${props.item.released} - ${props.item.duration}`}</Text>
+            <View style={styles.content}>
+                <Text style={styles.title}>{props.item.title}</Text>
+                <Text style={styles.info}>{props.item.author}</Text>
+                <Text style={styles.info}>{`${props.item.level} \u00B7 ${props.item.released} \u00B7 ${props.item.duration}`}</Text>
+                <Rating style={{marginTop: 5}}
+                    defaultRating={4}
+                    type='star'
+                    fractions={1}
+                    ratingCount={5}
+                    imageSize={12}
+                />
             </View>
         </TouchableOpacity>
     )
 };
 
 const styles = StyleSheet.create({
+    content: {
+        alignItems: 'flex-start',
+        marginLeft: 10,
+        marginTop: 5,
+    },
+
+    title: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: color.headerText,
+    },
+
     item: {
-        margin: 5,
-        flexDirection: 'row'
+        marginHorizontal: 10,
+        marginBottom: 10,
+        flexDirection: 'row',
+        backgroundColor: color.itemBackgroundColor,
     },
 
     image: {
@@ -54,8 +57,9 @@ const styles = StyleSheet.create({
         height: 100
     },
 
-    darkText: {
-        color: 'darkgray'
+    info: {
+        fontSize: 14,
+        color: color.infoTextColor
     }
 })
 

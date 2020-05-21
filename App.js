@@ -9,6 +9,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CoursesDetail from './src/components/CourseDetail/courses-detail';
+import EnterUsername from './src/components/Authentication/ForgotPassword/enter-username';
+import ForgotPassword from './src/components/Authentication/ForgotPassword/forgot-password';
 
 const MainStack = createStackNavigator();
 
@@ -52,16 +54,15 @@ export default function App() {
         <MainTab.Screen name="Home" component={Home} />
         <MainTab.Screen name="ListCourses" component={ListCoursesStack} />
       </MainTab.Navigator>
-
-
-
     </NavigationContainer>
 
     // <View style={styles.container}>
-    //   <Home />
-    //   {/* <ListCourses/>
-    //   <Login />
-    //   <Register /> */}
+    //   {/* <Home /> */}
+    //   {/* <ListCourses/> */}
+    //   {/* <Login /> */}
+    //   {/* <Register /> */}
+    //   {/* <EnterUsername/> */}
+    //   {/* <ForgotPassword/> */}
     // </View>
   );
 }
@@ -69,6 +70,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 25
   },
 });

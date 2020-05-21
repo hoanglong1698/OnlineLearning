@@ -5,5 +5,10 @@ export const color = {
     buttonText: 'white',
     border: '#a1a1a1',
     inputText: '#2c3051',
-    placeholderTextColor: "#a1a1a1",
+    placeholderTextColor: '#a1a1a1',
+    mainBackgroundColor: '#ededef',
+    itemBackgroundColor: 'white',
+    infoTextColor: '#6d6d6d',
+    seeAllButtonColor: '#d8d8d8',
+    seeAllTextColor: '#353535'
 }

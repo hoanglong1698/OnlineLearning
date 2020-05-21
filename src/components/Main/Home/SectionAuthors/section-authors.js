@@ -1,42 +1,29 @@
 import React from 'react'
-import { Text, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
-import SectionCoursesItem from '../SectionCoursesItem/section-courses-item'
-import { render } from 'react-dom'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
+import SectionAuthorsItem from './../SectionAuthorsItem/section-authors-item';
 import { color } from '../../../../globals/constants'
 
-const SectionCourses = (props) => {
-    const courses = [
+const SectionAuthors = (props) => {
+    const authors = [
         {
             id: 1,
-            title: 'React Native',
-            author: 'Hoang Long',
-            level: 'Advance',
-            released: 'May 19, 2020',
-            duration: '40h'
+            author: 'Gorden Ramsay',
         },
 
         {
             id: 2,
-            title: 'iOS',
             author: 'Hoang Long',
-            level: 'Beginner',
-            released: 'May 19, 2020',
-            duration: '30h'
         },
 
         {
             id: 3,
-            title: 'Android',
-            author: 'Hoang Long',
-            level: 'Advance',
-            released: 'May 19, 2020',
-            duration: '40h'
+            author: 'Phuong My',
         }
 
     ]
 
-    const renderListItems = (courses) => {
-        return courses.map(item => <SectionCoursesItem item={item} />)
+    const renderListItems = (authors) => {
+        return authors.map(item => <SectionAuthorsItem item={item} />)
     }
 
     return (
@@ -49,7 +36,7 @@ const SectionCourses = (props) => {
             </View>
 
             <ScrollView horizontal={true}>
-                {renderListItems(courses)}
+                {renderListItems(authors)}
             </ScrollView>
         </View>
     )
@@ -84,5 +71,4 @@ const styles = StyleSheet.create({
     }
 })
 
-
-export default SectionCourses
+export default SectionAuthors

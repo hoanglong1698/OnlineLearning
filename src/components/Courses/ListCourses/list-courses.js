@@ -82,20 +82,20 @@ const ListCourses = (props) => {
 
     return (
         <View>
-            {/* <FlatList
+            <FlatList
                 data={courses}
                 renderItem={({ item }) => <ListCoursesItem item={item} />}
                 ListHeaderComponent={() => searchView()}
-            /> */}
+            />
 
-            <SectionList
+            {/* <SectionList
                 sections={courses}
                 renderItem={({ item }) => <ListCoursesItem navigation={props.navigation} item={item} />}
                 renderSectionHeader={({ section: { title } }) =>
                     <View style={{backgroundColor: 'white'}}>
                         <Text>{title}</Text>
                     </View>}
-            />
+            /> */}
         </View>
     )
 }
