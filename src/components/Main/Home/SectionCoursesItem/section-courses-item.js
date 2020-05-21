@@ -12,7 +12,7 @@ const SectionCoursesItem = (props) => {
                 <Text style={styles.title}>{props.item.title}</Text>
                 <Text style={styles.info}>{props.item.author}</Text>
                 <Text style={styles.info}>{`${props.item.level} - ${props.item.released} - ${props.item.duration}`}</Text>
-                <Rating style={{marginTop: 5}}
+                <Rating style={{ marginTop: 5 }}
                     defaultRating={4}
                     type='star'
                     fractions={1}
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     },
 
     item: {
-        marginTop: 10,
+        marginVertical: 10,
         marginRight: 10,
         width: 200,
         height: 205,
@@ -46,18 +46,17 @@ const styles = StyleSheet.create({
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 2,
+            height: 3,
         },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-        borderRadius: 5,
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+
+        elevation: 6,
     },
 
     image: {
         width: 200,
         height: 100,
-        borderRadius: 5,
     },
 
     info: {
