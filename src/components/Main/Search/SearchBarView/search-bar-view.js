@@ -4,17 +4,15 @@ import { SearchBar } from 'react-native-elements';
 
 const SearchBarView = () => {
     return (
-        <View>
             <SearchBar
                 placeholder="Type Here..."
                 clearIcon
                 platform='default'
                 lightTheme={true}
             />
-        </View>
     )
 }
 
-export default SearchBar
+export default SearchBarView
 
 const styles = StyleSheet.create({})
