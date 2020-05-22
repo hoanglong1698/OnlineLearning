@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 60,
+        paddingHorizontal: 50,
     },
 
     text: {

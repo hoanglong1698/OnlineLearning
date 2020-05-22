@@ -12,7 +12,7 @@ const Register = (props) => {
             <InputView title="Username"></InputView>
             <InputView title="Email"></InputView>
             <PasswordView title="Password"></PasswordView>
-            <PasswordView title="Confirm Password"></PasswordView>
+            <PasswordView title="Confirm password"></PasswordView>
 
             <TouchableButton title="SIGN UP"></TouchableButton>
             
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 60,
+        paddingHorizontal: 50,
     },
 
     signUpText: {
