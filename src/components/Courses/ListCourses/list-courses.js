@@ -1,91 +1,77 @@
 import React from 'react'
-import { View, Text, FlatList, TextInput, Button, SectionList } from 'react-native'
+import { View, Text, FlatList, TextInput, Button, SectionList, ScrollView } from 'react-native'
 import ListCoursesItem from '../ListCoursesItem/list-courses-item'
+import SearchBarView from './../../Main/Search/SearchBarView/search-bar-view';
 
 const ListCourses = (props) => {
     const courses = [
         {
-            title: 'Mobile',
-            data: [
-                {
-                    id: 1,
-                    title: 'React Native',
-                    author: 'Hoang Long',
-                    level: 'Advance',
-                    released: 'May 19, 2020',
-                    duration: '40 hours'
-                },
-        
-                {
-                    id: 2,
-                    title: 'iOS',
-                    author: 'Hoang Long',
-                    level: 'Beginner',
-                    released: 'May 19, 2020',
-                    duration: '30 hours'
-                },
-        
-                {
-                    id: 3,
-                    title: 'Android',
-                    author: 'Hoang Long',
-                    level: 'Advance',
-                    released: 'May 19, 2020',
-                    duration: '40 hours'
-                }
-        
-            ]
+            id: 1,
+            title: 'React Native',
+            author: 'Hoang Long',
+            level: 'Advance',
+            released: 'May 19, 2020',
+            duration: '40 hours'
         },
 
         {
-            title: 'Web',
-            data: [
-                {
-                    id: 1,
-                    title: 'React',
-                    author: 'Hoang Long',
-                    level: 'Advance',
-                    released: 'May 19, 2020',
-                    duration: '40 hours'
-                },
-        
-                {
-                    id: 2,
-                    title: 'CSharp',
-                    author: 'Hoang Long',
-                    level: 'Beginner',
-                    released: 'May 19, 2020',
-                    duration: '30 hours'
-                },
-        
-                {
-                    id: 3,
-                    title: 'C++',
-                    author: 'Hoang Long',
-                    level: 'Advance',
-                    released: 'May 19, 2020',
-                    duration: '40 hours'
-                }
-        
-            ]
-        }
+            id: 2,
+            title: 'iOS',
+            author: 'Hoang Long',
+            level: 'Beginner',
+            released: 'May 19, 2020',
+            duration: '30 hours'
+        },
+
+        {
+            id: 3,
+            title: 'Android',
+            author: 'Hoang Long',
+            level: 'Advance',
+            released: 'May 19, 2020',
+            duration: '40 hours'
+        },
+
+        {
+            id: 4,
+            title: 'C#',
+            author: 'Hoang Long',
+            level: 'Advance',
+            released: 'May 19, 2020',
+            duration: '40 hours'
+        },
+
+        {
+            id: 5,
+            title: 'Blockchain',
+            author: 'Hoang Long',
+            level: 'Advance',
+            released: 'May 19, 2020',
+            duration: '40 hours'
+        },
+
+        {
+            id: 6,
+            title: 'AWS',
+            author: 'Hoang Long',
+            level: 'Advance',
+            released: 'May 19, 2020',
+            duration: '40 hours'
+        },
     ]
 
     const searchView = () => {
-        return <View style={{flexDirection: 'row', margin: 5}}>
-            <TextInput style={{flex: 1, borderColor: 'gray', borderWidth: 1}} placeholder='Search text' />
-            <Button onPress={() => {
-                console.log('Press search button')
-            }} title='Search' style={{width: 60, height: 40}}/>
-        </View>
+        return <SearchBarView>
+
+        </SearchBarView>
     }
 
     return (
-        <View>
+        <ScrollView>
             <FlatList
                 data={courses}
                 renderItem={({ item }) => <ListCoursesItem item={item} />}
-                ListHeaderComponent={() => searchView()}
+                //ListHeaderComponent={() => searchView()}
             />
 
             {/* <SectionList
@@ -96,8 +82,7 @@ const ListCourses = (props) => {
                         <Text>{title}</Text>
                     </View>}
             /> */}
-        </View>
+        </ScrollView>
     )
 }
-
 export default ListCourses

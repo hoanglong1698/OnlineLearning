@@ -16,6 +16,7 @@ import Search from './src/components/Main/Search/search';
 import Profile from './src/components/AccountManagement/Profile/profile';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { color } from './src/globals/constants';
+import Result from './src/components/Main/Search/result';
 
 const MainStack = createStackNavigator();
 
@@ -50,12 +51,12 @@ const ListCoursesStack = () => {
   )
 }
 
-const MainTab = createBottomTabNavigator();
+const BottomTab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <MainTab.Navigator
+      <BottomTab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -86,17 +87,18 @@ export default function App() {
             return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
           },
         })}
+
         tabBarOptions={{
           activeTintColor: color.headerBar,
           inactiveTintColor: color.infoTextColor,
         }}
       >
-        <MainTab.Screen name="Home" component={Home} />
-        <MainTab.Screen name="Download" component={Download} />
-        <MainTab.Screen name="ListCourses" component={ListCoursesStack} />
-        <MainTab.Screen name="Search" component={Search} />
-        <MainTab.Screen name="Profile" component={Profile} />
-      </MainTab.Navigator>
+        <BottomTab.Screen name="Home" component={Home} />
+        <BottomTab.Screen name="Download" component={Download} />
+        <BottomTab.Screen name="ListCourses" component={CoursesDetail} />
+        <BottomTab.Screen name="Search" component={Result} />
+        <BottomTab.Screen name="Profile" component={Profile} />
+      </BottomTab.Navigator>
     </NavigationContainer>
 
     // <View style={styles.container}>
