@@ -16,13 +16,15 @@ const Login = (props) => {
             <TouchableOpacity>
                 <Text style={styles.forgot}>Forgot Password?</Text>
             </TouchableOpacity>
+            <View style={styles.button}>
+                <TouchableButton title="SIGN IN"></TouchableButton>
+            </View>
 
-            <TouchableButton title="SIGN IN"></TouchableButton>
-            
+
             <TouchableOpacity>
                 <Text style={styles.questionText}>Don't have account?{' '}
-                     <Text style={styles.signUpText}>
-                         Sign Up.
+                    <Text style={styles.signUpText}>
+                        Sign Up.
                      </Text>
                 </Text>
             </TouchableOpacity>
@@ -47,10 +49,15 @@ const styles = StyleSheet.create({
         marginBottom: 40,
         textAlign: 'center'
     },
-    
+
     forgot: {
         color: color.headerText,
         fontSize: 11
+    },
+
+    button: {
+        marginVertical: 20,
+        alignSelf: 'stretch',
     },
 
     signUpText: {

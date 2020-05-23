@@ -14,12 +14,15 @@ const Register = (props) => {
             <PasswordView title="Password"></PasswordView>
             <PasswordView title="Confirm password"></PasswordView>
 
-            <TouchableButton title="SIGN UP"></TouchableButton>
-            
+            <View style={styles.button}>
+                <TouchableButton title="SIGN UP"></TouchableButton>
+            </View>
+
+
             <TouchableOpacity>
                 <Text style={styles.questionText}>Have an account?{' '}
-                     <Text style={styles.signUpText}>
-                         Sign In.
+                    <Text style={styles.signUpText}>
+                        Sign In.
                      </Text>
                 </Text>
             </TouchableOpacity>
@@ -33,6 +36,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 50,
+    },
+
+    button: {
+        alignSelf: 'stretch',
+        marginVertical: 20,
     },
 
     signUpText: {

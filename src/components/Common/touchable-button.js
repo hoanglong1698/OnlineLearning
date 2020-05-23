@@ -18,13 +18,13 @@ const styles = StyleSheet.create({
         height: 45,
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 20,
-        marginBottom: 20
+        marginVertical: 10,
     },
 
     text: {
         fontWeight: 'bold',
-        color: color.buttonText
+        color: color.buttonText,
+        fontSize: 16,
     },
 })
 
