@@ -1,20 +1,14 @@
 import React from 'react'
 import { Text, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
-import SectionCoursesItem from '../SectionCoursesItem/section-courses-item'
 import { render } from 'react-dom'
 import { color } from '../../../../globals/constants'
-import { createStackNavigator } from '@react-navigation/stack';
-import ListCourses from './../../../Courses/ListCourses/list-courses';
-import CoursesDetail from './../../../CourseDetail/courses-detail';
-import { courses } from './../../../../globals/database';
+import { paths } from '../../../../globals/database'
+import SectionPathsItem from './../SectionPathsItem/section-paths-item';
 
-const Stack = createStackNavigator();
+const SectionPaths = (props) => {
 
-
-
-const SectionCourses = (props) => {
     const renderListItems = (courses) => {
-        return courses.map(item => <SectionCoursesItem item={item} />)
+        return courses.map(item => <SectionPathsItem item={item} />)
     }
 
     return (
@@ -22,12 +16,12 @@ const SectionCourses = (props) => {
             <View>
                 <Text style={styles.title}>{props.title}</Text>
                 <TouchableOpacity style={styles.seeAll}>
-                    <Text style={styles.text}>See all ></Text>
+                     <Text style={styles.text}>See all ></Text>
                 </TouchableOpacity>
             </View>
 
             <ScrollView horizontal={true}>
-                {renderListItems(courses)}
+                {renderListItems(paths)}
             </ScrollView>
         </View>
     )
@@ -63,4 +57,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default SectionCourses
+export default SectionPaths
