@@ -2,73 +2,69 @@ import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity, Alert, Share } from 'react-native'
 import { Rating, AirbnbRating } from 'react-native-elements';
 import { color } from './../../../globals/constants';
+import { ListItem } from 'react-native-elements'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const ListCoursesItem = (props) => {
     const onPressListItem = () => {
-        props.navigation.navigate("CoursesDetail", {item: props.item})
+        props.navigation.navigate("CoursesDetail")
     }
 
+    const thumbnail = (props) => {
+        return <Image style={styles.thumbnail}
+            source={require('../../../../assets/icon-course.png')}>
+        </Image>
+    }
 
-    return (
-        <TouchableOpacity
-            style={styles.item}
-            onPress={onPressListItem}
-        >
-            <Image style={styles.image} source={require('../../../../assets/icon-course.png')} />
-
-            <View style={styles.content}>
-                <Text style={styles.title}>{props.item.title}</Text>
-                <Text style={styles.info}>{props.item.author}</Text>
-                <Text style={styles.info}>{`${props.item.level} \u00B7 ${props.item.released} \u00B7 ${props.item.duration}`}</Text>
-                <Rating style={{marginTop: 5}}
+    const subtitle = (props) => {
+        return <View>
+            <Text style={styles.subtitle}>{props.item.author}</Text>
+            <Text style={styles.subtitle}>{`${props.item.level} \u00B7 ${props.item.released} \u00B7 ${props.item.duration}`}</Text>
+            <Rating style={styles.rating}
                     defaultRating={4}
                     type='star'
                     fractions={1}
                     ratingCount={5}
                     imageSize={12}
                 />
-            </View>
-        </TouchableOpacity>
+        </View>
+    }
+
+    const subMenu = (props) => {
+        console.log('3 dot')
+    }
+
+    return (
+        <ListItem
+            title={props.item.title}
+            titleStyle={{ color: color.headerText, }}
+            leftElement={() => thumbnail()}
+            subtitle={() => subtitle(props)}
+            bottomDivider
+            rightElement={<MaterialCommunityIcons
+                name='dots-vertical'
+                size={24}
+                onPress={subMenu} />}
+        />
     )
 };
 
 const styles = StyleSheet.create({
-    content: {
-        alignItems: 'flex-start',
-        marginLeft: 10,
+    subtitle: {
+        fontSize: 13,
+        color: color.subtitleColor,
+    },
+    
+    thumbnail: {
+        width: 90,
+        height: 60,
+    },
+
+    rating: {
         marginTop: 5,
-    },
-
-    title: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: color.headerText,
-    },
-
-    item: {
-        marginHorizontal: 10,
-        marginBottom: 10,
-        flexDirection: 'row',
-        backgroundColor: color.itemBackgroundColor,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
-
-    image: {
-        width: 100,
-        height: 100
-    },
-
-    info: {
-        fontSize: 14,
-        color: color.infoTextColor
+        alignSelf: 'flex-start',
     }
+
 })
 
 export default ListCoursesItem

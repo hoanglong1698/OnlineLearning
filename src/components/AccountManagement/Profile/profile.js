@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { color } from './../../../globals/constants';
 import InputView from '../../Common/input-view'
@@ -28,6 +28,9 @@ const Profile = () => {
         },
     ]
 
+    const onPressTest = () =>
+        console.log('clicked')
+
     return (
         <View style={styles.container}>
             <View style={styles.userInfo}>
@@ -50,29 +53,29 @@ const Profile = () => {
                 <LogoutButton title="Log out"></LogoutButton>
             </View>
 
-            <View style={{marginTop: 30}}>
-                <TouchableOpacity>
-                    <ListItem
-                        key={1}
-                        title='Change password'
-                        bottomDivider
-                        chevron
-                        titleStyle={{
-                            color:color.headerText,
-                            fontWeight: 'bold',
-                        }}
-                    />
-                    <ListItem
-                        key={2}
-                        title='App settings'
-                        bottomDivider
-                        chevron
-                        titleStyle={{
-                            color:color.headerText,
-                            fontWeight: 'bold',
-                        }}
-                    />
-                </TouchableOpacity >
+            <View style={{ marginTop: 30 }}>
+                <ListItem
+                    key={1}
+                    title='Change password'
+                    bottomDivider
+                    chevron
+                    titleStyle={{
+                        color: color.headerText,
+                        fontWeight: 'bold',
+                    }}
+                    onPress={onPressTest}
+                />
+                <ListItem
+                    key={2}
+                    title='App settings'
+                    bottomDivider
+                    chevron
+                    titleStyle={{
+                        color: color.headerText,
+                        fontWeight: 'bold',
+                    }}
+                    onPress={onPressTest}
+                />
             </View>
         </View>
     )
