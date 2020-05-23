@@ -8,7 +8,7 @@ const SearchBarView = () => {
                 placeholder="Type Here..."
                 clearIcon
                 platform='default'
-                lightTheme={true}
+                lightTheme
             />
     )
 }
