@@ -11,7 +11,7 @@ export const courses = [
     {
         id: 2,
         title: 'iOS',
-        author: 'Hoang Long',
+        author: 'Phuong My',
         level: 'Beginner',
         released: 'Jan 2020',
         duration: '30 hours'
@@ -20,10 +20,10 @@ export const courses = [
     {
         id: 3,
         title: 'Android',
-        author: 'Hoang Long',
+        author: 'Gorden Ramsay',
         level: 'Advance',
         released: 'Apr 2020',
-        duration: '40 hours'
+        duration: '20 hours'
     },
 
     {
@@ -32,7 +32,7 @@ export const courses = [
         author: 'Hoang Long',
         level: 'Advance',
         released: 'Dec 2020',
-        duration: '40 hours'
+        duration: '15 hours'
     },
 
     {
@@ -53,3 +53,46 @@ export const courses = [
         duration: '40 hours'
     },
 ]
+
+export const paths = [
+    {
+        id: 1,
+        title: 'React Native',
+        quantity: '10 courses',
+    },
+
+    {
+        id: 2,
+        title: 'Visual Studio 2019',
+        quantity: '10 courses',
+    },
+]
+
+export const unitsData = [
+    {
+        id: 1,
+        title: "Courses Overview",
+        time:"1:35",
+        data: [
+            {
+                title: "Courses Overview",
+                time: "1:35",
+            },
+        ]
+    },
+    {
+        id: 2,
+        title: "Introduction",
+        time: "5:00",
+        data: [
+            {
+                title: "React Native",
+                time: "4:26",
+            },
+            {
+                title: "What You Will Build in This Courses",
+                time: "1:38",
+            }
+        ]
+    },
+];

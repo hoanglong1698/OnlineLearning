@@ -45,6 +45,7 @@ const ListCoursesItem = (props) => {
                 name='dots-vertical'
                 size={24}
                 onPress={subMenu} />}
+            onPress={onPressListItem}
         />
     )
 };
