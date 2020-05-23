@@ -1,11 +1,5 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import SearchAll from './SearchAll/search-all';
-import SearchPaths from './SearchPaths/search-paths';
-import SearchCourses from './SearchCourses/search-courses';
-import SearchAuthors from './SearchAuthors/search-authors';
 import SearchBarView from './SearchBarView/search-bar-view';
 import { ListItem } from 'react-native-elements'
 import { color } from './../../../globals/constants';
@@ -22,12 +16,6 @@ const Search = () => {
             title: 'iOS',
         },
     ]
-
-    const searchView = () => {
-        return <SearchBarView>
-
-        </SearchBarView>
-    }
 
     return (
         <View>

@@ -56,6 +56,7 @@ const SearchAuthors = (props) => {
                                 titleStyle={{ color: color.headerText, }}
                                 leftAvatar={{ source: { uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' } }}
                                 subtitle={item.quantity}
+                                bottomDivider
                             />
                         ))
                     }

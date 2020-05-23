@@ -95,7 +95,7 @@ export default function App() {
       >
         <BottomTab.Screen name="Home" component={Home} />
         <BottomTab.Screen name="Download" component={Download} />
-        <BottomTab.Screen name="ListCourses" component={CoursesDetail} />
+        <BottomTab.Screen name="ListCourses" component={ListCoursesStack} />
         <BottomTab.Screen name="Search" component={Result} />
         <BottomTab.Screen name="Profile" component={Profile} />
       </BottomTab.Navigator>

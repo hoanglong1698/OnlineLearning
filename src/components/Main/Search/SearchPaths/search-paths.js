@@ -22,24 +22,26 @@ const SearchPaths = () => {
         </Image>
     }
 
+    const onPressTest = () =>
+        console.log('clicked')
+
     return (
         <View style={styles.container}>
             <Text style={styles.resultCount}>{paths.length} result</Text>
             <ScrollView>
-                <TouchableOpacity>
-                    {
-                        paths.map((item, i) => (
-                            <ListItem
-                                key={i}
-                                title={item.name}
-                                titleStyle={{ color: color.headerText, }}
-                                leftElement={() => thumbnail()}
-                                subtitle={item.quantity}
-                                bottomDivider
-                            />
-                        ))
-                    }
-                </TouchableOpacity>
+                {
+                    paths.map((item, i) => (
+                        <ListItem
+                            key={i}
+                            title={item.name}
+                            titleStyle={{ color: color.headerText, }}
+                            leftElement={() => thumbnail()}
+                            subtitle={item.quantity}
+                            bottomDivider
+                            onPress={onPressTest}
+                        />
+                    ))
+                }
             </ScrollView>
         </View>
     )
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     thumbnail: {
-        width: 100,
-        height: 70,
+        width: 90,
+        height: 60,
     },
 })

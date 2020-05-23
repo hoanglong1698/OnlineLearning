@@ -9,6 +9,7 @@ export const color = {
     mainBackgroundColor: '#ededef',
     itemBackgroundColor: 'white',
     infoTextColor: '#6d6d6d',
+    subtitleColor: '#6d6d6d',
     seeAllButtonColor: '#d8d8d8',
     seeAllTextColor: '#353535'
 }
