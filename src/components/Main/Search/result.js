@@ -7,6 +7,7 @@ import SearchPaths from './SearchPaths/search-paths';
 import SearchCourses from './SearchCourses/search-courses';
 import SearchAuthors from './SearchAuthors/search-authors';
 import SearchBarView from './SearchBarView/search-bar-view';
+import { color } from './../../../globals/constants';
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -21,8 +22,13 @@ const Result = () => {
         <View style={styles.containter}>
             <SearchBarView />
 
-            <TopTab.Navigator independent={true}
-                initialRouteName="ALL"
+            <TopTab.Navigator
+                independent={true}
+                initialRouteName="COURSES"
+                tabBarOptions={{
+                    indicatorStyle: { height: 3, backgroundColor: color.headerBar },
+                    labelStyle: {fontWeight: 'bold'}
+                }}
             >
                 <TopTab.Screen name="ALL" component={SearchAll} />
                 <TopTab.Screen name="COURSES" component={SearchCourses} />

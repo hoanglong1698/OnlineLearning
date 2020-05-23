@@ -2,20 +2,9 @@ import React from 'react'
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { color } from './../../../../globals/constants';
+import { paths } from '../../../../globals/database';
 
 const SearchPaths = () => {
-    const paths = [
-        {
-            name: 'React',
-            quantity: '10 courses',
-        },
-
-        {
-            name: 'Microsoft Ignite 2019',
-            quantity: '5 courses',
-        },
-    ]
-
     const thumbnail = () => {
         return <Image style={styles.thumbnail}
             source={require('../../../../../assets/icon-course.png')}>
@@ -33,7 +22,7 @@ const SearchPaths = () => {
                     paths.map((item, i) => (
                         <ListItem
                             key={i}
-                            title={item.name}
+                            title={item.title}
                             titleStyle={{ color: color.headerText, }}
                             leftElement={() => thumbnail()}
                             subtitle={item.quantity}

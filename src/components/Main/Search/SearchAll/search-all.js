@@ -1,11 +1,14 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
+import SearchSectionCourses from './SearchSectionCourses/search-section-courses'
+import SearchSectionPaths from './SearchSectionPaths/search-section-paths'
 
 const SearchAll = () => {
     return (
-        <View>
-            <Text>SearchAll</Text>
-        </View>
+        <ScrollView>
+            <SearchSectionCourses></SearchSectionCourses>
+            <SearchSectionPaths></SearchSectionPaths>
+        </ScrollView>
     )
 }
 

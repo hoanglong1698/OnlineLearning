@@ -47,20 +47,18 @@ const SearchAuthors = (props) => {
         <View style={styles.container}>
             <Text style={styles.resultCount}>{authors.length} result</Text>
             <ScrollView>
-                <TouchableOpacity>
-                    {
-                        authors.map((item, i) => (
-                            <ListItem
-                                key={i}
-                                title={item.name}
-                                titleStyle={{ color: color.headerText, }}
-                                leftAvatar={{ source: { uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' } }}
-                                subtitle={item.quantity}
-                                bottomDivider
-                            />
-                        ))
-                    }
-                </TouchableOpacity>
+                {
+                    authors.map((item, i) => (
+                        <ListItem
+                            key={i}
+                            title={item.name}
+                            titleStyle={{ color: color.headerText, }}
+                            leftAvatar={{ source: { uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' } }}
+                            subtitle={item.quantity}
+                            bottomDivider
+                        />
+                    ))
+                }
             </ScrollView>
         </View>
     )
