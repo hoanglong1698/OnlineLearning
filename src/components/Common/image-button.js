@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from 'react
 
 const ImageButton = (props) => {
     return (
-        <ImageBackground style={styles.button} source= {{uri: 'https://cdn.pixabay.com/photo/2020/05/12/15/46/iceberg-5163649_960_720.jpg'}}>
+        <ImageBackground style={styles.button} source= {{uri: 'https://cdn.pixabay.com/photo/2020/01/14/16/26/lavender-4765498_960_720.jpg'}}>
             <TouchableOpacity style={styles.touch} onPress={props.onPress}>
                 <Text style={styles.text}>{props.title}</Text>
             </TouchableOpacity>
