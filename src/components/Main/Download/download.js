@@ -9,7 +9,7 @@ const Download = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.title}>2 Courses (0 MB)</Text>
+                <Text style={styles.title}>6 Courses (150 MB)</Text>
                 <TouchableOpacity style={styles.seeAll}>
                     <Text style={styles.text}>REMOVE ALL</Text>
                 </TouchableOpacity>
