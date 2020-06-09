@@ -4,6 +4,7 @@ import ListCoursesItem from '../ListCoursesItem/list-courses-item'
 import { courses } from './../../../globals/database';
 
 const ListCourses = (props) => {
+    console.log(props);
     return (
         <ScrollView>
             <FlatList

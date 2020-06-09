@@ -6,7 +6,7 @@ import InputView from '../../Common/input-view'
 import PasswordView from '../../Common/password-view'
 import LogoutButton from '../../Common/log-out-button';
 
-const Profile = () => {
+const Profile = ({navigation}) => {
     const list = [
         {
             title: 'Change password',
@@ -63,7 +63,7 @@ const Profile = () => {
                         color: color.headerText,
                         fontWeight: 'bold',
                     }}
-                    onPress={onPressTest}
+                    onPress={() => navigation.navigate('ChangePassword')}
                 />
                 <ListItem
                     key={2}
@@ -74,7 +74,7 @@ const Profile = () => {
                         color: color.headerText,
                         fontWeight: 'bold',
                     }}
-                    onPress={onPressTest}
+                    onPress={() => navigation.navigate('Setting')}
                 />
             </View>
         </View>

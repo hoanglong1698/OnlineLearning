@@ -16,12 +16,16 @@ const SectionCourses = (props) => {
     const renderListItems = (courses) => {
         return courses.map(item => <SectionCoursesItem item={item} />)
     }
+    
+    const onPressSeeAll = () => {
+        props.navigation.navigate("ListCourses", {title: props.title})
+    }
 
     return (
         <View style={styles.container}>
             <View>
                 <Text style={styles.title}>{props.title}</Text>
-                <TouchableOpacity style={styles.seeAll}>
+                <TouchableOpacity style={styles.seeAll} onPress={onPressSeeAll}>
                     <Text style={styles.text}>See all ></Text>
                 </TouchableOpacity>
             </View>

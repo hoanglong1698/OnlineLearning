@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import PasswordView from '../../Common/password-view'
+import TouchableButton from './../../Common/touchable-button';
 
 const ChangePassword = (props) => {
     return (

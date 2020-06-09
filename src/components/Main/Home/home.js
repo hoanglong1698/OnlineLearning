@@ -13,9 +13,9 @@ const Home = (props) => {
 
     return <ScrollView style={styles.container}>
         <Image style={styles.image} source={{uri: 'https://cdn.pixabay.com/photo/2016/05/17/19/08/hyacinth-1398839_960_720.jpg'}}></Image>
-        <SectionCourses title='Continue learning' />
+        <SectionCourses title='Continue learning' navigation={props.navigation} />
         <SectionPaths title='Path' />
-        <SectionCourses title='Course List' />
+        <SectionCourses title='Course List' navigation={props.navigation} />
         <SectionAuthors title='Author' />
     </ScrollView>
 };
