@@ -6,13 +6,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CoursesDetail from './src/components/CourseDetail/courses-detail';
-import Download from './src/components/Main/Download/download';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { color } from './src/globals/constants';
 import Result from './src/components/Main/Search/result';
 import Browse from './src/components/Main/Browse/browse';
 import ProfileStack from './src/components/Navigation/profile-stack';
 import HomeStack from './src/components/Navigation/home-stack';
+import DownloadStack from './src/components/Navigation/download-stack';
 
 const MainStack = createStackNavigator();
 
@@ -90,7 +90,7 @@ export default function App() {
         }}
       >
         <BottomTab.Screen name="Home" component={HomeStack} />
-        <BottomTab.Screen name="Download" component={ListCourses} />
+        <BottomTab.Screen name="Download" component={DownloadStack} />
         <BottomTab.Screen name="Browse" component={Browse} />
         <BottomTab.Screen name="Search" component={Result} />
         <BottomTab.Screen name="Profile" component={ProfileStack} />

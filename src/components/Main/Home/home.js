@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Image } from 'react-native';
 import SectionCourses from './SectionCourses/section-courses';
-import ImageButton from '../../Common/image-button';
 import { color } from './../../../globals/constants';
 import SectionAuthors from './SectionAuthors/section-authors';
 import SectionPaths from './SectionPaths/section-paths';

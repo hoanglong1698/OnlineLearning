@@ -1,13 +1,13 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity, Alert, Share } from 'react-native'
 import { Rating, AirbnbRating } from 'react-native-elements';
-import { color } from './../../../globals/constants';
+import { color, screenName } from './../../../globals/constants';
 import { ListItem } from 'react-native-elements'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const ListCoursesItem = (props) => {
     const onPressListItem = () => {
-        props.navigation.navigate("CoursesDetail")
+        props.navigation.navigate(screenName.coursesDetailScreen, {title: props.item.title})
     }
 
     const thumbnail = (props) => {

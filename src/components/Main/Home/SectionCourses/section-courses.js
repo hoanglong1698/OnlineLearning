@@ -1,24 +1,19 @@
 import React from 'react'
 import { Text, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
 import SectionCoursesItem from '../SectionCoursesItem/section-courses-item'
-import { render } from 'react-dom'
-import { color } from '../../../../globals/constants'
+import { color, screenName } from '../../../../globals/constants'
 import { createStackNavigator } from '@react-navigation/stack';
-import ListCourses from './../../../Courses/ListCourses/list-courses';
-import CoursesDetail from './../../../CourseDetail/courses-detail';
 import { courses } from './../../../../globals/database';
 
 const Stack = createStackNavigator();
 
-
-
 const SectionCourses = (props) => {
     const renderListItems = (courses) => {
-        return courses.map(item => <SectionCoursesItem item={item} />)
+        return courses.map(item => <SectionCoursesItem navigation={props.navigation} item={item} />)
     }
     
     const onPressSeeAll = () => {
-        props.navigation.navigate("ListCourses", {title: props.title})
+        props.navigation.navigate(screenName.listCoursesScreen, {title: props.title})
     }
 
     return (

@@ -10,9 +10,11 @@ import Contents from './Contents/contents';
 import Transcripts from './Transcripts/transcripts';
 
 const Tab = createMaterialTopTabNavigator();
-const CoursesDetail = (props) => {
-    //let item = props.route.params.item
 
+const CoursesDetail = (props) => {
+    const { title } = props.route.params;
+    props.navigation.setOptions({ title: title });
+    
     return (
         <View style={styles.container}>
             <Image style={styles.video} source={require('../../../assets/icon-course.png')}></Image>

@@ -1,11 +1,18 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
-import { Rating, AirbnbRating } from 'react-native-elements';
-import { color } from '../../../../globals/constants'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { Rating } from 'react-native-elements';
+import { color, screenName } from '../../../../globals/constants'
 
 const SectionCoursesItem = (props) => {
+    const onPressSectionItem = () => {
+        props.navigation.navigate(screenName.coursesDetailScreen, {title: props.item.title})
+    } 
+
     return (
-        <View style={styles.item}>
+        <TouchableOpacity
+            style={styles.item}
+            onPress={onPressSectionItem}
+        >
             <Image source={require('../../../../../assets/icon-course.png')} style={styles.image} />
 
             <View style={styles.content}>
@@ -20,7 +27,7 @@ const SectionCoursesItem = (props) => {
                     imageSize={12}
                 />
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -60,7 +67,7 @@ const styles = StyleSheet.create({
     },
 
     info: {
-        fontSize: 14,
+        fontSize: 13,
         color: color.infoTextColor
     }
 })

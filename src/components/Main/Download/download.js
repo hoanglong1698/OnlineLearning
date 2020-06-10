@@ -1,8 +1,6 @@
-import React from 'react'
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
-import ListCoursesItem from './../../Courses/ListCoursesItem/list-courses-item';
+import React from 'react';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { color } from './../../../globals/constants';
-import { courses } from './../../../globals/database';
 import ListCourses from '../../Courses/ListCourses/list-courses';
 
 const Download = (props) => {
@@ -15,7 +13,7 @@ const Download = (props) => {
                 </TouchableOpacity>
             </View>
 
-            <ListCourses></ListCourses>
+            <ListCourses navigation={props.navigation}></ListCourses>
         </View>
     )
 }
