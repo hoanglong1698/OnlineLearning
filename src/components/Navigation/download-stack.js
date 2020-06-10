@@ -1,16 +1,16 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from './../Main/Home/home';
-import CoursesDetail from './../CourseDetail/courses-detail';
-import { color, screenName } from './../../globals/constants';
 import ListCourses from './../Courses/ListCourses/list-courses';
+import { color, screenName } from './../../globals/constants';
+import Download from './../Main/Download/download';
+import CoursesDetail from './../CourseDetail/courses-detail';
 
 const Stack = createStackNavigator();
 
-const HomeStack = () => {
+const DownloadStack = () => {
     return (
-        <Stack.Navigator initialRouteName="Home"
+        <Stack.Navigator initialRouteName="Download"
             screenOptions={{
                 headerStyle: {
                     backgroundColor: color.headerBar,
@@ -18,17 +18,11 @@ const HomeStack = () => {
             }}>
 
             <Stack.Screen
-                name={screenName.homeScreen}
-                component={Home}
+                name={screenName.downloadScreen}
+                component={Download}
                 options={{
-                    title: "Home",
+                    title: "Download",
                 }}
-            />
-
-            <Stack.Screen
-                name={screenName.coursesDetailScreen}
-                component={CoursesDetail}
-                //options={}
             />
 
             <Stack.Screen
@@ -38,8 +32,16 @@ const HomeStack = () => {
                     ({ route }) => ({ title: route.params.title })
                 }
             />
+
+            <Stack.Screen
+                name={screenName.coursesDetailScreen}
+                component={CoursesDetail}
+                options={{
+                    title: "Courses Detail",
+                }}
+            />
         </Stack.Navigator>
     )
 }
 
-export default HomeStack
+export default DownloadStack
