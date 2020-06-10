@@ -13,3 +13,13 @@ export const color = {
     seeAllButtonColor: '#d8d8d8',
     seeAllTextColor: '#353535'
 }
+
+export const screenName = {
+    homeScreen: "HomeScreen",
+    listCoursesScreen: "ListCoursesScreen",
+    coursesDetailScreen: "CoursesDetailScreen",
+    changePasswordScreen: "ChangePasswordScreen",
+    settingScreen: "SettingScreen",
+    downloadScreen: "DownloadScreen",
+
+}
