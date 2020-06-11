@@ -12,7 +12,12 @@ import Transcripts from './Transcripts/transcripts';
 const Tab = createMaterialTopTabNavigator();
 
 const CoursesDetail = (props) => {
-    const { title } = props.route.params;
+    const title = props.route.params.title;
+    const author = props.route.params.author;
+    const duration = props.route.params.duration;
+    const level = props.route.params.level;
+    const released = props.route.params.released;
+    const units = props.route.params.units;
     props.navigation.setOptions({ title: title });
     
     return (
@@ -20,10 +25,10 @@ const CoursesDetail = (props) => {
             <Image style={styles.video} source={require('../../../assets/icon-course.png')}></Image>
             <ScrollView >
                 <View style={{ marginHorizontal: 10 }}>
-                    <Text style={styles.title}>React Native: Getting Started</Text>
+                    <Text style={styles.title}>{title}</Text>
 
-                    <Author title="Hoang Long Nguyen"></Author>
-                    <GeneralInfomation></GeneralInfomation>
+                    <Author title={author}></Author>
+                    <GeneralInfomation level={level} released={released} duration={duration} ></GeneralInfomation>
                     <CircleButtonList></CircleButtonList>
 
                     <Text style={styles.introduction}>
@@ -47,7 +52,7 @@ const CoursesDetail = (props) => {
                         labelStyle: { fontWeight: 'bold' }
                     }}
                 >
-                    <Tab.Screen name="CONTENTS" component={Contents} />
+                    <Tab.Screen name="CONTENTS" component={Contents}/>
                     <Tab.Screen name="TRANSCRIPTS" component={Transcripts} />
                 </Tab.Navigator>
             </ScrollView>
