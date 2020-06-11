@@ -3,10 +3,10 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Rating, AirbnbRating } from 'react-native-elements';
 import { color } from './../../../globals/constants';
 
-const GeneralInfomation = () => {
+const GeneralInfomation = (props) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.info}>Beginner {`\u00B7`} May 20 2020 {`\u00B7`} 30h </Text>
+            <Text style={styles.info}>{props.level} {`\u00B7`} {props.released} {`\u00B7`} {props.duration} </Text>
             <Rating style={styles.rating}
                 defaultRating={4}
                 type='custom'
