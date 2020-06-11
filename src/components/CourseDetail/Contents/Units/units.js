@@ -5,9 +5,10 @@ import { color } from './../../../../globals/constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Units = (props) => {
+    let data = props.item || [];
     const thumbnail = (props) => {
         return <View style={styles.icon}>
-            <Text>1</Text>
+            <Text>{data.section.order}</Text>
         </View>
     }
 
@@ -16,10 +17,10 @@ const Units = (props) => {
     }
     return (
         <ListItem
-            title='Courses Overview'
+            title={data.section.title}
             titleStyle={{ color: color.headerText, }}
             leftElement={() => thumbnail()}
-            subtitle='1:35'
+            subtitle={data.time}
             rightElement={<MaterialCommunityIcons
                 name='dots-vertical'
                 size={24}
