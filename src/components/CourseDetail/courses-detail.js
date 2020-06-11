@@ -18,6 +18,7 @@ const CoursesDetail = (props) => {
     const level = props.route.params.level;
     const released = props.route.params.released;
     const units = props.route.params.units;
+
     props.navigation.setOptions({ title: title });
     
     return (
@@ -52,7 +53,7 @@ const CoursesDetail = (props) => {
                         labelStyle: { fontWeight: 'bold' }
                     }}
                 >
-                    <Tab.Screen name="CONTENTS" component={Contents}/>
+                    <Tab.Screen name="CONTENTS" component={Contents} initialParams={units}/>
                     <Tab.Screen name="TRANSCRIPTS" component={Transcripts} />
                 </Tab.Navigator>
             </ScrollView>

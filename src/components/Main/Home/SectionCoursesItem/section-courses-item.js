@@ -6,7 +6,7 @@ import { color, screenName } from '../../../../globals/constants'
 const SectionCoursesItem = (props) => {
     const onPressSectionItem = () => {
         props.navigation.navigate(screenName.coursesDetailScreen, props.item)
-    } 
+    }
 
     return (
         <TouchableOpacity

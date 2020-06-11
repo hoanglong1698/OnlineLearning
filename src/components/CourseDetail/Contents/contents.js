@@ -12,14 +12,17 @@ const Item = ({ title }) => (
 );
 
 const Content = (props) => {
-    let data = props.route.params || [];
-    console.log("Hello");
-    //console.log(data);
-    //console.log(units);
+    let data = props.route.params;
+    
+    var array = [];
+    for (var i in data) {
+        array.push(data[i]);
+    }
+
     return (
         <View style={styles.container}>
             <SectionList
-                sections={units}
+                sections={array}
                 renderItem={({ item }) => <Lessons item={item} />}
                 renderSectionHeader={(item) => <Units item={item} />}
                 renderSectionFooter={() => <View style={{ borderBottomColor: color.border, borderBottomWidth: 1 }} />}
