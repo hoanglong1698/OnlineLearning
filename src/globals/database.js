@@ -137,7 +137,7 @@ export const continueLearning = [
                 ]
             },
         ],
-        transcript: "Hello. The quick brown fox jumps over the lazy dog."
+        transcripts: "Hello. The quick brown fox jumps over the lazy dog."
     },
 
     {
@@ -177,6 +177,6 @@ export const continueLearning = [
                 ]
             },
         ],
-        transcript: "Hello. The quick brown fox jumps over the lazy dog."
+        transcripts: "Hello. The quick brown fox jumps over the lazy dog."
     },
 ];

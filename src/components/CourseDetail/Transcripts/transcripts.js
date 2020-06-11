@@ -2,9 +2,15 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 const Transcripts = (props) => {
+    let data = props.route.params;
+    var array = [];
+    for (var i in data) {
+        array.push(data[i]);
+    }
+    
     return (
         <View style={styles.container}>
-            <Text>Hello. The quick brown fox jumps over the lazy dog</Text>
+            <Text>{array}</Text>
         </View>
     )
 }

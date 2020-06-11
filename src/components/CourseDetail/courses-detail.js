@@ -18,7 +18,7 @@ const CoursesDetail = (props) => {
     const level = props.route.params.level;
     const released = props.route.params.released;
     const units = props.route.params.units;
-
+    const transcripts = props.route.params.transcripts;  
     props.navigation.setOptions({ title: title });
     
     return (
@@ -54,7 +54,7 @@ const CoursesDetail = (props) => {
                     }}
                 >
                     <Tab.Screen name="CONTENTS" component={Contents} initialParams={units}/>
-                    <Tab.Screen name="TRANSCRIPTS" component={Transcripts} />
+                    <Tab.Screen name="TRANSCRIPTS" component={Transcripts} initialParams={transcripts}/>
                 </Tab.Navigator>
             </ScrollView>
         </View>
