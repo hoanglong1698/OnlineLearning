@@ -5,7 +5,7 @@ import { color, screenName } from '../../../../globals/constants'
 
 const SectionCoursesItem = (props) => {
     const onPressSectionItem = () => {
-        props.navigation.navigate(screenName.coursesDetailScreen, {title: props.item.title})
+        props.navigation.navigate(screenName.coursesDetailScreen, props.item)
     } 
 
     return (
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         marginRight: 10,
         width: 200,
-        height: 205,
+        height: 235,
         backgroundColor: color.itemBackgroundColor,
         shadowColor: "#000",
         shadowOffset: {

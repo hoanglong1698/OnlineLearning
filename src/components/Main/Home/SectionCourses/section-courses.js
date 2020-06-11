@@ -3,11 +3,12 @@ import { Text, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-nati
 import SectionCoursesItem from '../SectionCoursesItem/section-courses-item'
 import { color, screenName } from '../../../../globals/constants'
 import { createStackNavigator } from '@react-navigation/stack';
-import { courses } from './../../../../globals/database';
+import { courses, continueLearning } from './../../../../globals/database';
 
 const Stack = createStackNavigator();
 
 const SectionCourses = (props) => {
+    let data = props.data || [];
     const renderListItems = (courses) => {
         return courses.map(item => <SectionCoursesItem navigation={props.navigation} item={item} />)
     }
@@ -26,7 +27,7 @@ const SectionCourses = (props) => {
             </View>
 
             <ScrollView horizontal={true}>
-                {renderListItems(courses)}
+                {renderListItems(data)}
             </ScrollView>
         </View>
     )

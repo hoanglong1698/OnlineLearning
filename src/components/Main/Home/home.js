@@ -4,6 +4,7 @@ import SectionCourses from './SectionCourses/section-courses';
 import { color } from './../../../globals/constants';
 import SectionAuthors from './SectionAuthors/section-authors';
 import SectionPaths from './SectionPaths/section-paths';
+import { courses, continueLearning } from './../../../globals/database';
 
 const Home = (props) => {
     const onPressNewLease = () => {
@@ -12,9 +13,9 @@ const Home = (props) => {
 
     return <ScrollView style={styles.container}>
         <Image style={styles.image} source={{uri: 'https://cdn.pixabay.com/photo/2016/05/17/19/08/hyacinth-1398839_960_720.jpg'}}></Image>
-        <SectionCourses title='Continue learning' navigation={props.navigation} />
+        <SectionCourses title='Continue learning' navigation={props.navigation} data={continueLearning} />
         <SectionPaths title='Path' />
-        <SectionCourses title='Course List' navigation={props.navigation} />
+        <SectionCourses title='Course List' navigation={props.navigation} data={courses}/>
         <SectionAuthors title='Author' />
     </ScrollView>
 };
