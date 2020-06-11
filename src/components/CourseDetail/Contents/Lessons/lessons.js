@@ -5,19 +5,21 @@ import { color } from './../../../../globals/constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Lessons = (props) => {
+    let data = props.item || [];
+
     const subMenu = (props) => {
         console.log('3 dot')
     }
 
     return (
         <ListItem
-            title='React Native Introduction'
+            title={data.title}
             titleStyle={{ color: color.headerText, }}
             leftElement={<MaterialCommunityIcons
                 name='checkbox-blank-circle'
                 size={10}
                 onPress={subMenu} />}
-            rightElement={<Text style={{fontSize: 12}}>1:35</Text>}
+            rightElement={<Text style={{ fontSize: 12 }}>{data.time}</Text>}
         />
     )
 }
