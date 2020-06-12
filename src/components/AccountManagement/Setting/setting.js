@@ -144,22 +144,20 @@ const Setting = () => {
 
     return (
         <ScrollView>
-            <TouchableOpacity>
-                {
-                    list.map((item, i) => (
-                        <ListItem
-                            key={i}
-                            title={item.title}
-                            //leftIcon={{ name: item.icon }}
-                            bottomDivider
-                            chevron={item.chevron}
-                            subtitle={item.subtitle}
-                            titleStyle={item.titleStyle}
-                            switch={item.switch}
-                        />
-                    ))
-                }
-            </TouchableOpacity >
+            {
+                list.map((item, i) => (
+                    <ListItem
+                        key={i}
+                        title={item.title}
+                        //leftIcon={{ name: item.icon }}
+                        bottomDivider
+                        chevron={item.chevron}
+                        subtitle={item.subtitle}
+                        titleStyle={item.titleStyle}
+                        switch={item.switch}
+                    />
+                ))
+            }
         </ScrollView>
     )
 }
