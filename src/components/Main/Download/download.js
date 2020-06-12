@@ -2,18 +2,27 @@ import React from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { color } from './../../../globals/constants';
 import ListCourses from '../../Courses/ListCourses/list-courses';
+import { download } from './../../../globals/database';
 
 const Download = (props) => {
+    let data = download;
+    const RemoveAll = () => {
+        data.splice(0, data.length);
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.title}>6 Courses (150 MB)</Text>
-                <TouchableOpacity style={styles.seeAll}>
+                <Text style={styles.title}>{data.length} Courses (150 MB)</Text>
+                <TouchableOpacity
+                    style={styles.seeAll}
+                    onPress={RemoveAll}
+                >
                     <Text style={styles.text}>REMOVE ALL</Text>
                 </TouchableOpacity>
             </View>
 
-            <ListCourses navigation={props.navigation}></ListCourses>
+            <ListCourses navigation={props.navigation} data={data}></ListCourses>
         </View>
     )
 }
