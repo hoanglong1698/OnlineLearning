@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const ListCoursesItem = (props) => {
     const onPressListItem = () => {
-        props.navigation.navigate(screenName.coursesDetailScreen, {title: props.item.title})
+        props.navigation.navigate(screenName.coursesDetailScreen, props.item)
     }
 
     const thumbnail = (props) => {

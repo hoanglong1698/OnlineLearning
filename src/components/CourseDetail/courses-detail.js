@@ -17,10 +17,11 @@ const CoursesDetail = (props) => {
     const duration = props.route.params.duration;
     const level = props.route.params.level;
     const released = props.route.params.released;
+    const description = props.route.params.description;
     const units = props.route.params.units;
-    const transcripts = props.route.params.transcripts;  
+    const transcripts = props.route.params.transcripts;
     props.navigation.setOptions({ title: title });
-    
+
     return (
         <View style={styles.container}>
             <Image style={styles.video} source={require('../../../assets/icon-course.png')}></Image>
@@ -33,11 +34,8 @@ const CoursesDetail = (props) => {
                     <CircleButtonList></CircleButtonList>
 
                     <Text style={styles.introduction}>
-                        Create native apps for Android and iOS using React.
-                        React Native combines the best parts of native development
-                        with React, a best-in-class JavaScript library for building
-                        user interfaces.
-                </Text>
+                        {description}
+                    </Text>
 
 
                     <TouchableButton title="Take a learning check" ></TouchableButton>
@@ -53,8 +51,8 @@ const CoursesDetail = (props) => {
                         labelStyle: { fontWeight: 'bold' }
                     }}
                 >
-                    <Tab.Screen name="CONTENTS" component={Contents} initialParams={units}/>
-                    <Tab.Screen name="TRANSCRIPTS" component={Transcripts} initialParams={transcripts}/>
+                    <Tab.Screen name="CONTENTS" component={Contents} initialParams={units} />
+                    <Tab.Screen name="TRANSCRIPTS" component={Transcripts} initialParams={transcripts} />
                 </Tab.Navigator>
             </ScrollView>
         </View>
@@ -82,7 +80,7 @@ const styles = StyleSheet.create({
     introduction: {
         fontSize: 14,
         color: color.headerText,
-        marginVertical: 10,
+        marginBottom: 10,
         textAlign: 'left'
     },
 

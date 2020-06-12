@@ -107,6 +107,7 @@ export const continueLearning = [
         level: 'Beginner',
         released: 'May 20 2020',
         duration: '40 hours',
+        description: 'Create native apps for Android and iOS using React. React Native combines the best parts of native development with React, a best-in-class JavaScript library for building user interfaces.',
         units: [
             {
                 id: 1,
@@ -172,6 +173,90 @@ export const continueLearning = [
                     },
                     {
                         title: "What You Will Build in This Courses",
+                        time: "1:38",
+                    }
+                ]
+            },
+        ],
+        transcripts: "Hello. The quick brown fox jumps over the lazy dog."
+    },
+];
+
+export const download = [
+    {
+        id: 1,
+        title: 'AWS Templates: Getting Started',
+        author: 'Hoang Long',
+        level: 'Beginner',
+        released: 'May 20 2020',
+        duration: '40 hours',
+        description: 'Codifying your infrastructure allows you to treat it as code, offering you a single source of truth and allowing you to automate the deployment',
+        units: [
+            {
+                id: 1,
+                order: 1,
+                title: "Courses Overview",
+                time: "1:35",
+                data: [
+                    {
+                        title: "Overview",
+                        time: "1:35",
+                    },
+                ]
+            },
+            {
+                id: 2,
+                order: 2,
+                title: "Introduction",
+                time: "5:00",
+                data: [
+                    {
+                        title: "Module Introduction",
+                        time: "4:26",
+                    },
+                    {
+                        title: "Exploring Our Scenario",
+                        time: "1:38",
+                    }
+                ]
+            },
+        ],
+        transcripts: "Hello. The quick brown fox jumps over the lazy dog."
+    },
+
+    {
+        id: 2,
+        title: 'Getting Started with Yarn',
+        author: 'Phuong My',
+        level: 'Beginner',
+        released: 'Jan 2020',
+        duration: '30 hours',
+        description: 'Learn waht Yarn is, how to get started with it and conquer a few commands along the way',
+        units: [
+            {
+                id: 1,
+                order: 1,
+                title: "Courses Overview",
+                time: "1:35",
+                data: [
+                    {
+                        title: "Courses Overview",
+                        time: "1:35",
+                    },
+                ]
+            },
+            {
+                id: 2,
+                order: 2,
+                title: "Introduction",
+                time: "5:00",
+                data: [
+                    {
+                        title: "What is Yarn",
+                        time: "4:26",
+                    },
+                    {
+                        title: "How to install",
                         time: "1:38",
                     }
                 ]

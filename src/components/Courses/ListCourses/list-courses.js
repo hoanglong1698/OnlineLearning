@@ -4,11 +4,12 @@ import ListCoursesItem from '../ListCoursesItem/list-courses-item'
 import { courses } from './../../../globals/database';
 
 const ListCourses = (props) => {
-    console.log(props);
+    console.log(props.data);
+    let data = props.data;
     return (
         <ScrollView>
             <FlatList
-                data={courses}
+                data={data}
                 renderItem={({ item }) => <ListCoursesItem navigation={props.navigation} item={item} />}
             />
         </ScrollView>
