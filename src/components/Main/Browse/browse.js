@@ -1,15 +1,20 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { color } from './../../../globals/constants';
+import { color, screenName } from './../../../globals/constants';
 import ImageButton from './../../Common/image-button';
 import SectionPaths from './../Home/SectionPaths/section-paths';
 import SectionAuthors from './../Home/SectionAuthors/section-authors';
 import SectionCourses from './../Home/SectionCourses/section-courses';
 import CategoryButton from '../../Common/category-button';
+import { newRelease, recommended } from '../../../globals/database';
 
 const Browse = (props) => {
     const onPressNewLease = () => {
-        console.log('Press on NEW LEASE button')
+        props.navigation.navigate(screenName.listCoursesScreen, { data: newRelease, title: "New Release" })
+    }
+
+    const onPressRecommended = () => {
+        props.navigation.navigate(screenName.listCoursesScreen, { data: recommended, title: "Recommended" })
     }
 
     return <ScrollView style={styles.container}>
@@ -20,7 +25,7 @@ const Browse = (props) => {
         />
         <ImageButton
             title="RECOMMENDED"
-            onPress={onPressNewLease}
+            onPress={onPressRecommended}
             sourceImage="https://cdn.pixabay.com/photo/2020/05/30/01/49/sea-5237374_960_720.jpg"
         />
 

@@ -4,8 +4,14 @@ import ListCoursesItem from '../ListCoursesItem/list-courses-item'
 import { courses } from './../../../globals/database';
 
 const ListCourses = (props) => {
-    console.log(props.data);
     let data = props.data;
+    if (data == null) {
+        data = props.route.params.data;
+        let title = props.route.params.title;
+        console.log(title);
+        props.navigation.setOptions({ title: title });
+    }
+
     return (
         <ScrollView>
             <FlatList

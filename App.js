@@ -13,6 +13,7 @@ import HomeStack from './src/components/Navigation/home-stack';
 import DownloadStack from './src/components/Navigation/download-stack';
 import BrowseStack from './src/components/Navigation/browse-stack';
 import SearchStack from './src/components/Navigation/search-stack';
+import SplashScreen from './src/components/Others/Splashscreen/splash-screen';
 
 const MainStack = createStackNavigator();
 
@@ -94,7 +95,7 @@ export default function App() {
         <BottomTab.Screen name="Download" component={DownloadStack} />
         <BottomTab.Screen name="Browse" component={BrowseStack} />
         <BottomTab.Screen name="Search" component={SearchStack} />
-        <BottomTab.Screen name="Profile" component={ProfileStack} />
+        <BottomTab.Screen name="Profile" component={SplashScreen} />
       </BottomTab.Navigator>
     </NavigationContainer>
   );
