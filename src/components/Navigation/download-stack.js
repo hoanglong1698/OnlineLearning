@@ -1,5 +1,4 @@
 import React from 'react'
-import { View, Text } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
 import ListCourses from './../Courses/ListCourses/list-courses';
 import { color, screenName } from './../../globals/constants';

@@ -8,11 +8,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CoursesDetail from './src/components/CourseDetail/courses-detail';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { color } from './src/globals/constants';
-import Result from './src/components/Main/Search/result';
-import Browse from './src/components/Main/Browse/browse';
 import ProfileStack from './src/components/Navigation/profile-stack';
 import HomeStack from './src/components/Navigation/home-stack';
 import DownloadStack from './src/components/Navigation/download-stack';
+import BrowseStack from './src/components/Navigation/browse-stack';
+import SearchStack from './src/components/Navigation/search-stack';
 
 const MainStack = createStackNavigator();
 
@@ -50,6 +50,7 @@ const ListCoursesStack = () => {
 const BottomTab = createBottomTabNavigator();
 
 export default function App() {
+  console.disableYellowBox = true;
   return (
     <NavigationContainer>
       <BottomTab.Navigator
@@ -91,8 +92,8 @@ export default function App() {
       >
         <BottomTab.Screen name="Home" component={HomeStack} />
         <BottomTab.Screen name="Download" component={DownloadStack} />
-        <BottomTab.Screen name="Browse" component={Browse} />
-        <BottomTab.Screen name="Search" component={Result} />
+        <BottomTab.Screen name="Browse" component={BrowseStack} />
+        <BottomTab.Screen name="Search" component={SearchStack} />
         <BottomTab.Screen name="Profile" component={ProfileStack} />
       </BottomTab.Navigator>
     </NavigationContainer>

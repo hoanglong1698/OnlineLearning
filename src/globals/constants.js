@@ -21,5 +21,7 @@ export const screenName = {
     changePasswordScreen: "ChangePasswordScreen",
     settingScreen: "SettingScreen",
     downloadScreen: "DownloadScreen",
-
+    browseScreen: "BrowseScreen",
+    searchScreen: "SearchScreen",
+    resultScreen: "ResultScreen",
 }
