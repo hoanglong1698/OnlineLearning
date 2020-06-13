@@ -8,17 +8,18 @@ const SplashScreen = (props) => {
     useEffect(() => {
         var timer = setInterval(() => {
             setLoading(loading => loading + 1);
-        }, 50);
+        }, 10);
 
         if (loading >= 100) {
             props.navigation.navigate(screenName.loginScreen);
+            clearInterval(timer);
         } 
 
         return () => {
             clearInterval(timer);
         }
 
-    });
+    }, [loading]);
 
     return (
         <View style={styles.container}>
