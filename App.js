@@ -50,53 +50,60 @@ const ListCoursesStack = () => {
 
 const BottomTab = createBottomTabNavigator();
 
+const BottomTabNavigator = () => {
+  return (
+    <BottomTab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused
+              ? 'home'
+              : 'home-outline';
+          } else if (route.name === 'Download') {
+            iconName = focused
+              ? 'arrow-down-bold-circle'
+              : 'arrow-down-bold-circle-outline';
+          } else if (route.name === 'Browse') {
+            iconName = focused
+              ? 'view-list'
+              : 'format-list-bulleted';
+          } else if (route.name === 'Search') {
+            iconName = focused
+              ? 'magnify'
+              : 'magnify';
+          } else if (route.name === 'Profile') {
+            iconName = focused
+              ? 'account-circle'
+              : 'account-circle-outline';
+          }
+
+          // You can return any component that you like here!
+          return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+        },
+      })}
+
+      tabBarOptions={{
+        activeTintColor: color.headerBar,
+        inactiveTintColor: color.infoTextColor,
+      }}
+    >
+      <BottomTab.Screen name="Home" component={HomeStack} />
+      <BottomTab.Screen name="Download" component={DownloadStack} />
+      <BottomTab.Screen name="Browse" component={BrowseStack} />
+      <BottomTab.Screen name="Search" component={SearchStack} />
+      <BottomTab.Screen name="Profile" component={SplashScreen} />
+    </BottomTab.Navigator>
+  )
+}
+
 export default function App() {
   console.disableYellowBox = true;
+
   return (
     <NavigationContainer>
-      <BottomTab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-
-            if (route.name === 'Home') {
-              iconName = focused
-                ? 'home'
-                : 'home-outline';
-            } else if (route.name === 'Download') {
-              iconName = focused
-                ? 'arrow-down-bold-circle'
-                : 'arrow-down-bold-circle-outline';
-            } else if (route.name === 'Browse') {
-              iconName = focused
-                ? 'view-list'
-                : 'format-list-bulleted';
-            } else if (route.name === 'Search') {
-              iconName = focused
-                ? 'magnify'
-                : 'magnify';
-            } else if (route.name === 'Profile') {
-              iconName = focused
-                ? 'account-circle'
-                : 'account-circle-outline';
-            }
-
-            // You can return any component that you like here!
-            return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
-          },
-        })}
-
-        tabBarOptions={{
-          activeTintColor: color.headerBar,
-          inactiveTintColor: color.infoTextColor,
-        }}
-      >
-        <BottomTab.Screen name="Home" component={HomeStack} />
-        <BottomTab.Screen name="Download" component={DownloadStack} />
-        <BottomTab.Screen name="Browse" component={BrowseStack} />
-        <BottomTab.Screen name="Search" component={SearchStack} />
-        <BottomTab.Screen name="Profile" component={SplashScreen} />
-      </BottomTab.Navigator>
+      <BottomTabNavigator />
     </NavigationContainer>
   );
 }

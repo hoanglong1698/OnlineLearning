@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 export default function BrowseStack() {
     return (
         <Stack.Navigator
-            initialRouteName="Download"
+            initialRouteName={screenName.browseScreen}
             screenOptions={{
                 headerStyle: {
                     backgroundColor: color.headerBar,

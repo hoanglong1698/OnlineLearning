@@ -14,7 +14,7 @@ const SectionCourses = (props) => {
     }
     
     const onPressSeeAll = () => {
-        props.navigation.navigate(screenName.listCoursesScreen, {title: props.title})
+        props.navigation.navigate(screenName.listCoursesScreen, {title: props.title, data: data})
     }
 
     return (
@@ -22,7 +22,7 @@ const SectionCourses = (props) => {
             <View>
                 <Text style={styles.title}>{props.title}</Text>
                 <TouchableOpacity style={styles.seeAll} onPress={onPressSeeAll}>
-                    <Text style={styles.text}>See all ></Text>
+                    <Text style={styles.text}>See all {">"}</Text>
                 </TouchableOpacity>
             </View>
 
