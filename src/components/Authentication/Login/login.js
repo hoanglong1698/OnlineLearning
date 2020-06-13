@@ -1,24 +1,72 @@
-import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
-import InputView from '../../Common/input-view'
+import React, { useState, useEffect } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native'
 import PasswordView from '../../Common/password-view'
 import TouchableButton from '../../Common/touchable-button'
-import { color } from '../../../globals/constants'
+import { color, screenName } from '../../../globals/constants'
+import { login } from './../../../core/services/authentication-services';
 
 const Login = (props) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [status, setStatus] = useState(null);
+
+    useEffect(() => {
+        if (status && status.status === 200) {
+            props.navigation.push(screenName.bottomTabScreen);
+        }
+    }, [status])
+
+    const renderLoginStatus = (status) => {
+        if (!status) {
+            return <View />
+        }
+
+        else if (status.status === 200) {
+            return <Text>Login successed!</Text>
+        }
+
+        else {
+            return <Text>{status.errorString}</Text>
+        }
+
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.logo}>Online{'\n'}Learning</Text>
 
-            <InputView title="Email" secure="False"></InputView>
-            <PasswordView title="Password"></PasswordView>
+            <View style={styles.inputView} >
+                <TextInput
+                    style={styles.inputText}
+                    placeholder='Username'
+                    placeholderTextColor={color.placeholderTextColor}
+                    onChangeText={text => setUsername(text)}
+                />
+            </View>
+
+            <View style={styles.passwordView} >
+                <TextInput
+                    secureTextEntry={true}
+                    style={styles.inputText}
+                    placeholder='Password'
+                    placeholderTextColor={color.placeholderTextColor}
+                    onChangeText={text => setPassword(text)}
+                />
+            </View>
 
             <TouchableOpacity>
                 <Text style={styles.forgot}>Forgot Password?</Text>
             </TouchableOpacity>
-            <View style={styles.button}>
-                <TouchableButton title="SIGN IN"></TouchableButton>
-            </View>
+
+            {renderLoginStatus(status)}
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                    setStatus(login(username, password))
+                }}
+            >
+                <Text style={styles.signInText}>SIGN IN</Text>
+            </TouchableOpacity>
 
 
             <TouchableOpacity>
@@ -28,7 +76,7 @@ const Login = (props) => {
                      </Text>
                 </Text>
             </TouchableOpacity>
-        </View>
+        </View >
     )
 }
 
@@ -50,14 +98,46 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
 
+    inputView: {
+        alignSelf: 'stretch',
+        height: 40,
+        marginBottom: 30,
+        borderBottomColor: color.border,
+        borderBottomWidth: 1,
+    },
+
+    inputText: {
+        height: 45,
+        color: color.inputText,
+    },
+
+    passwordView: {
+        alignSelf: 'stretch',
+        height: 40,
+        marginBottom: 30,
+        borderBottomColor: color.border,
+        borderBottomWidth: 1,
+    },
+
     forgot: {
         color: color.headerText,
         fontSize: 11
     },
 
     button: {
-        marginVertical: 20,
+        marginVertical: 30,
         alignSelf: 'stretch',
+        backgroundColor: color.button,
+        borderRadius: 5,
+        height: 45,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+
+    signInText: {
+        fontWeight: 'bold',
+        color: color.buttonText,
+        fontSize: 16,
     },
 
     signUpText: {

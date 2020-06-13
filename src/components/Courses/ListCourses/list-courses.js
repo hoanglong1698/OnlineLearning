@@ -2,6 +2,7 @@ import React from 'react'
 import { FlatList, ScrollView } from 'react-native'
 import ListCoursesItem from '../ListCoursesItem/list-courses-item'
 import { courses } from './../../../globals/database';
+import { screenName } from '../../../globals/constants';
 
 const ListCourses = (props) => {
     let data = props.data;

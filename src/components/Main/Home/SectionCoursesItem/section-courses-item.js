@@ -5,7 +5,7 @@ import { color, screenName } from '../../../../globals/constants'
 
 const SectionCoursesItem = (props) => {
     const onPressSectionItem = () => {
-        props.navigation.navigate(screenName.coursesDetailScreen, props.item)
+        props.navigation.navigate(screenName.coursesDetailScreen, { item: props.item })
     }
 
     return (
