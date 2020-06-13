@@ -24,4 +24,7 @@ export const screenName = {
     browseScreen: "BrowseScreen",
     searchScreen: "SearchScreen",
     resultScreen: "ResultScreen",
+    splashScreen: "SplashScreen",
+    loginScreen: "LoginScreen",
+    bottomTabScreen: "BottomTabScreen",
 }

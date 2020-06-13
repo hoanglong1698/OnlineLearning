@@ -7,25 +7,26 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CoursesDetail from './src/components/CourseDetail/courses-detail';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { color } from './src/globals/constants';
+import { color, screenName } from './src/globals/constants';
 import ProfileStack from './src/components/Navigation/profile-stack';
 import HomeStack from './src/components/Navigation/home-stack';
 import DownloadStack from './src/components/Navigation/download-stack';
 import BrowseStack from './src/components/Navigation/browse-stack';
 import SearchStack from './src/components/Navigation/search-stack';
 import SplashScreen from './src/components/Others/Splashscreen/splash-screen';
+import Login from './src/components/Authentication/Login/login';
 
-const MainStack = createStackNavigator();
+const ListCoursesStack = createStackNavigator();
 
-const ListCoursesStack = () => {
+const ListCoursesStackNavigator = () => {
   return (
-    <MainStack.Navigator initialRouteName="ListCourse"
+    <ListCoursesStack.Navigator initialRouteName="ListCourse"
       screenOptions={{
         headerStyle: {
           backgroundColor: '#ffc226',
         }
       }}>
-      <MainStack.Screen
+      <ListCoursesStack.Screen
         name="ListCourses"
         component={ListCourses}
         options={{
@@ -39,14 +40,16 @@ const ListCoursesStack = () => {
           ),
         }} />
 
-      <MainStack.Screen
+      <ListCoursesStack.Screen
         name="CoursesDetail"
         component={CoursesDetail}
         options={({ route }) => ({ title: route.params.item.title })} />
 
-    </MainStack.Navigator>
+    </ListCoursesStack.Navigator>
   )
 }
+
+const MainNavigationStack = createStackNavigator();
 
 const BottomTab = createBottomTabNavigator();
 
@@ -93,8 +96,32 @@ const BottomTabNavigator = () => {
       <BottomTab.Screen name="Download" component={DownloadStack} />
       <BottomTab.Screen name="Browse" component={BrowseStack} />
       <BottomTab.Screen name="Search" component={SearchStack} />
-      <BottomTab.Screen name="Profile" component={SplashScreen} />
+      <BottomTab.Screen name="Profile" component={ProfileStack} />
     </BottomTab.Navigator>
+  )
+}
+
+const MainNavigation = () => {
+  return (
+    <MainNavigationStack.Navigator>
+      <MainNavigationStack.Screen
+        name={screenName.splashScreen}
+        component={SplashScreen}
+        options={{ headerShown: false }}
+      />
+
+      <MainNavigationStack.Screen
+        name={screenName.loginScreen}
+        component={Login}
+        options={{ headerShown: false }}
+      />
+
+      <MainNavigationStack.Screen
+        name={screenName.bottomTabScreen}
+        component={BottomTabNavigator}
+        options={{ headerShown: false }}
+      />
+    </MainNavigationStack.Navigator>
   )
 }
 
@@ -103,7 +130,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <BottomTabNavigator />
+      <MainNavigation />
     </NavigationContainer>
   );
 }

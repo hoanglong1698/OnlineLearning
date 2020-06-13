@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const ListCoursesItem = (props) => {
     const onPressListItem = () => {
-        props.navigation.navigate(screenName.coursesDetailScreen, props.item)
+        props.navigation.navigate(screenName.coursesDetailScreen, { item: props.item })
     }
 
     const thumbnail = (props) => {
@@ -21,12 +21,12 @@ const ListCoursesItem = (props) => {
             <Text style={styles.subtitle}>{props.item.author}</Text>
             <Text style={styles.subtitle}>{`${props.item.level} \u00B7 ${props.item.released} \u00B7 ${props.item.duration}`}</Text>
             <Rating style={styles.rating}
-                    defaultRating={4}
-                    type='star'
-                    fractions={1}
-                    ratingCount={5}
-                    imageSize={12}
-                />
+                defaultRating={4}
+                type='star'
+                fractions={1}
+                ratingCount={5}
+                imageSize={12}
+            />
         </View>
     }
 
@@ -45,7 +45,9 @@ const ListCoursesItem = (props) => {
                 name='dots-vertical'
                 size={24}
                 onPress={subMenu} />}
-            onPress={onPressListItem}
+            onPress={() => {
+                props.onPressListItem(props.item)
+            }}
         />
     )
 };
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
         fontSize: 13,
         color: color.subtitleColor,
     },
-    
+
     thumbnail: {
         width: 90,
         height: 60,

@@ -12,14 +12,14 @@ import Transcripts from './Transcripts/transcripts';
 const Tab = createMaterialTopTabNavigator();
 
 const CoursesDetail = (props) => {
-    const title = props.route.params.title;
-    const author = props.route.params.author;
-    const duration = props.route.params.duration;
-    const level = props.route.params.level;
-    const released = props.route.params.released;
-    const description = props.route.params.description;
-    const units = props.route.params.units;
-    const transcripts = props.route.params.transcripts;
+    const title = props.route.params.item.title;
+    const author = props.route.params.item.author;
+    const duration = props.route.params.item.duration;
+    const level = props.route.params.item.level;
+    const released = props.route.params.item.released;
+    const description = props.route.params.item.description;
+    const units = props.route.params.item.units;
+    const transcripts = props.route.params.item.transcripts;
     props.navigation.setOptions({ title: title });
 
     return (

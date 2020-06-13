@@ -12,11 +12,15 @@ const ListCourses = (props) => {
         props.navigation.setOptions({ title: title });
     }
 
+    const onPressListItem = (item) => {
+        props.navigation.navigate(screenName.coursesDetailScreen, { item })
+    }
+
     return (
         <ScrollView>
             <FlatList
                 data={data}
-                renderItem={({ item }) => <ListCoursesItem navigation={props.navigation} item={item} />}
+                renderItem={({ item }) => <ListCoursesItem navigation={props.navigation} item={item} onPressListItem={onPressListItem} />}
             />
         </ScrollView>
     )
