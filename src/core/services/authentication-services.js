@@ -1,6 +1,6 @@
 export const login = (username, password) => {
-    if (username === 'A') {
-        if (password === '1') {
+    if (username === 'Admin') {
+        if (password === '123456') {
             return { status: 200, user: {username, token: 'abc', fullname: 'Administrator'} }
         }
 
