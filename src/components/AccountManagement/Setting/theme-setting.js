@@ -9,18 +9,21 @@ export default function ThemeSetting(props) {
     props.navigation.setOptions({ title: 'Theme' })
     const [isCheckLight, setIsCheckLight] = useState(true);
     const [isCheckDark, setIsCheckDark] = useState(false);
+
     return <ThemeContext.Consumer>
         {
             ({ theme, setTheme }) => {
                 return (
-                    <View>
+                    <View style={{ flex: 1, backgroundColor: theme.mainBackgroundColor }}>
                         <ListItem
                             key={1}
                             title='Light'
+                            containerStyle={{backgroundColor: theme.itemBackgroundColor}}
+                            
                             bottomDivider
                             checkmark={isCheckLight}
                             titleStyle={{
-                                color: color.headerText,
+                                color: theme.headerText,
                                 fontWeight: 'bold',
                             }}
                             onPress={() => {
@@ -33,10 +36,10 @@ export default function ThemeSetting(props) {
                         <ListItem
                             key={2}
                             title='Dark'
-                            bottomDivider
+                            containerStyle={{backgroundColor: theme.itemBackgroundColor}}
                             checkmark={isCheckDark}
                             titleStyle={{
-                                color: color.headerText,
+                                color: theme.headerText,
                                 fontWeight: 'bold',
                             }}
                             onPress={() => {
