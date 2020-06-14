@@ -2,23 +2,24 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
 import Profile from './../AccountManagement/Profile/profile';
-import { color } from './../../globals/constants';
+import { color, screenName } from './../../globals/constants';
 import ChangePassword from './../AccountManagement/ChangePassword/change-password';
 import Setting from './../AccountManagement/Setting/setting';
+import ThemeSetting from './../AccountManagement/Setting/theme-setting';
 
 const Stack = createStackNavigator();
 
 const ProfileStack = () => {
     return (
-        <Stack.Navigator initialRouteName="Profile"
+        <Stack.Navigator initialRouteName={screenName.profileScreen}
             screenOptions={{
                 headerStyle: {
-                backgroundColor: color.headerBar,
-            }
-        }}>
+                    backgroundColor: color.headerBar,
+                }
+            }}>
 
             <Stack.Screen
-                name="Profile"
+                name={screenName.profileScreen}
                 component={Profile}
                 options={{
                     title: "Profile",
@@ -26,7 +27,7 @@ const ProfileStack = () => {
             />
 
             <Stack.Screen
-                name="ChangePassword"
+                name={screenName.changePasswordScreen}
                 component={ChangePassword}
                 options={{
                     title: "Change password",
@@ -34,8 +35,16 @@ const ProfileStack = () => {
             />
 
             <Stack.Screen
-                name="Setting"
+                name={screenName.settingScreen}
                 component={Setting}
+                options={{
+                    title: "Setting",
+                }}
+            />
+
+            <Stack.Screen
+                name={screenName.themeSettingScreen}
+                component={ThemeSetting}
                 options={{
                     title: "Setting",
                 }}

@@ -1,28 +1,31 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Text, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
 import SectionCoursesItem from '../SectionCoursesItem/section-courses-item'
 import { color, screenName } from '../../../../globals/constants'
 import { createStackNavigator } from '@react-navigation/stack';
 import { courses, continueLearning } from './../../../../globals/database';
+import { ThemeContext } from '../../../../provider/theme-provider';
 
 const Stack = createStackNavigator();
 
 const SectionCourses = (props) => {
     let data = props.data || [];
+    const { theme } = useContext(ThemeContext);
+
     const renderListItems = (courses) => {
         return courses.map(item => <SectionCoursesItem navigation={props.navigation} item={item} />)
     }
-    
+
     const onPressSeeAll = () => {
-        props.navigation.navigate(screenName.listCoursesScreen, {title: props.title, data: data})
+        props.navigation.navigate(screenName.listCoursesScreen, { title: props.title, data: data })
     }
 
     return (
         <View style={styles.container}>
             <View>
-                <Text style={styles.title}>{props.title}</Text>
-                <TouchableOpacity style={styles.seeAll} onPress={onPressSeeAll}>
-                    <Text style={styles.text}>See all {">"}</Text>
+                <Text style={{ ...styles.title, color: theme.headerText }}>{props.title}</Text>
+                <TouchableOpacity style={{ ...styles.seeAll, }} onPress={onPressSeeAll}>
+                    <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>See all {">"}</Text>
                 </TouchableOpacity>
             </View>
 

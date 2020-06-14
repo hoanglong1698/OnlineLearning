@@ -27,6 +27,9 @@ export const screenName = {
     splashScreen: "SplashScreen",
     loginScreen: "LoginScreen",
     bottomTabScreen: "BottomTabScreen",
+    themeSettingScreen: "ThemeSettingScreen",
+    profileScreen: "ProfileScreen",
+    settingScreen: "SettingScreen",
 }
 
 export const themes = {
@@ -47,8 +50,8 @@ export const themes = {
     },
 
     dark: {
-        headerBar: '#ffc226',
-        headerText: '#2c3051',
+        headerBar: '#393e46',
+        headerText: 'white',
         button: '#ffc226',
         buttonText: 'white',
         border: '#a1a1a1',
@@ -59,6 +62,6 @@ export const themes = {
         infoTextColor: '#6d6d6d',
         subtitleColor: '#6d6d6d',
         seeAllButtonColor: '#d8d8d8',
-        seeAllTextColor: '#353535'
+        seeAllTextColor: 'white'
     }
 }

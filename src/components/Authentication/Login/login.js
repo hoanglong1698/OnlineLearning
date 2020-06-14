@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native'
-import PasswordView from '../../Common/password-view'
-import TouchableButton from '../../Common/touchable-button'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import { color, screenName } from '../../../globals/constants'
 import { login } from './../../../core/services/authentication-services';
 import { AuthenticationContext } from '../../../provider/authentication-provider'
+import { ThemeContext } from '../../../provider/theme-provider';
 
 const Login = (props) => {
     const [username, setUsername] = useState('');
@@ -17,75 +16,65 @@ const Login = (props) => {
         }
     }, [status])
 
-    const renderLoginStatus = (status) => {
-        if (!status) {
-            return <View />
-        }
-
-        else if (status.status === 200) {
-            return <Text>Login successed!</Text>
-        }
-
-        else {
-            return <Text>{status.errorString}</Text>
-        }
-
-    }
-
-    return <AuthenticationContext.Consumer>
+    return <ThemeContext.Consumer>
         {
-            ({ setAuthentication }) => {
-                return (
-                    <View style={styles.container}>
-                        <Text style={styles.logo}>Online{'\n'}Learning</Text>
+            ({ setTheme }) => {
+                return <AuthenticationContext.Consumer>
+                    {
+                        ({ setAuthentication }) => {
+                            return (
+                                <View style={styles.container}>
+                                    <Text style={styles.logo}>Online{'\n'}Learning</Text>
 
-                        <View style={styles.inputView} >
-                            <TextInput
-                                style={styles.inputText}
-                                placeholder='Username'
-                                placeholderTextColor={color.placeholderTextColor}
-                                onChangeText={text => setUsername(text)}
-                            />
-                        </View>
+                                    <View style={styles.inputView} >
+                                        <TextInput
+                                            style={styles.inputText}
+                                            placeholder='Username'
+                                            placeholderTextColor={color.placeholderTextColor}
+                                            onChangeText={text => setUsername(text)}
+                                        />
+                                    </View>
 
-                        <View style={styles.passwordView} >
-                            <TextInput
-                                secureTextEntry={true}
-                                style={styles.inputText}
-                                placeholder='Password'
-                                placeholderTextColor={color.placeholderTextColor}
-                                onChangeText={text => setPassword(text)}
-                            />
-                        </View>
+                                    <View style={styles.passwordView} >
+                                        <TextInput
+                                            secureTextEntry={true}
+                                            style={styles.inputText}
+                                            placeholder='Password'
+                                            placeholderTextColor={color.placeholderTextColor}
+                                            onChangeText={text => setPassword(text)}
+                                        />
+                                    </View>
 
-                        <TouchableOpacity>
-                            <Text style={styles.forgot}>Forgot Password?</Text>
-                        </TouchableOpacity>
+                                    <TouchableOpacity>
+                                        <Text style={styles.forgot}>Forgot Password?</Text>
+                                    </TouchableOpacity>
 
-                        {renderLoginStatus(status)}
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={() => {
-                                setStatus(login(username, password))
-                                setAuthentication(login(username, password))
-                            }}
-                        >
-                            <Text style={styles.signInText}>SIGN IN</Text>
-                        </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={styles.button}
+                                        onPress={() => {
+                                            setStatus(login(username, password))
+                                            setAuthentication(login(username, password))
+                                        }}
+                                    >
+                                        <Text style={styles.signInText}>SIGN IN</Text>
+                                    </TouchableOpacity>
 
 
-                        <TouchableOpacity>
-                            <Text style={styles.questionText}>Don't have account?{' '}
-                                <Text style={styles.signUpText}>
-                                    Sign Up.
+                                    <TouchableOpacity>
+                                        <Text style={styles.questionText}>Don't have account?{' '}
+                                            <Text style={styles.signUpText}>
+                                                Sign Up.
                                  </Text>
-                            </Text>
-                        </TouchableOpacity>
-                    </View >
-                )
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View >
+                            )
+                        }
+                    }
+                </AuthenticationContext.Consumer>
             }
         }
-    </AuthenticationContext.Consumer>
+    </ThemeContext.Consumer>
 
 
 }

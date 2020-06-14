@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, Switch } from 'react-native'
 import { ListItem } from 'react-native-elements'
-import { color } from './../../../globals/constants';
+import { color, screenName } from './../../../globals/constants';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const Setting = () => {
+const Setting = (props) => {
     const list = [
         {
             title: 'Account',
@@ -43,6 +43,16 @@ const Setting = () => {
                 }
             ],
             subtitle: 'English'
+        },
+        {
+            title: 'Theme',
+            titleStyle: [
+                {
+                    color: color.headerText,
+                    fontWeight: 'bold',
+                }
+            ],
+            screenName: screenName.themeSettingScreen,
         },
         {
             title: 'Require Wi-Fi for streaming',
@@ -156,6 +166,7 @@ const Setting = () => {
                         subtitle={item.subtitle}
                         titleStyle={item.titleStyle}
                         switch={item.switch}
+                        onPress={() => props.navigation.navigate(item.screenName)}
                     />
                 ))
             }

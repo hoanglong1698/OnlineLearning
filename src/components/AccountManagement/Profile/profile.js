@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput } from 'react-native'
 import { ListItem } from 'react-native-elements'
-import { color } from './../../../globals/constants';
+import { color, screenName } from './../../../globals/constants';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 
 const Profile = ({ navigation }) => {
@@ -27,7 +27,7 @@ const Profile = ({ navigation }) => {
     ]
 
     const { authentication } = useContext(AuthenticationContext)
-    console.log(authentication);
+
     return (
         <View style={styles.container}>
             <View style={styles.userInfo}>
@@ -86,7 +86,7 @@ const Profile = ({ navigation }) => {
                         color: color.headerText,
                         fontWeight: 'bold',
                     }}
-                    onPress={() => navigation.navigate('ChangePassword')}
+                    onPress={() => navigation.navigate(screenName.changePasswordScreen)}
                 />
                 <ListItem
                     key={2}
@@ -97,7 +97,7 @@ const Profile = ({ navigation }) => {
                         color: color.headerText,
                         fontWeight: 'bold',
                     }}
-                    onPress={() => navigation.navigate('Setting')}
+                    onPress={() => navigation.navigate(screenName.settingScreen, {navigation: navigation})}
                 />
                 <ListItem
                     key={3}
