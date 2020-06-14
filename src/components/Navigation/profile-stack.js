@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
 import Profile from './../AccountManagement/Profile/profile';
@@ -6,16 +6,23 @@ import { color, screenName } from './../../globals/constants';
 import ChangePassword from './../AccountManagement/ChangePassword/change-password';
 import Setting from './../AccountManagement/Setting/setting';
 import ThemeSetting from './../AccountManagement/Setting/theme-setting';
+import { ThemeContext } from '../../provider/theme-provider';
 
 const Stack = createStackNavigator();
 
 const ProfileStack = () => {
+    const { theme } = useContext(ThemeContext)
+
     return (
         <Stack.Navigator initialRouteName={screenName.profileScreen}
             screenOptions={{
                 headerStyle: {
-                    backgroundColor: color.headerBar,
-                }
+                    backgroundColor: theme.headerBar,
+                },
+                headerTintColor: theme.headerText,
+                headerTitleStyle: {
+                    color: theme.headerText,
+                },
             }}>
 
             <Stack.Screen

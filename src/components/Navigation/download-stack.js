@@ -1,19 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import ListCourses from './../Courses/ListCourses/list-courses';
 import { color, screenName } from './../../globals/constants';
 import Download from './../Main/Download/download';
 import CoursesDetail from './../CourseDetail/courses-detail';
+import { ThemeContext } from '../../provider/theme-provider';
 
 const Stack = createStackNavigator();
 
 const DownloadStack = () => {
+    const { theme } = useContext(ThemeContext)
+
     return (
         <Stack.Navigator initialRouteName="Download"
             screenOptions={{
                 headerStyle: {
-                    backgroundColor: color.headerBar,
-                }
+                    backgroundColor: theme.headerBar,
+                },
+                headerTintColor: theme.headerText,
+                headerTitleStyle: {
+                    color: theme.headerText,
+                },
             }}>
 
             <Stack.Screen
