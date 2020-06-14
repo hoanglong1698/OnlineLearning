@@ -46,7 +46,8 @@ export const themes = {
         infoTextColor: '#6d6d6d',
         subtitleColor: '#6d6d6d',
         seeAllButtonColor: '#d8d8d8',
-        seeAllTextColor: '#353535'
+        seeAllTextColor: '#353535',
+        backgroundBottomBar: 'white',
     },
 
     dark: {
@@ -59,9 +60,10 @@ export const themes = {
         placeholderTextColor: '#a1a1a1',
         mainBackgroundColor: '#121212',
         itemBackgroundColor: '#393e46',
-        infoTextColor: '#6d6d6d',
-        subtitleColor: '#6d6d6d',
-        seeAllButtonColor: '#d8d8d8',
-        seeAllTextColor: 'white'
+        infoTextColor: '#d6d6d6',
+        subtitleColor: '#d6d6d6',
+        seeAllButtonColor: '#393e46',
+        seeAllTextColor: 'white',
+        backgroundBottomBar: '#121212'
     }
 }
