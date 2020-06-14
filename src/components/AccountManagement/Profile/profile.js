@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { color } from './../../../globals/constants';
+import { AuthenticationContext } from '../../../provider/authentication-provider';
 
 const Profile = ({ navigation }) => {
     const list = [
@@ -25,14 +26,16 @@ const Profile = ({ navigation }) => {
         },
     ]
 
+    const { authentication } = useContext(AuthenticationContext)
+    console.log(authentication);
     return (
         <View style={styles.container}>
             <View style={styles.userInfo}>
-                <TouchableOpacity style={styles.avtarName}>
+                <TouchableOpacity style={styles.avatarName}>
                     <Image source={require('../../../../assets/gorden-ramsay.jpg')}
                         style={styles.avatar}
                     />
-                    <Text style={styles.name}>Hoang Long Nguyen</Text>
+                    <Text style={styles.name}>{authentication.user.fullname}</Text>
                 </TouchableOpacity>
 
                 <Text style={styles.labelOfInput}>Your Name</Text>
@@ -41,7 +44,7 @@ const Profile = ({ navigation }) => {
                         style={styles.inputText}
                         placeholder='Username'
                         placeholderTextColor={color.placeholderTextColor}
-                        defaultValue='Hoang Long Nguyen'
+                        defaultValue={authentication.user.fullname}
                     //onChangeText={text => setUsername(text)}
                     />
                 </View>
@@ -52,7 +55,7 @@ const Profile = ({ navigation }) => {
                         style={styles.inputText}
                         placeholder='Username'
                         placeholderTextColor={color.placeholderTextColor}
-                        defaultValue='hoanglong1698'
+                        defaultValue={authentication.user.username}
                     //onChangeText={text => setUsername(text)}
                     />
                 </View>
@@ -125,10 +128,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 50,
     },
 
-    avtarName: {
+    avatarName: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 10,
+        alignSelf: 'flex-start'
     },
 
     avatar: {

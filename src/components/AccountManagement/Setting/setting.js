@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, Switch } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { color } from './../../../globals/constants';
@@ -86,7 +86,7 @@ const Setting = () => {
                     fontWeight: 'bold',
                 }
             ],
-            switch: 'false',
+            switch: 'true',
         },
 
         {
@@ -141,6 +141,7 @@ const Setting = () => {
             subtitle: '1.0.0'
         },
     ]
+
 
     return (
         <ScrollView>

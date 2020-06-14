@@ -1,10 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
 import SearchBarView from './SearchBarView/search-bar-view';
 import { ListItem } from 'react-native-elements'
-import { color } from './../../../globals/constants';
+import { color, screenName } from './../../../globals/constants';
 
-const Search = () => {
+const Search = (props) => {
     const history = [
         {
             title: 'React Native',
@@ -26,17 +26,18 @@ const Search = () => {
                     <Text style={styles.text}>CLEAR ALL</Text>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity>
+            <ScrollView>
                 {
                     history.map((item, i) => (
                         <ListItem
                             key={i}
                             title={item.title}
                             leftIcon={{ name: 'history' }}
+                            onPress={() => props.navigation.navigate(screenName.resultScreen)}
                         />
                     ))
                 }
-            </TouchableOpacity>
+            </ScrollView>
         </View>
     )
 }

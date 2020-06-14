@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Button } from 'react-native';
 import ListCourses from './src/components/Courses/ListCourses/list-courses';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
@@ -7,7 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CoursesDetail from './src/components/CourseDetail/courses-detail';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { color, screenName } from './src/globals/constants';
+import { color, screenName, themes } from './src/globals/constants';
 import ProfileStack from './src/components/Navigation/profile-stack';
 import HomeStack from './src/components/Navigation/home-stack';
 import DownloadStack from './src/components/Navigation/download-stack';
@@ -15,6 +15,7 @@ import BrowseStack from './src/components/Navigation/browse-stack';
 import SearchStack from './src/components/Navigation/search-stack';
 import SplashScreen from './src/components/Others/Splashscreen/splash-screen';
 import Login from './src/components/Authentication/Login/login';
+import { AuthenticationProvider } from './src/provider/authentication-provider';
 
 const ListCoursesStack = createStackNavigator();
 
@@ -125,13 +126,21 @@ const MainNavigation = () => {
   )
 }
 
+export const ThemeContext = React.createContext();
+
 export default function App() {
   console.disableYellowBox = true;
 
+  const [theme, setTheme] = useState(themes.light);
+
   return (
-    <NavigationContainer>
-      <MainNavigation />
-    </NavigationContainer>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <AuthenticationProvider>
+        <NavigationContainer>
+          <MainNavigation />
+        </NavigationContainer>
+      </AuthenticationProvider>
+    </ThemeContext.Provider>
   );
 }
 

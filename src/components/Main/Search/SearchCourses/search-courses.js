@@ -6,7 +6,7 @@ import ListCourses from '../../../Courses/ListCourses/list-courses';
 
 const SearchCourses = (props) => {
     const [selectedValue, setSelectedValue] = useState("Newest");
-
+    let data = courses;
     return (
         <View style={styles.container}>
             <View style={styles.sort}>
@@ -22,7 +22,7 @@ const SearchCourses = (props) => {
                 </Picker>
             </View>
 
-            <ListCourses></ListCourses>
+            <ListCourses navigation={props.navigation} data={data}></ListCourses>
         </View>
     )
 }
