@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { color, screenName } from '../../../globals/constants'
 import { login } from './../../../core/services/authentication-services';
 import { AuthenticationContext } from '../../../provider/authentication-provider'
@@ -16,6 +16,17 @@ const Login = (props) => {
         }
     }, [status])
 
+    const renderLoginStatus = (status) => {
+        if (!status) {
+            return;
+        }
+        else if (status.status === 200) {
+            return;
+        }
+        else {
+            return Alert.alert(status.errorString);
+        }
+    }
     return <ThemeContext.Consumer>
         {
             ({ setTheme }) => {
