@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Button } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
@@ -14,13 +14,15 @@ import SearchStack from './src/components/Navigation/search-stack';
 import SplashScreen from './src/components/Others/Splashscreen/splash-screen';
 import Login from './src/components/Authentication/Login/login';
 import { AuthenticationProvider } from './src/provider/authentication-provider';
-import { ThemeProvider } from './src/provider/theme-provider';
+import { ThemeProvider, ThemeContext } from './src/provider/theme-provider';
 
 const MainNavigationStack = createStackNavigator();
 
 const BottomTab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <BottomTab.Navigator
       screenOptions={({ route }) => ({
@@ -55,8 +57,10 @@ const BottomTabNavigator = () => {
       })}
 
       tabBarOptions={{
-        activeTintColor: color.headerBar,
-        inactiveTintColor: color.infoTextColor,
+        activeTintColor: theme.headerBar,
+        inactiveTintColor: theme.infoTextColor,
+        activeBackgroundColor: theme.backgroundBottomBar,
+        inactiveBackgroundColor: theme.backgroundBottomBar
       }}
     >
       <BottomTab.Screen name="Home" component={HomeStack} />

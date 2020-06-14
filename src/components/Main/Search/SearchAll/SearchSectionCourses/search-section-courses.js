@@ -2,10 +2,10 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View, ScrollView } from 'react-native'
 import ListCourses from './../../../../Courses/ListCourses/list-courses';
 import { color } from './../../../../../globals/constants';
-import { courses } from './../../../../../globals/database';
+import { bookmarks } from './../../../../../globals/database';
 
 const SearchSectionCourses = (props) => {
-    let data = courses;
+    let data = bookmarks;
     return (
         <ScrollView style={{marginBottom: 10}}>
             <View style={styles.sectionHeader}>

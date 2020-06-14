@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { color } from './../../../../globals/constants';
+import { ThemeContext } from '../../../../provider/theme-provider';
 
 const SectionAuthorsItem = (props) => {
+    const { theme } = useContext(ThemeContext)
+
     return (
         <TouchableOpacity style={styles.container}>
             <Image source={require('../../../../../assets/gorden-ramsay.jpg')}
                 style={styles.avatar}
             />
-            <Text style={styles.text}>{props.item.author}</Text>
+            <Text style={{ ...styles.text, color: theme.headerText }}>{props.item.author}</Text>
         </TouchableOpacity>
     )
 }

@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import { color } from '../../../../globals/constants'
+import { ThemeContext } from '../../../../provider/theme-provider'
 
 const SectionPathsItem = (props) => {
+    const { theme } = useContext(ThemeContext)
+
     return (
-        <View style={styles.item}>
-            <Image source={require('../../../../../assets/icon-course.png')} style={styles.image} />
+        <View style={{ ...styles.item, backgroundColor: theme.itemBackgroundColor }}>
+            <Image source={{ uri: props.item.image }} style={styles.image} />
 
             <View style={styles.content}>
-                <Text style={styles.title}>{props.item.title}</Text>
-                <Text style={styles.info}>{props.item.quantity}</Text>
+                <Text style={{ ...styles.title, color: theme.headerText }}>{props.item.title}</Text>
+                <Text style={{ ...styles.info, color: theme.infoTextColor }}>{props.item.quantity}</Text>
             </View>
         </View>
     )

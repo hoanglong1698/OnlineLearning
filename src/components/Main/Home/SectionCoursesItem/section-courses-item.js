@@ -1,30 +1,34 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Rating } from 'react-native-elements';
 import { color, screenName } from '../../../../globals/constants'
+import { ThemeContext } from '../../../../provider/theme-provider';
 
 const SectionCoursesItem = (props) => {
     const onPressSectionItem = () => {
         props.navigation.navigate(screenName.coursesDetailScreen, { item: props.item })
     }
 
+    const { theme } = useContext(ThemeContext)
+
     return (
         <TouchableOpacity
-            style={styles.item}
+            style={{ ...styles.item, backgroundColor: theme.itemBackgroundColor }}
             onPress={onPressSectionItem}
         >
-            <Image source={require('../../../../../assets/icon-course.png')} style={styles.image} />
+            <Image source={{ uri: props.item.image }} style={styles.image} />
 
             <View style={styles.content}>
-                <Text style={styles.title}>{props.item.title}</Text>
-                <Text style={styles.info}>{props.item.author}</Text>
-                <Text style={styles.info}>{`${props.item.level} - ${props.item.released} - ${props.item.duration}`}</Text>
+                <Text style={{ ...styles.title, color: theme.headerText }}>{props.item.title}</Text>
+                <Text style={{ ...styles.info, color: theme.infoTextColor }}>{props.item.author}</Text>
+                <Text style={{ ...styles.info, color: theme.infoTextColor }}>{`${props.item.level} - ${props.item.released} - ${props.item.duration}`}</Text>
                 <Rating style={{ marginTop: 5 }}
                     defaultRating={4}
                     type='star'
                     fractions={1}
                     ratingCount={5}
                     imageSize={12}
+                    tintColor={theme.itemBackgroundColor}
                 />
             </View>
         </TouchableOpacity>

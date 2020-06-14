@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { color, screenName } from './../../../globals/constants';
 import ImageButton from './../../Common/image-button';
@@ -7,6 +7,8 @@ import SectionAuthors from './../Home/SectionAuthors/section-authors';
 import SectionCourses from './../Home/SectionCourses/section-courses';
 import CategoryButton from '../../Common/category-button';
 import { newRelease, recommended } from '../../../globals/database';
+import { bookmarks } from './../../../globals/database';
+import { ThemeContext } from '../../../provider/theme-provider';
 
 const Browse = (props) => {
     const onPressNewLease = () => {
@@ -17,7 +19,9 @@ const Browse = (props) => {
         props.navigation.navigate(screenName.listCoursesScreen, { data: recommended, title: "Recommended" })
     }
 
-    return <ScrollView style={styles.container}>
+    const { theme } = useContext(ThemeContext);
+
+    return <ScrollView style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
         <ImageButton
             title="NEW RELEASES"
             onPress={onPressNewLease}
@@ -60,10 +64,9 @@ const Browse = (props) => {
         </ScrollView>
 
 
-        <SectionCourses title='Continue learning' />
+        <SectionCourses title='Popular courses' data={bookmarks} />
         <SectionPaths title='Path' />
-        <SectionCourses title='Course List' />
-        <SectionAuthors title='Author' />
+        <SectionAuthors title='Top Author' />
     </ScrollView>
 };
 

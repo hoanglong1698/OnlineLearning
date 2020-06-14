@@ -20,11 +20,12 @@ const CoursesDetail = (props) => {
     const description = props.route.params.item.description;
     const units = props.route.params.item.units;
     const transcripts = props.route.params.item.transcripts;
+    const image = props.route.params.item.image;
     props.navigation.setOptions({ title: title });
 
     return (
         <View style={styles.container}>
-            <Image style={styles.video} source={require('../../../assets/icon-course.png')}></Image>
+            <Image style={styles.video} source={{uri: image}}></Image>
             <ScrollView >
                 <View style={{ marginHorizontal: 10 }}>
                     <Text style={styles.title}>{title}</Text>
