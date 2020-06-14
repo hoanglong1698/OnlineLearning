@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
+import { themeService } from './../core/services/theme-services';
 
 const ThemeContext = React.createContext();
 
 const ThemeProvider = (props) => {
-    const [theme, setTheme] = useState();
-
+    const [theme, setTheme] = useState(themeService("Light"));
     return (
-        <ThemeContext.Provider value={{ authentication: theme, setAuthentication: setTheme }}>
+        <ThemeContext.Provider value={{ theme, setTheme }}>
             {props.children}
         </ThemeContext.Provider>
     )
