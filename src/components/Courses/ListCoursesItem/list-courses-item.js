@@ -5,6 +5,7 @@ import { color, screenName } from './../../../globals/constants';
 import { ListItem } from 'react-native-elements'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ThemeContext } from '../../../provider/theme-provider';
+import moment from 'moment';
 
 const ListCoursesItem = (props) => {
     const { theme } = useContext(ThemeContext)
@@ -22,9 +23,11 @@ const ListCoursesItem = (props) => {
     }
 
     const subtitle = (props) => {
+        const createAt = moment(props.item.createdAt).format('LL');
+
         return <View>
-            <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{props.item.author}</Text>
-            <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{`${props.item.level} \u00B7 ${props.item.released} \u00B7 ${props.item.duration}`}</Text>
+            <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{props.item["instructor.user.name"]}</Text>
+            <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{`${createAt} \u00B7 ${props.item.totalHours} hours`}</Text>
             <Rating style={styles.rating}
                 defaultRating={4}
                 type='star'
@@ -44,7 +47,7 @@ const ListCoursesItem = (props) => {
             title={props.item.title}
             titleStyle={{ color: theme.headerText, }}
             containerStyle={{backgroundColor: theme.itemBackgroundColor}}
-            leftElement={() => thumbnail(props.item.image)}
+            leftElement={() => thumbnail(props.item.imageUrl)}
             subtitle={() => subtitle(props)}
             bottomDivider
             rightElement={<MaterialCommunityIcons

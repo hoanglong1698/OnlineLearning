@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { color, screenName } from './../../../globals/constants';
 import ImageButton from './../../Common/image-button';
@@ -11,8 +11,11 @@ import { bookmarks } from './../../../globals/database';
 import { ThemeContext } from '../../../provider/theme-provider';
 
 const Browse = (props) => {
+    
     const onPressNewLease = () => {
-        props.navigation.navigate(screenName.listCoursesScreen, { data: newRelease, title: "New Release" })
+        
+
+        props.navigation.navigate(screenName.listCoursesScreen, { data: newRelease, title: "New Release" });
     }
 
     const onPressRecommended = () => {

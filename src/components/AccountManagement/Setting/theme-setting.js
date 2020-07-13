@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { View, Text } from 'react-native'
 import { ListItem } from 'react-native-elements'
-import { color } from './../../../globals/constants';
 import { ThemeContext } from '../../../provider/theme-provider';
 import { themeService } from './../../../core/services/theme-services';
 

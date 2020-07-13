@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { color, screenName } from '../../../globals/constants'
 import { login } from './../../../core/services/authentication-services';
@@ -8,13 +8,14 @@ import { ThemeContext } from '../../../provider/theme-provider';
 const Login = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [status, setStatus] = useState(null);
+
+    const authContext = useContext(AuthenticationContext);
 
     useEffect(() => {
-        if (status && status.status === 200) {
+        if (authContext.state.isAuthenticated) {
             props.navigation.push(screenName.bottomTabScreen);
         }
-    }, [status])
+    }, [authContext.state.isAuthenticated])
 
     const renderLoginStatus = (status) => {
         if (!status) {
@@ -30,59 +31,54 @@ const Login = (props) => {
     return <ThemeContext.Consumer>
         {
             ({ setTheme }) => {
-                return <AuthenticationContext.Consumer>
-                    {
-                        ({ setAuthentication }) => {
-                            return (
-                                <View style={styles.container}>
-                                    <Text style={styles.logo}>Online{'\n'}Learning</Text>
+                return (
+                    <View style={styles.container}>
+                        <Text style={styles.logo}>Online{'\n'}Learning</Text>
 
-                                    <View style={styles.inputView} >
-                                        <TextInput
-                                            style={styles.inputText}
-                                            placeholder='Username'
-                                            placeholderTextColor={color.placeholderTextColor}
-                                            onChangeText={text => setUsername(text)}
-                                        />
-                                    </View>
+                        <View style={styles.inputView} >
+                            <TextInput
+                                style={styles.inputText}
+                                placeholder='Username'
+                                placeholderTextColor={color.placeholderTextColor}
+                                onChangeText={text => setUsername(text)}
+                            />
+                        </View>
 
-                                    <View style={styles.passwordView} >
-                                        <TextInput
-                                            secureTextEntry={true}
-                                            style={styles.inputText}
-                                            placeholder='Password'
-                                            placeholderTextColor={color.placeholderTextColor}
-                                            onChangeText={text => setPassword(text)}
-                                        />
-                                    </View>
+                        <View style={styles.passwordView} >
+                            <TextInput
+                                secureTextEntry={true}
+                                style={styles.inputText}
+                                placeholder='Password'
+                                placeholderTextColor={color.placeholderTextColor}
+                                onChangeText={text => setPassword(text)}
+                            />
+                        </View>
 
-                                    <TouchableOpacity>
-                                        <Text style={styles.forgot}>Forgot Password?</Text>
-                                    </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Text style={styles.forgot}>Forgot Password?</Text>
+                        </TouchableOpacity>
 
-                                    <TouchableOpacity
-                                        style={styles.button}
-                                        onPress={() => {
-                                            setStatus(login(username, password))
-                                            setAuthentication(login(username, password))
-                                        }}
-                                    >
-                                        <Text style={styles.signInText}>SIGN IN</Text>
-                                    </TouchableOpacity>
+                        {renderLoginStatus(authContext.state.isAuthenticated)}
+
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => {
+                                authContext.login(username, password)
+                            }}
+                        >
+                            <Text style={styles.signInText}>SIGN IN</Text>
+                        </TouchableOpacity>
 
 
-                                    <TouchableOpacity>
-                                        <Text style={styles.questionText}>Don't have account?{' '}
-                                            <Text style={styles.signUpText}>
-                                                Sign Up.
-                                 </Text>
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View >
-                            )
-                        }
-                    }
-                </AuthenticationContext.Consumer>
+                        <TouchableOpacity>
+                            <Text style={styles.questionText}>Don't have account?{' '}
+                                <Text style={styles.signUpText}>
+                                    Sign Up.
+                     </Text>
+                            </Text>
+                        </TouchableOpacity>
+                    </View >
+                )
             }
         }
     </ThemeContext.Consumer>

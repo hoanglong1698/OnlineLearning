@@ -316,171 +316,33 @@ export const download = [
 
 export const newRelease = [
     {
-        id: 1,
-        title: 'Managing Microsoft Azure',
-        author: 'Hoang Long',
-        level: 'Beginner',
-        released: 'Jul 20 2020',
-        duration: '40 hours',
-        image: 'https://thaison.edu.vn/datafiles/setone/1557223750_azure-2.png',
-        description: 'Codifying your infrastructure allows you to treat it as code, offering you a single source of truth and allowing you to automate the deployment',
-        units: [
-            {
-                id: 1,
-                order: 1,
-                title: "Courses Overview",
-                time: "1:35",
-                data: [
-                    {
-                        title: "Overview",
-                        time: "1:35",
-                    },
-                ]
-            },
-            {
-                id: 2,
-                order: 2,
-                title: "Introduction",
-                time: "5:00",
-                data: [
-                    {
-                        title: "Module Introduction",
-                        time: "4:26",
-                    },
-                    {
-                        title: "Exploring Our Scenario",
-                        time: "1:38",
-                    }
-                ]
-            },
+        "id": "9f3d46fa-61d2-4d4c-a392-a8e79ca7f335",
+        "title": "Lập trình giao diện web cơ bản",
+        "subtitle": "Tìm hiểu cú pháp html, css. Dựng giao diện web",
+        "price": 0,
+        "description": "Tìm hiểu cú pháp html, css. Dựng giao diện web",
+        "requirement": [],
+        "learnWhat": [
+            "Lập trình giao diện web cơ bản"
         ],
-        transcripts: "Hello. The quick brown fox jumps over the lazy dog."
-    },
-
-    {
-        id: 2,
-        title: 'Getting Started with Yarn',
-        author: 'Phuong My',
-        level: 'Beginner',
-        released: 'Jan 2020',
-        duration: '30 hours',
-        image: 'https://i.ytimg.com/vi/223uxFCu74s/maxresdefault.jpg',
-        description: 'Learn waht Yarn is, how to get started with it and conquer a few commands along the way',
-        units: [
-            {
-                id: 1,
-                order: 1,
-                title: "Courses Overview",
-                time: "1:35",
-                data: [
-                    {
-                        title: "Courses Overview",
-                        time: "1:35",
-                    },
-                ]
-            },
-            {
-                id: 2,
-                order: 2,
-                title: "Introduction",
-                time: "5:00",
-                data: [
-                    {
-                        title: "What is Yarn",
-                        time: "4:26",
-                    },
-                    {
-                        title: "How to install",
-                        time: "1:38",
-                    }
-                ]
-            },
-        ],
-        transcripts: "Hello. The quick brown fox jumps over the lazy dog."
-    },
-
-    {
-        id: 3,
-        title: 'Querying Data from MongoDB',
-        author: 'Phuong My',
-        level: 'Beginner',
-        released: 'Jan 2020',
-        duration: '30 hours',
-        image: 'https://i.pcmag.com/imagery/reviews/02Q6yxveinggAu3PomearaV-7.fit_scale.size_1028x578.v_1569481734.jpg',
-        description: 'Learn waht Yarn is, how to get started with it and conquer a few commands along the way',
-        units: [
-            {
-                id: 1,
-                order: 1,
-                title: "Courses Overview",
-                time: "1:35",
-                data: [
-                    {
-                        title: "Courses Overview",
-                        time: "1:35",
-                    },
-                ]
-            },
-            {
-                id: 2,
-                order: 2,
-                title: "Introduction",
-                time: "5:00",
-                data: [
-                    {
-                        title: "What is Yarn",
-                        time: "4:26",
-                    },
-                    {
-                        title: "How to install",
-                        time: "1:38",
-                    }
-                ]
-            },
-        ],
-        transcripts: "Hello. The quick brown fox jumps over the lazy dog."
-    },
-
-    {
-        id: 4,
-        title: 'Collecting Data on AWS',
-        author: 'Phuong My',
-        level: 'Beginner',
-        released: 'Jan 2020',
-        duration: '30 hours',
-        image: 'https://cdn.mindmajix.com/courses/bigdata-on-aws-training.png',
-        description: 'Learn waht Yarn is, how to get started with it and conquer a few commands along the way',
-        units: [
-            {
-                id: 1,
-                order: 1,
-                title: "Courses Overview",
-                time: "1:35",
-                data: [
-                    {
-                        title: "Courses Overview",
-                        time: "1:35",
-                    },
-                ]
-            },
-            {
-                id: 2,
-                order: 2,
-                title: "Introduction",
-                time: "5:00",
-                data: [
-                    {
-                        title: "What is Yarn",
-                        time: "4:26",
-                    },
-                    {
-                        title: "How to install",
-                        time: "1:38",
-                    }
-                ]
-            },
-        ],
-        transcripts: "Hello. The quick brown fox jumps over the lazy dog."
+        "soldNumber": 14,
+        "ratedNumber": 0,
+        "videoNumber": 1,
+        "totalHours": 0.08,
+        "formalityPoint": 0,
+        "contentPoint": 0,
+        "presentationPoint": 0,
+        "imageUrl": "https://storage.googleapis.com/itedu-bucket/Courses/9f3d46fa-61d2-4d4c-a392-a8e79ca7f335/avatar/67a2008d-7f04-4240-bbfc-1182c4f052af.jpg",
+        "promoVidUrl": null,
+        "status": "COMPLETED",
+        "isHidden": false,
+        "isDeleted": false,
+        "createdAt": "2020-07-05T14:03:52.290Z",
+        "updatedAt": "2020-07-13T02:02:23.923Z",
+        "instructorId": "3ad3dc06-824c-4c0b-a90d-d7cccdf80d88",
+        "typeUploadVideoLesson": 1,
+        "instructor.user.id": "1133fd7c-35da-4479-b197-2106f2f141b1",
+        "instructor.user.name": "Lê Uyển Nhi"
     },
 ];
 

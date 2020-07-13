@@ -26,7 +26,7 @@ const Profile = ({ navigation }) => {
         },
     ]
 
-    const { authentication } = useContext(AuthenticationContext)
+    const authContext = useContext(AuthenticationContext)
 
     return (
         <View style={styles.container}>
@@ -35,7 +35,7 @@ const Profile = ({ navigation }) => {
                     <Image source={require('../../../../assets/gorden-ramsay.jpg')}
                         style={styles.avatar}
                     />
-                    <Text style={styles.name}>{authentication.user.fullname}</Text>
+                    <Text style={styles.name}>{authContext.state.userInfo.name}</Text>
                 </TouchableOpacity>
 
                 <Text style={styles.labelOfInput}>Your Name</Text>
@@ -44,18 +44,7 @@ const Profile = ({ navigation }) => {
                         style={styles.inputText}
                         placeholder='Username'
                         placeholderTextColor={color.placeholderTextColor}
-                        defaultValue={authentication.user.fullname}
-                    //onChangeText={text => setUsername(text)}
-                    />
-                </View>
-
-                <Text style={styles.labelOfInput}>Username</Text>
-                <View style={styles.inputView} >
-                    <TextInput
-                        style={styles.inputText}
-                        placeholder='Username'
-                        placeholderTextColor={color.placeholderTextColor}
-                        defaultValue={authentication.user.username}
+                        defaultValue={authContext.state.userInfo.name}
                     //onChangeText={text => setUsername(text)}
                     />
                 </View>
@@ -64,9 +53,20 @@ const Profile = ({ navigation }) => {
                 <View style={styles.inputView} >
                     <TextInput
                         style={styles.inputText}
-                        placeholder='Username'
+                        placeholder='Email'
                         placeholderTextColor={color.placeholderTextColor}
-                        defaultValue='hoanglong16198@gmail.com'
+                        defaultValue={authContext.state.userInfo.email}
+                    //onChangeText={text => setUsername(text)}
+                    />
+                </View>
+
+                <Text style={styles.labelOfInput}>Phone</Text>
+                <View style={styles.inputView} >
+                    <TextInput
+                        style={styles.inputText}
+                        placeholder='Phone'
+                        placeholderTextColor={color.placeholderTextColor}
+                        defaultValue={authContext.state.userInfo.phone}
                     //onChangeText={text => setUsername(text)}
                     />
                 </View>

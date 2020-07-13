@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-export default function Author() {
+export default function Author(props) {
     return (
         <View>
             <Text></Text>
