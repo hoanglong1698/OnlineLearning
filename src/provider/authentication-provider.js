@@ -1,12 +1,20 @@
-import React, { useState } from 'react'
+import React, { useReducer } from 'react'
+import { reducer } from './../reducer/authentication-reducer';
+import { login } from './../action/authentication-action';
 
 const AuthenticationContext = React.createContext();
 
+const initialState = {
+    isAuthenticated: false,
+    userInfo: null,
+    token: null,
+}
+
 const AuthenticationProvider = (props) => {
-    const [authentication, setAuthentication] = useState();
+    const [state, dispatch] = useReducer(reducer, initialState)
 
     return (
-        <AuthenticationContext.Provider value={{ authentication, setAuthentication }}>
+        <AuthenticationContext.Provider value={{ state, login: login(dispatch) /*register: register() */ }}>
             {props.children}
         </AuthenticationContext.Provider>
     )
