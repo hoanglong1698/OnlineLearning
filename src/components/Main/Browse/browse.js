@@ -6,16 +6,15 @@ import SectionPaths from './../Home/SectionPaths/section-paths';
 import SectionAuthors from './../Home/SectionAuthors/section-authors';
 import SectionCourses from './../Home/SectionCourses/section-courses';
 import CategoryButton from '../../Common/category-button';
-import { newRelease, recommended } from '../../../globals/database';
-import { bookmarks } from './../../../globals/database';
+import { recommended } from '../../../globals/database';
+import { newRelease, bookmarks } from './../../../globals/database';
 import { ThemeContext } from '../../../provider/theme-provider';
+import axios from 'axios';
 
 const Browse = (props) => {
-    
+    const [NewRelease, setNewRelease] = useState([newRelease]);
     const onPressNewLease = () => {
-        
-
-        props.navigation.navigate(screenName.listCoursesScreen, { data: newRelease, title: "New Release" });
+        props.navigation.navigate(screenName.listCoursesScreen, { data: NewRelease, title: "New Release" });
     }
 
     const onPressRecommended = () => {
@@ -24,6 +23,25 @@ const Browse = (props) => {
 
     const { theme } = useContext(ThemeContext);
 
+    useEffect(() => {
+        axios.post('https://api.itedu.me​/course/top-new', {
+            /*email: username,
+            password: password*/
+            limit: 10,
+            page: 1
+        })
+            .then(function (response) {
+                if (response.status === 200) {
+                    setNewRelease(response.data.payload);
+                }
+                else {
+
+                }
+            })
+            .catch(function (error) {
+
+            });
+    })
     return <ScrollView style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
         <ImageButton
             title="NEW RELEASES"

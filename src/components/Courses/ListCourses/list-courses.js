@@ -10,7 +10,6 @@ const ListCourses = (props) => {
     if (data == null) {
         data = props.route.params.data;
         let title = props.route.params.title;
-        console.log(title);
         props.navigation.setOptions({ title: title });
     }
 

@@ -29,7 +29,6 @@ export default function ThemeSetting(props) {
                                 setIsCheckLight(true);
                                 setIsCheckDark(false);
                                 setTheme(themeService("Light"));
-                                console.log('light theme');
                             }}
                         />
                         <ListItem
@@ -45,7 +44,6 @@ export default function ThemeSetting(props) {
                                 setIsCheckLight(false);
                                 setIsCheckDark(true);
                                 setTheme(themeService("Dark"));
-                                console.log('dark theme');
                             }}
                         />
                     </View>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { color, screenName } from '../../../globals/constants'
-import { login } from './../../../core/services/authentication-services';
 import { AuthenticationContext } from '../../../provider/authentication-provider'
 import { ThemeContext } from '../../../provider/theme-provider';
 
@@ -57,8 +56,6 @@ const Login = (props) => {
                         <TouchableOpacity>
                             <Text style={styles.forgot}>Forgot Password?</Text>
                         </TouchableOpacity>
-
-                        {renderLoginStatus(authContext.state.isAuthenticated)}
 
                         <TouchableOpacity
                             style={styles.button}

@@ -32,7 +32,7 @@ const Profile = ({ navigation }) => {
         <View style={styles.container}>
             <View style={styles.userInfo}>
                 <TouchableOpacity style={styles.avatarName}>
-                    <Image source={require('../../../../assets/gorden-ramsay.jpg')}
+                    <Image source={{uri: authContext.state.userInfo.avatar}}
                         style={styles.avatar}
                     />
                     <Text style={styles.name}>{authContext.state.userInfo.name}</Text>
@@ -45,7 +45,6 @@ const Profile = ({ navigation }) => {
                         placeholder='Username'
                         placeholderTextColor={color.placeholderTextColor}
                         defaultValue={authContext.state.userInfo.name}
-                    //onChangeText={text => setUsername(text)}
                     />
                 </View>
 
@@ -56,7 +55,6 @@ const Profile = ({ navigation }) => {
                         placeholder='Email'
                         placeholderTextColor={color.placeholderTextColor}
                         defaultValue={authContext.state.userInfo.email}
-                    //onChangeText={text => setUsername(text)}
                     />
                 </View>
 
@@ -67,7 +65,6 @@ const Profile = ({ navigation }) => {
                         placeholder='Phone'
                         placeholderTextColor={color.placeholderTextColor}
                         defaultValue={authContext.state.userInfo.phone}
-                    //onChangeText={text => setUsername(text)}
                     />
                 </View>
 
