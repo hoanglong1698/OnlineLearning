@@ -5,7 +5,7 @@ import { login } from './../action/authentication-action';
 const AuthenticationContext = React.createContext();
 
 const initialState = {
-    isAuthenticated: false,
+    isAuthenticated: null,
     userInfo: null,
     token: null,
 }

@@ -1,7 +1,12 @@
 export const reducer = (prevState, action) => {
     switch (action.type) {
         case "LOGIN_SUCCEED":
-            return { ...prevState, isAuthenticated: true, token: action.data.token, userInfo: action.data.userInfo }
+            return {
+                ...prevState,
+                isAuthenticated: true,
+                token: action.data.token,
+                userInfo: action.data.userInfo
+            }
         
         case "LOGIN_FAILED":
             return { ...prevState, isAuthenticated: false }
