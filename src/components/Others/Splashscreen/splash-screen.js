@@ -25,7 +25,7 @@ const SplashScreen = (props) => {
         <View style={styles.container}>
             <Image style={styles.logo}
                 source={{ uri: 'https://pngimage.net/wp-content/uploads/2018/06/o-logo-png-4.png' }}></Image>
-            <Text style={styles.text}>ONLINE</Text>
+            <Text style={styles.text}>IT ONLINE</Text>
             <Text style={styles.text}>LEARNING</Text>
             <Text style={styles.loading}>Loading  {loading} %</Text>
         </View>
