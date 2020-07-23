@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { FlatList, ScrollView } from 'react-native'
 import ListCoursesItem from '../ListCoursesItem/list-courses-item'
-import { courses } from './../../../globals/database';
 import { screenName } from '../../../globals/constants';
 import { ThemeContext } from '../../../provider/theme-provider';
 

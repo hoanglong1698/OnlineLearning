@@ -22,11 +22,13 @@ const ListCoursesItem = (props) => {
         </View>
     }
 
+    const createAt = moment(props.item.createdAt).format('LL');
+    
     const subtitle = (props) => {
         const createAt = moment(props.item.createdAt).format('LL');
 
         return <View>
-            <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{props.item["instructor.user.name"]}</Text>
+            <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{props.item["instructor.user.name"] || props.item.instructorName}</Text>
             <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{`${createAt} \u00B7 ${props.item.totalHours} hours`}</Text>
             <Rating style={styles.rating}
                 defaultRating={4}
@@ -44,7 +46,7 @@ const ListCoursesItem = (props) => {
 
     return (
         <ListItem
-            title={props.item.title}
+            title={props.item.title || props.item.courseTitle}
             titleStyle={{ color: theme.headerText, }}
             containerStyle={{backgroundColor: theme.itemBackgroundColor}}
             leftElement={() => thumbnail(props.item.imageUrl)}

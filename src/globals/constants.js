@@ -30,6 +30,7 @@ export const screenName = {
     themeSettingScreen: "ThemeSettingScreen",
     profileScreen: "ProfileScreen",
     settingScreen: "SettingScreen",
+    signupScreen: "SignUpScreen",
 }
 
 export const themes = {
