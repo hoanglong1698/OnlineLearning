@@ -6,20 +6,23 @@ import PasswordView from '../../Common/password-view'
 import TouchableButton from '../../Common/touchable-button'
 
 const Register = (props) => {
+    const onPressSignin = () => {
+        props.navigation.goBack();
+    }
+
     return (
         <View style={styles.container}>
-            <InputView title="Your Name"></InputView>
-            <InputView title="Username"></InputView>
+            <InputView title="Họ tên"></InputView>
             <InputView title="Email"></InputView>
-            <PasswordView title="Password"></PasswordView>
-            <PasswordView title="Confirm password"></PasswordView>
-
+            <PasswordView title="Mật khẩu"></PasswordView>
+            <PasswordView title="Nhập lại mật khẩu"></PasswordView>
+            <InputView title="Điện thoại"></InputView>
             <View style={styles.button}>
                 <TouchableButton title="SIGN UP"></TouchableButton>
             </View>
 
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onPressSignin}>
                 <Text style={styles.questionText}>Have an account?{' '}
                     <Text style={styles.signUpText}>
                         Sign In.

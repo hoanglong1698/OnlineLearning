@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert, ActivityIndicator } from 'react-native'
 import { color, screenName } from '../../../globals/constants'
 import { AuthenticationContext } from '../../../provider/authentication-provider'
 import { ThemeContext } from '../../../provider/theme-provider';
@@ -7,32 +7,39 @@ import { ThemeContext } from '../../../provider/theme-provider';
 const Login = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    const [IsLoading, setIsLoading] = useState(null);
+    const [IsClicked, setIsClicked] = useState(false);
     const authContext = useContext(AuthenticationContext);
 
     useEffect(() => {
         if (authContext.state.isAuthenticated) {
+            setIsLoading(false);
             props.navigation.push(screenName.bottomTabScreen);
         }
     }, [authContext.state.isAuthenticated])
 
     const renderLoginStatus = (status) => {
-        if (!status) {
-            return;
-        }
-        else if (status.status === 200) {
-            return;
+        console.log(status);
+        if (status === true) {
+            setIsLoading(false);
+            return (<Text>Đăng nhập thành công</Text>);
         }
         else {
-            return Alert.alert(status.errorString);
+            setIsLoading(false);
+            return (<Text>Đăng nhập thất bại, vui lòng kiểm tra lại thông tin đã nhập</Text>);
         }
     }
+
+    const onPressSignup = () => {
+        props.navigation.navigate(screenName.signupScreen);
+    }
+
     return <ThemeContext.Consumer>
         {
             ({ setTheme }) => {
                 return (
                     <View style={styles.container}>
-                        <Text style={styles.logo}>Online{'\n'}Learning</Text>
+                        <Text style={styles.logo}>ONLINE{'\n'}LEARNING</Text>
 
                         <View style={styles.inputView} >
                             <TextInput
@@ -57,21 +64,26 @@ const Login = (props) => {
                             <Text style={styles.forgot}>Forgot Password?</Text>
                         </TouchableOpacity>
 
+                        {IsLoading === true && <ActivityIndicator size="large" />}
+                        {IsClicked === true && renderLoginStatus(authContext.state.isAuthenticated)}
+
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => {
-                                authContext.login(username, password)
+                                setIsLoading(true);
+                                setIsClicked(true);
+                                authContext.login(username, password);
                             }}
                         >
                             <Text style={styles.signInText}>SIGN IN</Text>
                         </TouchableOpacity>
 
 
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={onPressSignup}>
                             <Text style={styles.questionText}>Don't have account?{' '}
                                 <Text style={styles.signUpText}>
                                     Sign Up.
-                     </Text>
+                                </Text>
                             </Text>
                         </TouchableOpacity>
                     </View >
