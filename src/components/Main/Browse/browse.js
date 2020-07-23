@@ -1,20 +1,36 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { StyleSheet, ScrollView, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { color, screenName } from './../../../globals/constants';
 import ImageButton from './../../Common/image-button';
-import SectionPaths from './../Home/SectionPaths/section-paths';
 import SectionAuthors from './../Home/SectionAuthors/section-authors';
 import SectionCourses from './../Home/SectionCourses/section-courses';
 import CategoryButton from '../../Common/category-button';
 import { recommended } from '../../../globals/database';
-import { newRelease, bookmarks } from './../../../globals/database';
 import { ThemeContext } from '../../../provider/theme-provider';
 import axios from 'axios';
 
 const Browse = (props) => {
-    const [NewRelease, setNewRelease] = useState([newRelease]);
-    const onPressNewLease = () => {
-        props.navigation.navigate(screenName.listCoursesScreen, { data: NewRelease, title: "New Release" });
+    const [state, setState] = useState({
+        NewRelease: null,
+        Recommended: null,
+        TopSell: null,
+        TopRate: null,
+    });
+
+    const onPressNewRelease = () => {
+        axios.post('https://api.itedu.me​/course/top-new', {
+            limit: 10,
+            page: 1
+        })
+            .then(function (response) {
+                setState({
+                    NewRelease: response.data.payload,
+                })
+            })
+            .catch(function (error) {
+                return (error);
+            });
+        props.navigation.navigate(screenName.listCoursesScreen, { data: state.NewRelease, title: "New Release" });
     }
 
     const onPressRecommended = () => {
@@ -24,69 +40,83 @@ const Browse = (props) => {
     const { theme } = useContext(ThemeContext);
 
     useEffect(() => {
-        axios.post('https://api.itedu.me​/course/top-new', {
-            /*email: username,
-            password: password*/
-            limit: 10,
-            page: 1
-        })
-            .then(function (response) {
-                if (response.status === 200) {
-                    setNewRelease(response.data.payload);
-                }
-                else {
+        axios.all([
+            axios.post('https://api.itedu.me​/course/top-sell', {
+                limit: 20,
+                page: 1
+            }),
+            axios.post('https://api.itedu.me​/course/top-rate', {
+                limit: 20,
+                page: 1
+            }),
+        ])
+            .then(axios.spread(function (resTopSell, resTopRate) {
+                setState({
+                    TopSell: resTopSell.data.payload,
+                    TopRate: resTopRate.data.payload,
+                })
+            }))
 
-                }
-            })
             .catch(function (error) {
-
+                return (error);
             });
-    })
+
+    }, [])
+
     return <ScrollView style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
         <ImageButton
-            title="NEW RELEASES"
-            onPress={onPressNewLease}
+            title="KHÓA HỌC MỚI NHẤT"
+            onPress={onPressNewRelease}
             sourceImage="https://cdn.pixabay.com/photo/2020/01/14/16/26/lavender-4765498_960_720.jpg"
         />
         <ImageButton
-            title="RECOMMENDED"
+            title="KHÓA HỌC DÀNH CHO BẠN"
             onPress={onPressRecommended}
             sourceImage="https://cdn.pixabay.com/photo/2020/05/30/01/49/sea-5237374_960_720.jpg"
         />
 
         <ScrollView style={styles.category} horizontal={true}>
             <CategoryButton
-                title="IT"
-                sourceImage="https://cdn.pixabay.com/photo/2017/12/18/13/59/create-3026190_960_720.jpg"
+                title="Lập trình Web"
+                sourceImage="https://sogo.edu.vn/wp-content/uploads/2019/04/lap-trinh-web.jpg"
             />
             <CategoryButton
-                title="Machine Learning"
-                sourceImage="https://office-softech.cdn.vccloud.vn/ckfinder/userfiles//files/T%E1%BA%A0I%20SAO%20l%E1%BA%A1i%20s%E1%BB%AD%20d%E1%BB%A5ng%20PYTHON%20cho%20AI%20v%C3%A0%20Machine%20Learning.png"
+                title="Lập trình Mobile"
+                sourceImage="https://www.stimes.qa/wp-content/uploads/2019/04/mobile-app-development-technologies.png"
             />
             <CategoryButton
-                title="AI"
-                sourceImage="https://www.brandsvietnam.com/upload/forum2/2019/09/nhan_dien_khuon_mat_1568970929.jpeg"
+                title="Lập trình Windows"
+                sourceImage="https://congngheviet.com/wp-content/uploads/2018/10/mswindows2_2040.0.0.jpg"
+            />
+            <CategoryButton
+                title="Lập trình game"
+                sourceImage="https://blog.gnt.com.vn/wp-content/uploads/2019/04/How-to-get-start-game-development-compan-1024x576.png"
             />
         </ScrollView>
 
         <ScrollView style={styles.category} horizontal={true}>
             <CategoryButton
-                title="Business"
-                sourceImage="https://www.companyformation24.com/wp-content/uploads/2020/03/business-meeting-with-iPad-1.jpg"
+                title="Cơ sở dữ liệu"
+                sourceImage="https://www.appilab.com/img/database-new-image.png"
             />
             <CategoryButton
-                title="Design"
-                sourceImage="https://advertisingvietnam.com/wp-content/uploads/2019/11/Designer1.jpg"
+                title="Testing"
+                sourceImage="https://topdev.vn/blog/wp-content/uploads/2017/09/usertesting.jpg"
             />
             <CategoryButton
-                title="Architecture"
-                sourceImage="https://www.ndesconstruction.com/images/architecture-design/1.jpg"
+                title="Quản lý dự án"
+                sourceImage="https://www.whizlabs.com/blog/wp-content/uploads/2019/01/role-of-project-manager.png"
+            />
+            <CategoryButton
+                title="Đồ họa"
+                sourceImage="https://arena.fpt.edu.vn/wp-content/uploads/2018/12/4Iz9oqQ.jpg"
             />
         </ScrollView>
 
 
-        <SectionCourses title='Popular courses' data={bookmarks} />
-        <SectionPaths title='Path' />
+        <SectionCourses title='Khóa học bán nhiều nhất' navigation={props.navigation} data={state.TopSell} />
+        <SectionCourses title='Khóa học đánh giá cao nhất' navigation={props.navigation} data={state.TopRate} />
+
         <SectionAuthors title='Top Author' />
     </ScrollView>
 };
