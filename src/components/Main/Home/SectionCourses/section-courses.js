@@ -3,7 +3,6 @@ import { Text, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-nati
 import SectionCoursesItem from '../SectionCoursesItem/section-courses-item'
 import { color, screenName } from '../../../../globals/constants'
 import { createStackNavigator } from '@react-navigation/stack';
-import { courses, continueLearning } from './../../../../globals/database';
 import { ThemeContext } from '../../../../provider/theme-provider';
 
 const Stack = createStackNavigator();

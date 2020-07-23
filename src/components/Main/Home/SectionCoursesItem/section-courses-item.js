@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Rating } from 'react-native-elements';
 import { color, screenName } from '../../../../globals/constants'
 import { ThemeContext } from '../../../../provider/theme-provider';
+import moment from 'moment';
 
 const SectionCoursesItem = (props) => {
     const onPressSectionItem = () => {
@@ -11,22 +12,21 @@ const SectionCoursesItem = (props) => {
 
     const { theme } = useContext(ThemeContext)
 
+    const createAt = moment(props.item.createdAt).format('LL');
+
     return (
         <TouchableOpacity
             style={{ ...styles.item, backgroundColor: theme.itemBackgroundColor }}
             onPress={onPressSectionItem}
         >
-            <Image source={{ uri: props.item.image }} style={styles.image} />
+            <Image source={{ uri: props.item.imageUrl || props.item.courseImage }} style={styles.image} />
 
             <View style={styles.content}>
-                <Text style={{ ...styles.title, color: theme.headerText }}>{props.item.title}</Text>
-                <Text style={{ ...styles.info, color: theme.infoTextColor }}>{props.item.author}</Text>
-                <Text style={{ ...styles.info, color: theme.infoTextColor }}>{`${props.item.level} - ${props.item.released} - ${props.item.duration}`}</Text>
+                <Text style={{ ...styles.title, color: theme.headerText }}>{props.item.title || props.item.courseTitle}</Text>
+                <Text style={{ ...styles.info, color: theme.infoTextColor }}>{props.item["instructor.user.name"] || props.item.instructorName}</Text>
+                <Text style={{ ...styles.info, color: theme.infoTextColor }}>{`${createAt} - ${props.item.totalHours} hours`}</Text>
                 <Rating style={{ marginTop: 5 }}
-                    defaultRating={4}
                     type='star'
-                    fractions={1}
-                    ratingCount={5}
                     imageSize={12}
                     tintColor={theme.itemBackgroundColor}
                 />
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         color: color.headerText,
+        marginRight: 5,
     },
 
     content: {
