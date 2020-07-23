@@ -15,6 +15,7 @@ import SplashScreen from './src/components/Others/Splashscreen/splash-screen';
 import Login from './src/components/Authentication/Login/login';
 import { AuthenticationProvider } from './src/provider/authentication-provider';
 import { ThemeProvider, ThemeContext } from './src/provider/theme-provider';
+import Register from './src/components/Authentication/Register/register';
 
 const MainNavigationStack = createStackNavigator();
 
@@ -90,6 +91,12 @@ const MainNavigation = () => {
       <MainNavigationStack.Screen
         name={screenName.bottomTabScreen}
         component={BottomTabNavigator}
+        options={{ headerShown: false }}
+      />
+
+      <MainNavigationStack.Screen
+        name={screenName.signupScreen}
+        component={Register}
         options={{ headerShown: false }}
       />
     </MainNavigationStack.Navigator>
