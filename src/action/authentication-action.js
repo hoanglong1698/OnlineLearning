@@ -2,8 +2,8 @@ import axios from 'axios';
 
 export const login = (dispatch) => (username, password) => {
     axios.post('https://api.itedu.me​/user/login', {
-        /*email: username,
-        password: password*/
+        // email: username,
+        // password: password
         email: 'hoanglong16198@gmail.com',
         password: 'brightstar2806'
     })

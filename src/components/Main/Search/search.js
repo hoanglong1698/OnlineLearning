@@ -19,7 +19,7 @@ const Search = (props) => {
 
     return (
         <View>
-            <SearchBarView />
+            <SearchBarView navigation={props.navigation}/>
             <View style={styles.header}>
                 <Text style={styles.title}>Recent search</Text>
                 <TouchableOpacity style={styles.seeAll}>

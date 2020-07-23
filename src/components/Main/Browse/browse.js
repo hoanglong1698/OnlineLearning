@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import { color, screenName } from './../../../globals/constants';
 import ImageButton from './../../Common/image-button';
 import SectionAuthors from './../Home/SectionAuthors/section-authors';
@@ -16,6 +16,7 @@ const Browse = (props) => {
         TopSell: null,
         TopRate: null,
     });
+    const [IsLoading, setIsLoading] = useState(true);
 
     const onPressNewRelease = () => {
         axios.post('https://api.itedu.me​/course/top-new', {
@@ -54,7 +55,8 @@ const Browse = (props) => {
                 setState({
                     TopSell: resTopSell.data.payload,
                     TopRate: resTopRate.data.payload,
-                })
+                });
+                setIsLoading(false);
             }))
 
             .catch(function (error) {
@@ -64,6 +66,8 @@ const Browse = (props) => {
     }, [])
 
     return <ScrollView style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
+        {IsLoading === true && <ActivityIndicator size="large" />}
+        
         <ImageButton
             title="KHÓA HỌC MỚI NHẤT"
             onPress={onPressNewRelease}

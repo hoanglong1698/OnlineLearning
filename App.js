@@ -34,10 +34,10 @@ const BottomTabNavigator = () => {
             iconName = focused
               ? 'home'
               : 'home-outline';
-          } else if (route.name === 'Download') {
+          } else if (route.name === 'Favorite') {
             iconName = focused
-              ? 'arrow-down-bold-circle'
-              : 'arrow-down-bold-circle-outline';
+              ? 'heart-circle'
+              : 'heart-circle-outline';
           } else if (route.name === 'Browse') {
             iconName = focused
               ? 'view-list'

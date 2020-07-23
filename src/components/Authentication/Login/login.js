@@ -24,9 +24,9 @@ const Login = (props) => {
             setIsLoading(false);
             return (<Text>Đăng nhập thành công</Text>);
         }
-        else {
+        if (status === false) {
             setIsLoading(false);
-            return (<Text>Đăng nhập thất bại, vui lòng kiểm tra lại thông tin đã nhập</Text>);
+            return (<Text style={{marginTop: 10, textAlign: "center"}}>Đăng nhập thất bại, vui lòng kiểm tra lại thông tin đã nhập</Text>);
         }
     }
 
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     },
 
     button: {
-        marginVertical: 30,
+        marginVertical: 25,
         alignSelf: 'stretch',
         backgroundColor: color.button,
         borderRadius: 5,
