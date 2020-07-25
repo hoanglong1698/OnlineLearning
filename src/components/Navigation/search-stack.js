@@ -1,7 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import Search from './../Main/Search/search';
-import Result from './../Main/Search/result';
 import { color, screenName } from '../../globals/constants';
 import CoursesDetail from './../CourseDetail/courses-detail';
 
@@ -22,14 +21,6 @@ export default function SearchStack() {
                 component={Search}
                 options={{
                     title: "Search",
-                }}
-            />
-
-            <Stack.Screen
-                name={screenName.resultScreen}
-                component={Result}
-                options={{
-                    title: "Result",
                 }}
             />
 
