@@ -8,7 +8,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { color, screenName, themes } from './src/globals/constants';
 import ProfileStack from './src/components/Navigation/profile-stack';
 import HomeStack from './src/components/Navigation/home-stack';
-import DownloadStack from './src/components/Navigation/download-stack';
+import FavoritesStack from './src/components/Navigation/favorites-stack';
 import BrowseStack from './src/components/Navigation/browse-stack';
 import SearchStack from './src/components/Navigation/search-stack';
 import SplashScreen from './src/components/Others/Splashscreen/splash-screen';
@@ -16,6 +16,7 @@ import Login from './src/components/Authentication/Login/login';
 import { AuthenticationProvider } from './src/provider/authentication-provider';
 import { ThemeProvider, ThemeContext } from './src/provider/theme-provider';
 import Register from './src/components/Authentication/Register/register';
+
 
 const MainNavigationStack = createStackNavigator();
 
@@ -65,7 +66,7 @@ const BottomTabNavigator = () => {
       }}
     >
       <BottomTab.Screen name="Home" component={HomeStack} />
-      <BottomTab.Screen name="Download" component={DownloadStack} />
+      <BottomTab.Screen name="Favorite" component={FavoritesStack} />
       <BottomTab.Screen name="Browse" component={BrowseStack} />
       <BottomTab.Screen name="Search" component={SearchStack} />
       <BottomTab.Screen name="Profile" component={ProfileStack} />

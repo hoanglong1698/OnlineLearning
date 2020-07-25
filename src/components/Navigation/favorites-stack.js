@@ -1,18 +1,18 @@
 import React, { useContext } from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
-import ListCourses from './../Courses/ListCourses/list-courses';
-import { color, screenName } from './../../globals/constants';
-import Download from './../Main/Download/download';
-import CoursesDetail from './../CourseDetail/courses-detail';
+import ListCourses from '../Courses/ListCourses/list-courses';
+import { color, screenName } from '../../globals/constants';
+import Favorites from '../Main/Favorites/favorites';
+import CoursesDetail from '../CourseDetail/courses-detail';
 import { ThemeContext } from '../../provider/theme-provider';
 
 const Stack = createStackNavigator();
 
-const DownloadStack = () => {
+const FavoritesStack = () => {
     const { theme } = useContext(ThemeContext)
 
     return (
-        <Stack.Navigator initialRouteName="Download"
+        <Stack.Navigator initialRouteName="Favorites"
             screenOptions={{
                 headerStyle: {
                     backgroundColor: theme.headerBar,
@@ -25,9 +25,9 @@ const DownloadStack = () => {
 
             <Stack.Screen
                 name={screenName.downloadScreen}
-                component={Download}
+                component={Favorites}
                 options={{
-                    title: "Download",
+                    title: "Favorites",
                 }}
             />
 
@@ -50,4 +50,4 @@ const DownloadStack = () => {
     )
 }
 
-export default DownloadStack
+export default FavoritesStack
