@@ -24,7 +24,10 @@ const SectionCoursesItem = (props) => {
             <View style={styles.content}>
                 <Text style={{ ...styles.title, color: theme.headerText }}>{props.item.title || props.item.courseTitle}</Text>
                 <Text style={{ ...styles.info, color: theme.infoTextColor }}>{props.item["instructor.user.name"] || props.item.instructorName}</Text>
-                <Text style={{ ...styles.info, color: theme.infoTextColor }}>{`${createAt} - ${props.item.totalHours} hours`}</Text>
+                {props.item.totalHours !== undefined
+                    ? <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{`${createAt} \u00B7 ${props.item.totalHours} hours`}</Text>
+                    : <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{`${createAt}`}</Text>
+                }
                 <Rating style={{ marginTop: 5 }}
                     type='star'
                     imageSize={12}
