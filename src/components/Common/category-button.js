@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, ImageBackground, TouchableOpacity } from 'react-native'
 
 const CategoryButton = (props) => {
     return (
@@ -15,8 +15,8 @@ export default CategoryButton
 
 const styles = StyleSheet.create({
     button: {
-        width: 150,
-        height: 75,
+        width: 160,
+        height: 80,
         margin: 10,
     },
 
