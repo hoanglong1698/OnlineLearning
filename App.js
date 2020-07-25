@@ -59,8 +59,8 @@ const BottomTabNavigator = () => {
       })}
 
       tabBarOptions={{
-        activeTintColor: theme.headerBar,
-        inactiveTintColor: theme.infoTextColor,
+        activeTintColor: theme.activeTintColor,
+        inactiveTintColor: theme.inactiveTintColor,
         activeBackgroundColor: theme.backgroundBottomBar,
         inactiveBackgroundColor: theme.backgroundBottomBar
       }}

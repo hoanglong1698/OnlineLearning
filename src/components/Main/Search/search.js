@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { StyleSheet, Text, View, Picker, ActivityIndicator } from 'react-native'
 import { SearchBar } from 'react-native-elements';
 import { color, screenName } from './../../../globals/constants';
 import ListCourses from './../../Courses/ListCourses/list-courses';
 import axios from 'axios';
+import { ThemeContext } from '../../../provider/theme-provider';
 
 const Search = (props) => {
+    const { theme } = useContext(ThemeContext)
+
     const [search, setSearch] = useState('');
     const [selectedValue, setSelectedValue] = useState("new");
     const [data, setData] = useState();
@@ -42,12 +45,12 @@ const Search = (props) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
             <SearchBar
                 placeholder="Type Here..."
                 clearIcon
                 platform='default'
-                lightTheme={true}
+                lightTheme={theme.lightSeachBar}
                 onChangeText={updateSearch}
                 value={search}
                 onEndEditing={onEndEditing}
@@ -57,7 +60,7 @@ const Search = (props) => {
             {isLoaded === true &&
                 <View style={styles.result}>
                     <View style={styles.sort}>
-                        <Text style={styles.resultCount}>{resultCount} kết quả</Text>
+                        <Text style={{ ...styles.resultCount, color: theme.headerText }}>{resultCount} kết quả</Text>
                         <Picker
                             selectedValue={selectedValue}
                             style={styles.picker}
@@ -67,8 +70,8 @@ const Search = (props) => {
                             }}
                             mode={'dropdown'}
                         >
-                            <Picker.Item label="Relevance" value="rel" />
-                            <Picker.Item label="Newest" value="new" />
+                            <Picker.Item label="Relevance" value="rel"/>
+                            <Picker.Item label="Newest" value="new"/>
                         </Picker>
                     </View>
 

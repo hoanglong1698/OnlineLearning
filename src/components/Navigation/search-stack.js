@@ -1,19 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import Search from './../Main/Search/search';
 import { color, screenName } from '../../globals/constants';
 import CoursesDetail from './../CourseDetail/courses-detail';
+import { ThemeContext } from '../../provider/theme-provider';
 
 const Stack = createStackNavigator();
 
 export default function SearchStack() {
+    const { theme } = useContext(ThemeContext)
+
     return (
         <Stack.Navigator
             initialRouteName={screenName.searchScreen}
             screenOptions={{
                 headerStyle: {
-                    backgroundColor: color.headerBar,
-                }
+                    backgroundColor: theme.headerBar,
+                },
+                headerTintColor: theme.headerText,
+                headerTitleStyle: {
+                    color: theme.headerText,
+                },
             }}
         >
             <Stack.Screen

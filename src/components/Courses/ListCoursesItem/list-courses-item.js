@@ -39,6 +39,7 @@ const ListCoursesItem = (props) => {
                 fractions={1}
                 ratingCount={5}
                 imageSize={12}
+                tintColor={theme.itemBackgroundColor}
             />
         </View>
     }
