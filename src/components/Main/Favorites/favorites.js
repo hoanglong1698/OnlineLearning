@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, ScrollView, ActivityIndicator, Text, RefreshControl } from 'react-native';
 import { color } from '../../../globals/constants';
 import ListCourses from '../../Courses/ListCourses/list-courses';
 import { ThemeContext } from '../../../provider/theme-provider';
@@ -9,8 +9,9 @@ import axios from 'axios';
 const Favorites = (props) => {
     const authContext = useContext(AuthenticationContext);
     const { theme } = useContext(ThemeContext)
-    const [data, setData] = useState(null);
+    const [data, setData] = useState(0);
     const [IsLoading, setIsLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
         axios.get('https://api.itedu.me/user/get-favorite-courses', {
@@ -27,12 +28,43 @@ const Favorites = (props) => {
             });
     }, [])
 
+    const onRefresh = () => {
+        setRefreshing(true);
+        axios.get('https://api.itedu.me/user/get-favorite-courses', {
+            headers: {
+                'Authorization': 'Bearer ' + authContext.state.token
+            }
+        })
+            .then(function (response) {
+                setData(response.data.payload);
+                setIsLoading(false);
+            })
+            .catch(function (error) {
+                return (error);
+            })
+            .then(function () {
+                setRefreshing(false);
+            });;
+    }
+
+    if (data.length == 0) {
+        return (
+            <ScrollView style={{ backgroundColor: theme.mainBackgroundColor }}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+            >
+                <Text>Bạn chưa thích khóa học nào</Text>
+            </ScrollView>
+        )
+    }
+
     return (
-        <View style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
+        <ScrollView style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        >
             {IsLoading === true && <ActivityIndicator size="large" />}
 
             <ListCourses navigation={props.navigation} data={data}></ListCourses>
-        </View>
+        </ScrollView>
     )
 }
 

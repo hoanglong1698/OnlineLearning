@@ -19,7 +19,6 @@ const Login = (props) => {
     }, [authContext.state.isAuthenticated])
 
     const renderLoginStatus = (status) => {
-        console.log(status);
         if (status === true) {
             setIsLoading(false);
             return (<Text>Đăng nhập thành công</Text>);
@@ -39,7 +38,7 @@ const Login = (props) => {
             ({ setTheme }) => {
                 return (
                     <View style={styles.container}>
-                        <Text style={styles.logo}>ONLINE{'\n'}LEARNING</Text>
+                        <Text style={styles.logo}>IT ONLINE{'\n'}LEARNING</Text>
 
                         <View style={styles.inputView} >
                             <TextInput
