@@ -38,6 +38,8 @@ const CoursesDetail = (props) => {
         duration: '',
     });
 
+    const [section, setSection] = useState();
+
     const [videoURL, setVideoURL] = useState();
     const [thumbnail, setThumbnail] = useState();
     const [isLoading, setIsLoading] = useState(true);
@@ -79,7 +81,8 @@ const CoursesDetail = (props) => {
             {isLoading === true && <ActivityIndicator size="large" />}
             <Video
                 source={{ uri: videoURL }}
-                posterSource={{uri: thumbnail}}
+                posterSource={{ uri: thumbnail }}
+                usePoster
                 rate={1.0}
                 volume={1.0}
                 isMuted={false}
