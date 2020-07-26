@@ -1,48 +1,113 @@
-import React from 'react'
-import { View, Text, Button, StyleSheet, TouchableOpacity, Image, ScrollView, requireNativeComponent } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, Text, Button, StyleSheet, TouchableOpacity, Image, ScrollView, ActivityIndicator, Alert } from 'react-native'
 import { color } from './../../globals/constants';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Author from './Author/author';
 import GeneralInfomation from './GeneralInfomation/general-infomation';
-import CircleButtonList from './CircleButtonList/circle-button-list';
 import TouchableButton from '../Common/touchable-button';
 import Contents from './Contents/contents';
 import Transcripts from './Transcripts/transcripts';
+import axios from 'axios';
+import CircleButton from './CircleButton/circle-button';
+import { Video } from 'expo-av';
 
 const Tab = createMaterialTopTabNavigator();
 
 const CoursesDetail = (props) => {
-    const title = props.route.params.item.title;
-    const author = props.route.params.item.author;
-    const duration = props.route.params.item.duration;
-    const level = props.route.params.item.level;
-    const released = props.route.params.item.released;
-    const description = props.route.params.item.description;
-    const units = props.route.params.item.units;
-    const transcripts = props.route.params.item.transcripts;
-    const image = props.route.params.item.image;
+    const { title } = props.route.params;
     props.navigation.setOptions({ title: title });
+    const units = '';
+    const transcripts = '';
+
+    // const [state, setState] = useState({
+    //     title: '',
+    //     instructor: '',
+    //     description: '',
+    //     avatar: '',
+    //     soldNumber: '',
+    //     duration: '',
+    //     imageUrl: '',
+    // });
+
+    const [state, setState] = useState({
+        title: '',
+        instructor: '',
+        avatarURL: '',
+        description: '',
+        soldNumber: '',
+        duration: '',
+    });
+
+    const [videoURL, setVideoURL] = useState();
+    const [thumbnail, setThumbnail] = useState();
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const { id } = props.route.params;
+        let url = 'https://api.itedu.me/course/get-course-detail/' + id + '/null';
+        axios.get(url)
+            .then(function (response) {
+                setThumbnail(response.data.payload)
+                setVideoURL(response.data.payload.promoVidUrl);
+                setState({
+                    title: response.data.payload.title,
+                    instructor: response.data.payload.instructor.name,
+                    avatarURL: response.data.payload.instructor.avatar,
+                    description: response.data.payload.description,
+                    soldNumber: response.data.payload.soldNumber,
+                    duration: response.data.payload.totalHours,
+                });
+                // setState({
+                //     title: response.data.payload.title,
+                //     instructor: response.data.payload.instructor.name,
+                //     description: response.data.payload.description,
+                //     avatar: response.data.payload.instructor.avatar,
+                //     soldNumber: response.data.payload.soldNumber,
+                //     duration: response.data.payload.totalHours,
+                //     imageUrl: response.data.payload.imageUrl,
+                //     promoVidUrl: response.data.payload.promoVidUrl,
+                // });
+                setIsLoading(false);
+            })
+            .catch(function (error) {
+                return (error);
+            })
+    }, []);
 
     return (
         <View style={styles.container}>
-            <Image style={styles.video} source={{uri: image}}></Image>
+            {isLoading === true && <ActivityIndicator size="large" />}
+            <Video
+                source={{ uri: videoURL }}
+                rate={1.0}
+                volume={1.0}
+                isMuted={false}
+                resizeMode="contain"
+                shouldPlay
+                isLooping
+                useNativeControls
+                style={styles.video}
+            />
             <ScrollView >
                 <View style={{ marginHorizontal: 10 }}>
-                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.title}>{state.title}</Text>
 
-                    <Author title={author}></Author>
-                    <GeneralInfomation level={level} released={released} duration={duration} ></GeneralInfomation>
-                    <CircleButtonList></CircleButtonList>
+                    <Author title={state.instructor} avatarURL={state.avatarURL}></Author>
+                    <GeneralInfomation soldNumber={state.soldNumber} duration={state.duration} ></GeneralInfomation>
+
+                    <View style={styles.circleButtons}>
+                        <CircleButton iconName='heart-outline' nameButton='Yêu thích'></CircleButton>
+                        <CircleButton iconName='cart-outline' nameButton='Mua khóa học'></CircleButton>
+                    </View>
+
 
                     <Text style={styles.introduction}>
-                        {description}
+                        {state.description}
                     </Text>
-
 
                     <TouchableButton title="Take a learning check" ></TouchableButton>
                     <TouchableButton title="View related paths and courses" ></TouchableButton>
                 </View>
-
 
                 <Tab.Navigator
                     independent={true}
@@ -70,7 +135,6 @@ const styles = StyleSheet.create({
 
     title: {
         fontSize: 24,
-
     },
 
     info: {
@@ -89,5 +153,12 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 200,
 
+    },
+
+    circleButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginHorizontal: 10,
+        marginVertical: 20,
     }
 })

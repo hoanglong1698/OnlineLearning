@@ -7,9 +7,9 @@ const CircleButton = (props) => {
     return (
         <TouchableOpacity style={styles.container}>
             <View style={styles.icon}>
-                <MaterialCommunityIcons name={props.item.iconName} size={30} color='white' />
+                <MaterialCommunityIcons name={props.iconName} size={30} color='white' />
             </View>
-            <Text style={styles.nameButton}>{props.item.nameButton}</Text>
+            <Text style={styles.nameButton}>{props.nameButton}</Text>
         </TouchableOpacity>
     )
 }

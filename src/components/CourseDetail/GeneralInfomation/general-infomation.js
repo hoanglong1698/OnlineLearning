@@ -6,7 +6,7 @@ import { color } from './../../../globals/constants';
 const GeneralInfomation = (props) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.info}>{props.level} {`\u00B7`} {props.released} {`\u00B7`} {props.duration} </Text>
+            <Text style={styles.info}>{props.soldNumber} học viên {`\u00B7`} {props.duration} hours</Text>
             <Rating style={styles.rating}
                 defaultRating={4}
                 type='custom'

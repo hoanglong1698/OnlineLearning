@@ -5,7 +5,7 @@ import { color } from './../../../globals/constants';
 const Author = (props) => {
     return (
         <TouchableOpacity style={styles.avatarName}>
-            <Image source={require('../../../../assets/gorden-ramsay.jpg')}
+            <Image source={{ uri: props.avatarURL }}
                 style={styles.avatar}
             />
             <Text style={styles.name}>{props.title}</Text>

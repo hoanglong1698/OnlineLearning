@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { FlatList, View, Text, StyleSheet } from 'react-native'
+import { FlatList, View, Text, StyleSheet, Image } from 'react-native'
 import ListCoursesItem from '../ListCoursesItem/list-courses-item'
 import { screenName } from '../../../globals/constants';
 import { ThemeContext } from '../../../provider/theme-provider';
@@ -15,23 +15,22 @@ const ListCourses = (props) => {
 
     const { theme } = useContext(ThemeContext)
 
-    const onPressListItem = (item) => {
-        props.navigation.navigate(screenName.coursesDetailScreen, { item })
-    }
-
     if (!data.length) {
         return (
-            <View style={{ backgroundColor: theme.mainBackgroundColor }}>
-                <Text>Không có dữ liệu</Text>
+            <View style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
+                <Image source={require('../../../../assets/empty.png')}
+                    style={styles.empty}
+                />
+                <Text style={styles.text}>Không có dữ liệu</Text>
             </View>
         )
     }
 
     return (
-        <View style={{ backgroundColor: theme.mainBackgroundColor }}>
+        <View style={{ flex: 1, backgroundColor: theme.mainBackgroundColor }}>
             <FlatList
                 data={data}
-                renderItem={({ item }) => <ListCoursesItem navigation={props.navigation} item={item} onPressListItem={onPressListItem} />}
+                renderItem={({ item }) => <ListCoursesItem navigation={props.navigation} item={item} />}
             />
         </View>
     )
@@ -39,5 +38,17 @@ const ListCourses = (props) => {
 export default ListCourses
 
 const styles = StyleSheet.create({
-    
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    empty: {
+        width: 100,
+        height: 100,
+    },
+    text: {
+        fontSize: 20,
+        marginTop: 10,
+    }
 })

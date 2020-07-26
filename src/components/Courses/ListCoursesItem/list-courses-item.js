@@ -10,8 +10,8 @@ import moment from 'moment';
 const ListCoursesItem = (props) => {
     const { theme } = useContext(ThemeContext)
 
-    const onPressListItem = () => {
-        props.navigation.navigate(screenName.coursesDetailScreen, { item: props.item })
+    const onPressListItem = (id, title) => {
+        props.navigation.navigate(screenName.coursesDetailScreen, { id: id, title: title })
     }
 
     const thumbnail = (imageURL) => {
@@ -21,8 +21,6 @@ const ListCoursesItem = (props) => {
             </Image>
         </View>
     }
-
-    const createAt = moment(props.item.createdAt).format('LL');
 
     const subtitle = (props) => {
         const createAt = moment(props.item.createdAt).format('LL');
@@ -64,7 +62,13 @@ const ListCoursesItem = (props) => {
             />
             }
             onPress={() => {
-                props.onPressListItem(props.item)
+                if (props.item.title != null) {
+                    onPressListItem(props.item.id, props.item.title)
+                }
+                else {
+                    onPressListItem(props.item.id, props.item.courseTitle)
+                }
+                
             }}
         />
     )
