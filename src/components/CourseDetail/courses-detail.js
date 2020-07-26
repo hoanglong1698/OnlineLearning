@@ -47,7 +47,7 @@ const CoursesDetail = (props) => {
         let url = 'https://api.itedu.me/course/get-course-detail/' + id + '/null';
         axios.get(url)
             .then(function (response) {
-                setThumbnail(response.data.payload)
+                setThumbnail(response.data.payload.imageUrl);
                 setVideoURL(response.data.payload.promoVidUrl);
                 setState({
                     title: response.data.payload.title,
@@ -79,6 +79,7 @@ const CoursesDetail = (props) => {
             {isLoading === true && <ActivityIndicator size="large" />}
             <Video
                 source={{ uri: videoURL }}
+                posterSource={{uri: thumbnail}}
                 rate={1.0}
                 volume={1.0}
                 isMuted={false}
