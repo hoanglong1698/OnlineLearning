@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, SectionList } from "react-native";
+import { StyleSheet, Text, View, SectionList, ActivityIndicator } from "react-native";
 import Units from "./Units/units";
 import Lessons from './Lessons/lessons';
 import { color } from './../../../globals/constants';
 import axios from 'axios';
 
-const Item = ({ title }) => (
-    <View style={styles.item}>
-        <Text style={styles.title}>{title}</Text>
-    </View>
-);
-
 const Content = (props) => {
-    const { idCourse } = props.route.params
+    const { idCourse } = props.route.params;
     const [section, setSection] = useState();
+    const [isLoading, setIsLoading] = useState(true);
+    console.log(props.route);
+
+    const callbackToContents = (childData) => {
+        props.route.params.callbackToCourseDetail(childData);
+    }
 
     useEffect(() => {
         let url = 'https://api.itedu.me/course/get-course-detail/' + idCourse + '/null';
@@ -32,9 +32,10 @@ const Content = (props) => {
 
     return (
         <View style={styles.container}>
+            {isLoading === true && <ActivityIndicator size="large" />}
             <SectionList
                 sections={section}
-                renderItem={({ item }) => <Lessons item={item} />}
+                renderItem={({ item }) => <Lessons item={item} callbackToContents={callbackToContents} />}
                 renderSectionHeader={(item) => <Units item={item} />}
                 renderSectionFooter={() => <View style={{ borderBottomColor: color.border, borderBottomWidth: 1 }} />}
             />

@@ -32,6 +32,10 @@ const CoursesDetail = (props) => {
     const [thumbnail, setThumbnail] = useState();
     const [isLoading, setIsLoading] = useState(true);
 
+    const callbackToCourseDetail = (childData) => {
+        setVideoURL(childData);
+    }
+
     useEffect(() => {
         let url = 'https://api.itedu.me/course/get-course-detail/' + idCourse + '/null';
         axios.get(url)
@@ -81,6 +85,7 @@ const CoursesDetail = (props) => {
                     <View style={styles.circleButtons}>
                         <CircleButton iconName='heart-outline' nameButton='Yêu thích'></CircleButton>
                         <CircleButton iconName='cart-outline' nameButton='Mua khóa học'></CircleButton>
+                        <CircleButton iconName='arrow-down-bold-circle-outline' nameButton='Tải xuống'></CircleButton>
                     </View>
 
 
@@ -100,7 +105,7 @@ const CoursesDetail = (props) => {
                         labelStyle: { fontWeight: 'bold' }
                     }}
                 >
-                    <Tab.Screen name="CONTENTS" component={Contents} initialParams={{ idCourse: idCourse }} />
+                    <Tab.Screen name="CONTENTS" component={Contents} initialParams={{ idCourse: idCourse, callbackToCourseDetail }} />
                     <Tab.Screen name="TRANSCRIPTS" component={Transcripts} initialParams={transcripts} />
                 </Tab.Navigator>
             </ScrollView>
@@ -118,6 +123,7 @@ const styles = StyleSheet.create({
 
     title: {
         fontSize: 24,
+        marginVertical: 5,
     },
 
     info: {
@@ -140,7 +146,7 @@ const styles = StyleSheet.create({
 
     circleButtons: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         marginHorizontal: 10,
         marginVertical: 20,
     }

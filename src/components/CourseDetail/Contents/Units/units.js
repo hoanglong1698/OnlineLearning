@@ -8,7 +8,7 @@ const Units = (props) => {
     let data = props.item;
     const thumbnail = () => {
         return <View style={styles.icon}>
-            <Text>{data.section.numberOrder}</Text>
+            <Text style={{ fontWeight: 'bold' }}>{data.section.numberOrder}</Text>
         </View>
     }
 
@@ -18,7 +18,7 @@ const Units = (props) => {
     return (
         <ListItem
             title={data.section.title}
-            titleStyle={{ color: color.headerText, }}
+            titleStyle={{ color: color.headerText, fontWeight: 'bold' }}
             leftElement={() => thumbnail()}
             subtitle={data.hours}
             rightElement={<MaterialCommunityIcons
