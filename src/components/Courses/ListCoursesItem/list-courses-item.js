@@ -21,14 +21,17 @@ const ListCoursesItem = (props) => {
             </Image>
         </View>
     }
+    function formatDuration(num) {
+        return moment().startOf('day').add(num, 'hours').format('H:mm')
+    }
 
     const subtitle = (props) => {
-        const createAt = moment(props.item.createdAt).format('LL');
+        const createAt = moment(props.item.createdAt).format('d/M/yyyy');
 
         return <View>
             <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{props.item["instructor.user.name"] || props.item.instructorName || props.item.name}</Text>
             {props.item.totalHours !== undefined
-                ? <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{`${createAt} \u00B7 ${props.item.totalHours} hours`}</Text>
+                ? <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{`${createAt} \u00B7 Thời lượng ${formatDuration(props.item.totalHours)}`}</Text>
                 : <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{`${createAt}`}</Text>
             }
             <Rating style={styles.rating}
@@ -68,7 +71,7 @@ const ListCoursesItem = (props) => {
                 else {
                     onPressListItem(props.item.id, props.item.courseTitle)
                 }
-                
+
             }}
         />
     )
