@@ -15,19 +15,9 @@ const Tab = createMaterialTopTabNavigator();
 
 const CoursesDetail = (props) => {
     const { title } = props.route.params;
+    const idCourse = props.route.params.id;
     props.navigation.setOptions({ title: title });
-    const units = '';
     const transcripts = '';
-
-    // const [state, setState] = useState({
-    //     title: '',
-    //     instructor: '',
-    //     description: '',
-    //     avatar: '',
-    //     soldNumber: '',
-    //     duration: '',
-    //     imageUrl: '',
-    // });
 
     const [state, setState] = useState({
         title: '',
@@ -38,15 +28,12 @@ const CoursesDetail = (props) => {
         duration: '',
     });
 
-    const [section, setSection] = useState();
-
     const [videoURL, setVideoURL] = useState();
     const [thumbnail, setThumbnail] = useState();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const { id } = props.route.params;
-        let url = 'https://api.itedu.me/course/get-course-detail/' + id + '/null';
+        let url = 'https://api.itedu.me/course/get-course-detail/' + idCourse + '/null';
         axios.get(url)
             .then(function (response) {
                 setThumbnail(response.data.payload.imageUrl);
@@ -59,20 +46,12 @@ const CoursesDetail = (props) => {
                     soldNumber: response.data.payload.soldNumber,
                     duration: response.data.payload.totalHours,
                 });
-                // setState({
-                //     title: response.data.payload.title,
-                //     instructor: response.data.payload.instructor.name,
-                //     description: response.data.payload.description,
-                //     avatar: response.data.payload.instructor.avatar,
-                //     soldNumber: response.data.payload.soldNumber,
-                //     duration: response.data.payload.totalHours,
-                //     imageUrl: response.data.payload.imageUrl,
-                //     promoVidUrl: response.data.payload.promoVidUrl,
-                // });
-                setIsLoading(false);
             })
             .catch(function (error) {
                 return (error);
+            })
+            .then(function () {
+                setIsLoading(false);
             })
     }, []);
 
@@ -121,7 +100,7 @@ const CoursesDetail = (props) => {
                         labelStyle: { fontWeight: 'bold' }
                     }}
                 >
-                    <Tab.Screen name="CONTENTS" component={Contents} initialParams={units} />
+                    <Tab.Screen name="CONTENTS" component={Contents} initialParams={{ idCourse: idCourse }} />
                     <Tab.Screen name="TRANSCRIPTS" component={Transcripts} initialParams={transcripts} />
                 </Tab.Navigator>
             </ScrollView>
