@@ -24,7 +24,7 @@ const SectionCourses = (props) => {
             <View>
                 <Text style={{ ...styles.title, color: theme.headerText }}>{props.title}</Text>
                 <TouchableOpacity style={{ ...styles.seeAll, backgroundColor: theme.seeAllButtonColor }} onPress={onPressSeeAll}>
-                    <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>See all {">"}</Text>
+                    <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>Xem thêm</Text>
                 </TouchableOpacity>
             </View>
 
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         marginRight: 15,
         backgroundColor: color.seeAllButtonColor,
         borderRadius: 25,
-        width: 60,
+        width: 70,
     },
 
     text: {

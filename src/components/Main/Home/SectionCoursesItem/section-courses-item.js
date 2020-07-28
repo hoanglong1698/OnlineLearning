@@ -6,8 +6,8 @@ import { ThemeContext } from '../../../../provider/theme-provider';
 import moment from 'moment';
 
 const SectionCoursesItem = (props) => {
-    const onPressSectionItem = () => {
-        props.navigation.navigate(screenName.coursesDetailScreen, { item: props.item })
+    const onPressSectionItem = (id, title) => {
+        props.navigation.navigate(screenName.coursesDetailScreen, { id: id, title: title })
     }
 
     const { theme } = useContext(ThemeContext)
@@ -17,7 +17,7 @@ const SectionCoursesItem = (props) => {
     return (
         <TouchableOpacity
             style={{ ...styles.item, backgroundColor: theme.itemBackgroundColor }}
-            onPress={onPressSectionItem}
+            onPress={() => onPressSectionItem(props.item.id, props.item.courseTitle)}
         >
             <Image source={{ uri: props.item.imageUrl || props.item.courseImage }} style={styles.image} />
 

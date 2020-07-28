@@ -1,11 +1,12 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import SectionAuthorsItem from './../SectionAuthorsItem/section-authors-item';
 import { color } from '../../../../globals/constants'
 import { ThemeContext } from '../../../../provider/theme-provider';
+import axios from 'axios';
 
 const SectionAuthors = (props) => {
-    const authors = [
+    const authorss = [
         {
             id: 1,
             author: 'Gorden Ramsay',
@@ -20,8 +21,19 @@ const SectionAuthors = (props) => {
             id: 3,
             author: 'Phuong My',
         }
-
     ]
+
+
+
+    useEffect(() => {
+        axios.get('https://api.itedu.me​/instructor')
+            .then(function (response) {
+                
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, [])
 
     const renderListItems = (authors) => {
         return authors.map(item => <SectionAuthorsItem item={item} />)
@@ -39,7 +51,7 @@ const SectionAuthors = (props) => {
             </View>
 
             <ScrollView horizontal={true}>
-                {renderListItems(authors)}
+                {renderListItems(authorss)}
             </ScrollView>
         </View>
     )
