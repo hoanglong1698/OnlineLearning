@@ -71,7 +71,6 @@ const ListCoursesItem = (props) => {
                 else {
                     onPressListItem(props.item.id, props.item.courseTitle)
                 }
-
             }}
         />
     )

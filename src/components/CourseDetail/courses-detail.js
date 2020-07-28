@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, Button, StyleSheet, TouchableOpacity, Image, ScrollView, ActivityIndicator, Alert } from 'react-native'
 import { color } from './../../globals/constants';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -10,10 +10,12 @@ import Transcripts from './Transcripts/transcripts';
 import axios from 'axios';
 import CircleButton from './CircleButton/circle-button';
 import { Video } from 'expo-av';
+import { AuthenticationContext } from '../../provider/authentication-provider';
 
 const Tab = createMaterialTopTabNavigator();
 
 const CoursesDetail = (props) => {
+    const authContext = useContext(AuthenticationContext);
     const { title } = props.route.params;
     const idCourse = props.route.params.id;
     props.navigation.setOptions({ title: title });
@@ -26,38 +28,68 @@ const CoursesDetail = (props) => {
         description: '',
         soldNumber: '',
         duration: '',
+        likeStatus: '',
     });
-
+    const [likeStatus, setLikeStatus] = useState(false);
     const [videoURL, setVideoURL] = useState();
     const [thumbnail, setThumbnail] = useState();
     const [isLoading, setIsLoading] = useState(true);
-
     const callbackToCourseDetail = (childData) => {
         setVideoURL(childData);
     }
 
     useEffect(() => {
-        let url = 'https://api.itedu.me/course/get-course-detail/' + idCourse + '/null';
-        axios.get(url)
-            .then(function (response) {
-                setThumbnail(response.data.payload.imageUrl);
-                setVideoURL(response.data.payload.promoVidUrl);
+        let url1 = 'https://api.itedu.me/course/get-course-detail/' + idCourse + '/null';
+        let url2 = 'https://api.itedu.me/user/get-course-like-status/' + idCourse;
+        axios.all([
+            axios.get(url1),
+            axios.get(url2, {
+                headers: {
+                    'Authorization': 'Bearer ' + authContext.state.token
+                }
+            }),
+        ])
+            .then(axios.spread(function (resCourseDetail, resLikeStatus) {
+                setThumbnail(resCourseDetail.data.payload.imageUrl);
+                setVideoURL(resCourseDetail.data.payload.promoVidUrl);
+                setLikeStatus(resLikeStatus.data.likeStatus);
                 setState({
-                    title: response.data.payload.title,
-                    instructor: response.data.payload.instructor.name,
-                    avatarURL: response.data.payload.instructor.avatar,
-                    description: response.data.payload.description,
-                    soldNumber: response.data.payload.soldNumber,
-                    duration: response.data.payload.totalHours,
+                    title: resCourseDetail.data.payload.title,
+                    instructor: resCourseDetail.data.payload.instructor.name,
+                    avatarURL: resCourseDetail.data.payload.instructor.avatar,
+                    description: resCourseDetail.data.payload.description,
+                    soldNumber: resCourseDetail.data.payload.soldNumber,
+                    duration: resCourseDetail.data.payload.totalHours,
                 });
-            })
+            }))
+
             .catch(function (error) {
-                return (error);
+                console.log(error);
             })
             .then(function () {
                 setIsLoading(false);
             })
+
     }, []);
+
+    const onPressCircleButton = (nameButton) => {
+        if (nameButton === "like") {
+            setLikeStatus(!likeStatus);
+            axios.post('https://api.itedu.me/user/like-course', {
+                courseId: idCourse,
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + authContext.state.token
+                }
+            })
+                .then(function (response) {
+                    console.log(response.data.message);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -83,7 +115,10 @@ const CoursesDetail = (props) => {
                     <GeneralInfomation soldNumber={state.soldNumber} duration={state.duration} ></GeneralInfomation>
 
                     <View style={styles.circleButtons}>
-                        <CircleButton iconName='heart-outline' nameButton='Yêu thích'></CircleButton>
+                        {likeStatus
+                            ? <CircleButton iconName='heart' nameButton='Đã thích' onPress={() => onPressCircleButton("like")}></CircleButton>
+                            : <CircleButton iconName='heart-outline' nameButton='Yêu thích' onPress={() => onPressCircleButton("like")}></CircleButton>
+                        }
                         <CircleButton iconName='cart-outline' nameButton='Mua khóa học'></CircleButton>
                         <CircleButton iconName='arrow-down-bold-circle-outline' nameButton='Tải xuống'></CircleButton>
                     </View>

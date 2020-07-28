@@ -5,7 +5,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const CircleButton = (props) => {
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity
+            style={styles.container}
+            onPress={props.onPress}
+        >
             <View style={styles.icon}>
                 <MaterialCommunityIcons name={props.iconName} size={30} color='white' />
             </View>
@@ -28,7 +31,7 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         backgroundColor: color.button,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     nameButton: {
