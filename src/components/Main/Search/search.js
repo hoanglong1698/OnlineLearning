@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
     },
     result: {
         flex: 1,
-        marginBottom: 49,
     },
     picker: {
         height: 20,
