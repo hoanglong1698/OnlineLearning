@@ -21,7 +21,7 @@ const ListCourses = (props) => {
                 <Image source={require('../../../../assets/empty.png')}
                     style={styles.empty}
                 />
-                <Text style={styles.text}>Không có dữ liệu</Text>
+                <Text style={{ ...styles.text, color: theme.headerText }}>Không có dữ liệu</Text>
             </View>
         )
     }

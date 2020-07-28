@@ -128,20 +128,19 @@ const CoursesDetail = (props) => {
                         {state.description}
                     </Text>
 
-                    <TouchableButton title="Take a learning check" ></TouchableButton>
-                    <TouchableButton title="View related paths and courses" ></TouchableButton>
+                    <TouchableButton title="Xem các khóa học liên quan" ></TouchableButton>
                 </View>
 
                 <Tab.Navigator
                     independent={true}
-                    initialRouteName="CONTENTS"
+                    initialRouteName="BÀI HỌC"
                     tabBarOptions={{
                         indicatorStyle: { height: 3, backgroundColor: color.headerBar },
                         labelStyle: { fontWeight: 'bold' }
                     }}
                 >
-                    <Tab.Screen name="CONTENTS" component={Contents} initialParams={{ idCourse: idCourse, callbackToCourseDetail }} />
-                    <Tab.Screen name="TRANSCRIPTS" component={Transcripts} initialParams={transcripts} />
+                    <Tab.Screen name="BÀI HỌC" component={Contents} initialParams={{ idCourse: idCourse, callbackToCourseDetail }} />
+                    <Tab.Screen name="BÌNH LUẬN" component={Transcripts} initialParams={transcripts} />
                 </Tab.Navigator>
             </ScrollView>
         </View>
