@@ -12,12 +12,23 @@ const SectionCoursesItem = (props) => {
 
     const { theme } = useContext(ThemeContext)
 
-    const createAt = moment(props.item.createdAt).format('LL');
+    function formatDuration(num) {
+        return moment().startOf('day').add(num, 'hours').format('H:mm')
+    }
+
+    const createAt = moment(props.item.createdAt).format('d/M/yyyy');
 
     return (
         <TouchableOpacity
             style={{ ...styles.item, backgroundColor: theme.itemBackgroundColor }}
-            onPress={() => onPressSectionItem(props.item.id, props.item.courseTitle)}
+            onPress={() => {
+                if (props.item.title != null) {
+                    onPressSectionItem(props.item.id, props.item.title)
+                }
+                else {
+                    onPressSectionItem(props.item.id, props.item.courseTitle)
+                }
+            }}
         >
             <Image source={{ uri: props.item.imageUrl || props.item.courseImage }} style={styles.image} />
 
@@ -25,7 +36,7 @@ const SectionCoursesItem = (props) => {
                 <Text style={{ ...styles.title, color: theme.headerText }}>{props.item.title || props.item.courseTitle}</Text>
                 <Text style={{ ...styles.info, color: theme.infoTextColor }}>{props.item["instructor.user.name"] || props.item.instructorName}</Text>
                 {props.item.totalHours !== undefined
-                    ? <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{`${createAt} \u00B7 ${props.item.totalHours} hours`}</Text>
+                    ? <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{`${createAt}  \u00B7  Thời lượng ${formatDuration(props.item.totalHours)}`}</Text>
                     : <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{`${createAt}`}</Text>
                 }
                 <Rating style={{ marginTop: 5 }}
@@ -76,7 +87,8 @@ const styles = StyleSheet.create({
 
     info: {
         fontSize: 13,
-        color: color.infoTextColor
+        color: color.infoTextColor,
+        marginVertical: 2,
     }
 })
 

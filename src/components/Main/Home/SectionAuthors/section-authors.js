@@ -6,29 +6,12 @@ import { ThemeContext } from '../../../../provider/theme-provider';
 import axios from 'axios';
 
 const SectionAuthors = (props) => {
-    const authorss = [
-        {
-            id: 1,
-            author: 'Gorden Ramsay',
-        },
-
-        {
-            id: 2,
-            author: 'Hoang Long',
-        },
-
-        {
-            id: 3,
-            author: 'Phuong My',
-        }
-    ]
-
-
+    const [authors, setAuthors] = useState([]);
 
     useEffect(() => {
         axios.get('https://api.itedu.me​/instructor')
             .then(function (response) {
-                
+                setAuthors(response.data.payload);
             })
             .catch(function (error) {
                 console.log(error);
@@ -51,7 +34,7 @@ const SectionAuthors = (props) => {
             </View>
 
             <ScrollView horizontal={true}>
-                {renderListItems(authorss)}
+                {renderListItems(authors)}
             </ScrollView>
         </View>
     )
