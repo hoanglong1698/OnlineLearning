@@ -29,7 +29,7 @@ const SectionAuthors = (props) => {
             <View>
                 <Text style={{ ...styles.title, color: theme.headerText }}>{props.title}</Text>
                 <TouchableOpacity style={{ ...styles.seeAll, backgroundColor: theme.seeAllButtonColor }}>
-                    <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>See all {">"}</Text>
+                    <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>Xem thêm</Text>
                 </TouchableOpacity>
             </View>
 

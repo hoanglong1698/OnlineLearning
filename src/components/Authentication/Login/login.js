@@ -19,12 +19,11 @@ const Login = (props) => {
     }, [authContext.state.isAuthenticated])
 
     const renderLoginStatus = (status) => {
+        setIsLoading(false);
         if (status === true) {
-            setIsLoading(false);
             return (<Text>Đăng nhập thành công</Text>);
         }
         if (status === false) {
-            setIsLoading(false);
             return (<Text style={{marginTop: 10, textAlign: "center"}}>Đăng nhập thất bại, vui lòng kiểm tra lại thông tin đã nhập</Text>);
         }
     }

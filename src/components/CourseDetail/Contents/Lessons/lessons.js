@@ -26,7 +26,7 @@ const Lessons = (props) => {
                 size={10}
             />}
             rightElement={<Text style={{ fontSize: 12 }}>{formatDuration(data.hours)}</Text>}
-            //badge={isPlaying}
+            badge={isPlaying}
             onPress={() => { onPressItem(data.videoUrl, data.id) }}
         />
     )

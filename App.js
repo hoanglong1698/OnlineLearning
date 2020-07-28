@@ -23,7 +23,7 @@ const MainNavigationStack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext)
 
   return (
     <BottomTab.Navigator
@@ -75,6 +75,8 @@ const BottomTabNavigator = () => {
 }
 
 const MainNavigation = () => {
+  const { theme } = useContext(ThemeContext)
+
   return (
     <MainNavigationStack.Navigator>
       <MainNavigationStack.Screen
@@ -98,7 +100,16 @@ const MainNavigation = () => {
       <MainNavigationStack.Screen
         name={screenName.signupScreen}
         component={Register}
-        options={{ headerShown: false }}
+        options={{
+          title: "Register",
+          headerTintColor: theme.headerText,
+          headerStyle: {
+            backgroundColor: theme.headerBar,
+          },
+          headerTitleStyle: {
+            color: theme.headerText,
+          },
+        }}
       />
     </MainNavigationStack.Navigator>
   )

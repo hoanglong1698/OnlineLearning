@@ -78,7 +78,7 @@ const Home = (props) => {
             {state.Favorites.length != 0 && <SectionCourses title='Khóa học yêu thích' navigation={props.navigation} data={state.Favorites} />}
             <SectionCourses title='Khóa học mới nhất' navigation={props.navigation} data={state.TopNew} />
             {state.ContinueLearning.length == 0 && state.Favorites.length == 0 && <SectionCourses title='Khóa học bán nhiều nhất' navigation={props.navigation} data={state.TopNew} />}
-            <SectionAuthors title='Author' />
+            <SectionAuthors title='Giảng viên' />
         </ScrollView>
     )
 

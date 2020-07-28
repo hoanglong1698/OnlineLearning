@@ -155,7 +155,7 @@ const Browse = (props) => {
         <SectionCourses title='Khóa học bán nhiều nhất' navigation={props.navigation} data={state.TopSell} />
         <SectionCourses title='Khóa học đánh giá cao nhất' navigation={props.navigation} data={state.TopRate} />
 
-        <SectionAuthors title='Top Author' />
+        <SectionAuthors title='Giảng viên' />
     </ScrollView>
 };
 
