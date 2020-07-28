@@ -9,9 +9,7 @@ const Content = (props) => {
     const { idCourse } = props.route.params;
     const [section, setSection] = useState();
     const [isLoading, setIsLoading] = useState(true);
-    console.log(props.route);
-
-    const callbackToContents = (childData) => {
+    const callbackToContents = (childData, id) => {
         props.route.params.callbackToCourseDetail(childData);
     }
 
@@ -19,7 +17,7 @@ const Content = (props) => {
         let url = 'https://api.itedu.me/course/get-course-detail/' + idCourse + '/null';
         axios.get(url)
             .then(function (response) {
-                const data = response.data.payload.section.map(({ name: title, lesson: data, ...rest }) => ({ title, data, ...rest }));
+                var data = response.data.payload.section.map(({ name: title, lesson: data, ...rest }) => ({ title, data, ...rest }));
                 setSection(data)
             })
             .catch(function (error) {
@@ -35,6 +33,7 @@ const Content = (props) => {
             {isLoading === true && <ActivityIndicator size="large" />}
             <SectionList
                 sections={section}
+                keyExtractor={(item, index) => item + index}
                 renderItem={({ item }) => <Lessons item={item} callbackToContents={callbackToContents} />}
                 renderSectionHeader={(item) => <Units item={item} />}
                 renderSectionFooter={() => <View style={{ borderBottomColor: color.border, borderBottomWidth: 1 }} />}

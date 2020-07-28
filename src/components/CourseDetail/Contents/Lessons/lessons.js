@@ -5,10 +5,11 @@ import { color } from './../../../../globals/constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import moment from 'moment';
 const Lessons = (props) => {
-    let data = props.item;
-
+    const [data, setData] = useState(props.item);
+    const [isPlaying, setIsPlaying] = useState(false);
     const onPressItem = (videoURL, id) => {
-        props.callbackToContents(videoURL);
+        props.callbackToContents(videoURL, id);
+        setIsPlaying(true);
     }
 
     function formatDuration(num) {
@@ -25,7 +26,7 @@ const Lessons = (props) => {
                 size={10}
             />}
             rightElement={<Text style={{ fontSize: 12 }}>{formatDuration(data.hours)}</Text>}
-
+            //badge={isPlaying}
             onPress={() => { onPressItem(data.videoUrl, data.id) }}
         />
     )
