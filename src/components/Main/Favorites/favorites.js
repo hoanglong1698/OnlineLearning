@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator, Text, RefreshControl } from 'react-native';
+import { StyleSheet, ScrollView, ActivityIndicator, Text, RefreshControl, View } from 'react-native';
 import { color } from '../../../globals/constants';
 import ListCourses from '../../Courses/ListCourses/list-courses';
 import { ThemeContext } from '../../../provider/theme-provider';
@@ -49,11 +49,12 @@ const Favorites = (props) => {
 
     if (data.length == 0) {
         return (
-            <ScrollView style={{ backgroundColor: theme.mainBackgroundColor }}
-                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-            >
-                <Text>Bạn chưa thích khóa học nào</Text>
-            </ScrollView>
+            <View style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
+                <Image source={require('../../../../assets/empty.png')}
+                    style={styles.empty}
+                />
+                <Text style={styles.emptyText}>Bạn chưa thích khóa học nào!</Text>
+            </View>
         )
     }
 
@@ -101,5 +102,14 @@ const styles = StyleSheet.create({
         color: color.seeAllTextColor,
         textAlign: 'center',
         fontWeight: 'bold',
+    },
+
+    empty: {
+        width: 100,
+        height: 100,
+    },
+    emptyText: {
+        fontSize: 20,
+        marginTop: 10,
     }
 })
