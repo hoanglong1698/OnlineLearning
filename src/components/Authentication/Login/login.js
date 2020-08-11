@@ -8,8 +8,13 @@ const Login = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [IsLoading, setIsLoading] = useState(null);
-    const [IsClicked, setIsClicked] = useState(false);
     const authContext = useContext(AuthenticationContext);
+    const [emailIsValid, setEmailIsValid] = useState(true);
+    const [isEdited, setIsEdited] = useState(false);
+    const [error, setError] = useState({
+        isError: false,
+        message: '',
+    })
 
     useEffect(() => {
         if (authContext.state.isAuthenticated) {
@@ -19,6 +24,28 @@ const Login = (props) => {
 
     const onPressSignup = () => {
         props.navigation.navigate(screenName.signupScreen);
+    }
+
+    const onPressForgotPassword = () => {
+        props.navigation.navigate(screenName.forgotPasswordScreen);
+    }
+
+    const onPressSignIn = () => {
+        setError({ isError: false });
+        if (emailIsValid && isEdited) {
+            setIsLoading(true);
+            authContext.login(username, password);
+
+            if (!authContext.state.isAuthenticated) {
+                setTimeout(() => {
+                    setIsLoading(false);
+                    setError({ isError: true, message: "Sai email hoặc mật khẩu" })
+                }, 1500)
+            }
+        }
+        else {
+            setError({ isError: true, message: "Vui lòng nhập thông tin" })
+        }
     }
 
     return <ThemeContext.Consumer>
@@ -35,11 +62,22 @@ const Login = (props) => {
                                 placeholderTextColor={color.placeholderTextColor}
                                 autoCapitalize='none'
                                 onChangeText={text => {
-                                    setIsClicked(false);
+                                    text = text.trim();
+                                    let validEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+                                    if (validEmail.test(text)) {
+                                        setEmailIsValid(true)
+                                    }
+                                    else {
+                                        setEmailIsValid(false)
+                                    }
+                                    setIsEdited(true);
+                                    setError({ isError: false })
                                     setUsername(text)
                                 }}
                             />
                         </View>
+                        {!emailIsValid && <Text style={{ color: 'red' }}>Email không đúng định dạng</Text>}
 
                         <View style={styles.passwordView} >
                             <TextInput
@@ -48,30 +86,20 @@ const Login = (props) => {
                                 placeholder='Mật khẩu'
                                 placeholderTextColor={color.placeholderTextColor}
                                 onChangeText={text => {
-                                    setIsClicked(false);
                                     setPassword(text)
                                 }}
                             />
                         </View>
 
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={onPressForgotPassword}>
                             <Text style={styles.forgot}>Quên mật khẩu?</Text>
                         </TouchableOpacity>
 
                         {IsLoading === true && <ActivityIndicator size="large" />}
-                        {IsClicked === true && !authContext.state.isAuthenticated && <Text style={{ marginTop: 10, textAlign: "center" }}>Đăng nhập thất bại, vui lòng kiểm tra lại thông tin đã nhập</Text>}
-                        
+                        {error.isError && <Text style={{ marginTop: 10, textAlign: "center", color: 'red', fontWeight: 'bold' }}>{error.message}</Text>}
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={() => {
-                                setIsLoading(true);
-                                setIsClicked(false);
-                                authContext.login(username, password);
-                                setTimeout(() => {
-                                    setIsLoading(false);
-                                    setIsClicked(true);
-                                }, 1500)
-                            }}
+                            onPress={onPressSignIn}
                         >
                             <Text style={styles.signInText}>ĐĂNG NHẬP</Text>
                         </TouchableOpacity>
@@ -162,5 +190,12 @@ const styles = StyleSheet.create({
     questionText: {
         color: '#a1a1a1',
         fontSize: 12
+    },
+
+    error: {
+        marginTop: 10,
+        textAlign: "center",
+        color: 'red',
+        fontWeight: 'bold',
     }
 });
