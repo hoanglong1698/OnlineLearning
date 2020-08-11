@@ -16,6 +16,9 @@ import Login from './src/components/Authentication/Login/login';
 import { AuthenticationProvider } from './src/provider/authentication-provider';
 import { ThemeProvider, ThemeContext } from './src/provider/theme-provider';
 import Register from './src/components/Authentication/Register/register';
+import RegisterSuccessfully from './src/components/Authentication/Register/register-successfully';
+import ForgotPassword from './src/components/Authentication/ForgotPassword/forgot-password';
+
 
 
 const MainNavigationStack = createStackNavigator();
@@ -111,7 +114,39 @@ const MainNavigation = () => {
           },
         }}
       />
+
+      <MainNavigationStack.Screen
+        name={screenName.registerSuccessfullyScreen}
+        component={RegisterSuccessfully}
+        options={{
+          title: "Đăng ký thành công",
+          headerTintColor: theme.headerText,
+          headerStyle: {
+            backgroundColor: theme.headerBar,
+          },
+          headerTitleStyle: {
+            color: theme.headerText,
+          },
+        }}
+      />
+
+      <MainNavigationStack.Screen
+        name={screenName.forgotPasswordScreen}
+        component={ForgotPassword}
+        options={{
+          title: "Quên mật khẩu",
+          headerTintColor: theme.headerText,
+          headerStyle: {
+            backgroundColor: theme.headerBar,
+          },
+          headerTitleStyle: {
+            color: theme.headerText,
+          },
+        }}
+      />
     </MainNavigationStack.Navigator>
+
+
   )
 }
 

@@ -32,6 +32,8 @@ export const screenName = {
     profileScreen: "ProfileScreen",
     settingScreen: "SettingScreen",
     signupScreen: "SignUpScreen",
+    registerSuccessfullyScreen: "RegisterSuccessfullyScreen",
+    forgotPasswordScreen: "ForgotPasswordScreen",
 }
 
 export const themes = {

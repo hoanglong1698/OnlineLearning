@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator } from 'react-native'
-import { color } from '../../../globals/constants'
-import { RegisterUser } from '../../../core/services/authentication-services'
+import { color, screenName } from '../../../globals/constants'
+import axios from 'axios';
+
 const Register = (props) => {
     const onPressSignin = () => {
         props.navigation.goBack();
@@ -21,12 +22,34 @@ const Register = (props) => {
     const [passwordIsValid, setPasswordIsValid] = useState(true);
     const [confirmPasswordIsValid, setConfirmPasswordIsValid] = useState(true);
     const [phoneIsValid, setPhoneIsValid] = useState(true);
+    const [error, setError] = useState({
+        isError: false,
+        message: '',
+    })
 
     const onPressSignUp = () => {
         if (isEdited && nameIsValid && emailIsValid && passwordIsValid && confirmPasswordIsValid && phoneIsValid) {
             setIsLoading(true);
-
-            RegisterUser(info);
+            setError({ isError: false });
+            
+            axios.post('https://api.itedu.me​/user/register', {
+                username: info.name,
+                email: info.email,
+                phone: info.phone,
+                password: info.password
+            })
+                .then(function (response) {
+                    props.navigation.navigate(screenName.registerSuccessfullyScreen);
+                })
+                .catch(function (error) {
+                    setTimeout(() => {
+                        setIsLoading(false);
+                        setError({ isError: true, message: error.response.data.message })
+                    }, 1000)
+                });
+        }
+        else {
+            setError({ isError: true, message: "Vui lòng nhập thông tin" })
         }
     }
 
@@ -134,6 +157,7 @@ const Register = (props) => {
             {!phoneIsValid && <Text style={{ color: 'red' }}>Vui lòng nhập đúng số điện thoại</Text>}
 
             {isLoading === true && <ActivityIndicator size="large" />}
+            {error.isError && <Text style={{ marginTop: 10, textAlign: "center", color: 'red', fontWeight: 'bold' }}>{error.message}</Text>}
             <TouchableOpacity style={styles.button} onPress={onPressSignUp}>
                 <Text style={styles.signUpText}>ĐĂNG KÝ</Text>
             </TouchableOpacity>
