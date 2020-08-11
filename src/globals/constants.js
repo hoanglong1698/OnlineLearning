@@ -4,6 +4,7 @@ export const color = {
     button: '#ffc226',
     buttonText: 'white',
     border: '#a1a1a1',
+    borderNotValid: 'red',
     inputText: '#2c3051',
     placeholderTextColor: '#a1a1a1',
     mainBackgroundColor: '#ededef',

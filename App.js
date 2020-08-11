@@ -101,7 +101,7 @@ const MainNavigation = () => {
         name={screenName.signupScreen}
         component={Register}
         options={{
-          title: "Register",
+          title: "Đăng ký",
           headerTintColor: theme.headerText,
           headerStyle: {
             backgroundColor: theme.headerBar,

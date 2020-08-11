@@ -13,20 +13,9 @@ const Login = (props) => {
 
     useEffect(() => {
         if (authContext.state.isAuthenticated) {
-            setIsLoading(false);
             props.navigation.push(screenName.bottomTabScreen);
         }
     }, [authContext.state.isAuthenticated])
-
-    const renderLoginStatus = (status) => {
-        setIsLoading(false);
-        if (status === true) {
-            return (<Text>Đăng nhập thành công</Text>);
-        }
-        if (status === false) {
-            return (<Text style={{marginTop: 10, textAlign: "center"}}>Đăng nhập thất bại, vui lòng kiểm tra lại thông tin đã nhập</Text>);
-        }
-    }
 
     const onPressSignup = () => {
         props.navigation.navigate(screenName.signupScreen);
@@ -42,9 +31,13 @@ const Login = (props) => {
                         <View style={styles.inputView} >
                             <TextInput
                                 style={styles.inputText}
-                                placeholder='Username'
+                                placeholder='Tài khoản'
                                 placeholderTextColor={color.placeholderTextColor}
-                                onChangeText={text => setUsername(text)}
+                                autoCapitalize='none'
+                                onChangeText={text => {
+                                    setIsClicked(false);
+                                    setUsername(text)
+                                }}
                             />
                         </View>
 
@@ -52,35 +45,42 @@ const Login = (props) => {
                             <TextInput
                                 secureTextEntry={true}
                                 style={styles.inputText}
-                                placeholder='Password'
+                                placeholder='Mật khẩu'
                                 placeholderTextColor={color.placeholderTextColor}
-                                onChangeText={text => setPassword(text)}
+                                onChangeText={text => {
+                                    setIsClicked(false);
+                                    setPassword(text)
+                                }}
                             />
                         </View>
 
                         <TouchableOpacity>
-                            <Text style={styles.forgot}>Forgot Password?</Text>
+                            <Text style={styles.forgot}>Quên mật khẩu?</Text>
                         </TouchableOpacity>
 
                         {IsLoading === true && <ActivityIndicator size="large" />}
-                        {IsClicked === true && renderLoginStatus(authContext.state.isAuthenticated)}
-
+                        {IsClicked === true && !authContext.state.isAuthenticated && <Text style={{ marginTop: 10, textAlign: "center" }}>Đăng nhập thất bại, vui lòng kiểm tra lại thông tin đã nhập</Text>}
+                        
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => {
                                 setIsLoading(true);
-                                setIsClicked(true);
+                                setIsClicked(false);
                                 authContext.login(username, password);
+                                setTimeout(() => {
+                                    setIsLoading(false);
+                                    setIsClicked(true);
+                                }, 1500)
                             }}
                         >
-                            <Text style={styles.signInText}>SIGN IN</Text>
+                            <Text style={styles.signInText}>ĐĂNG NHẬP</Text>
                         </TouchableOpacity>
 
 
                         <TouchableOpacity onPress={onPressSignup}>
-                            <Text style={styles.questionText}>Don't have account?{' '}
+                            <Text style={styles.questionText}>Chưa có tài khoản?{' '}
                                 <Text style={styles.signUpText}>
-                                    Sign Up.
+                                    Đăng ký ngay.
                                 </Text>
                             </Text>
                         </TouchableOpacity>
