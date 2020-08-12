@@ -45,7 +45,7 @@ const Setting = (props) => {
 
 
     return (
-        <ScrollView>
+        <ScrollView style={{flex: 1, backgroundColor: theme.mainBackgroundColor}}>
             {
                 list.map((item, i) => (
                     <ListItem
