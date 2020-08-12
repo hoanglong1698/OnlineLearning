@@ -5,7 +5,7 @@ import { ThemeContext } from '../../../provider/theme-provider';
 import { themeService } from './../../../core/services/theme-services';
 
 export default function ThemeSetting(props) {
-    props.navigation.setOptions({ title: 'Theme' })
+    props.navigation.setOptions({ title: 'Chủ đề' })
     const [isCheckLight, setIsCheckLight] = useState(true);
     const [isCheckDark, setIsCheckDark] = useState(false);
 
@@ -16,7 +16,7 @@ export default function ThemeSetting(props) {
                     <View style={{ flex: 1, backgroundColor: theme.mainBackgroundColor }}>
                         <ListItem
                             key={1}
-                            title='Light'
+                            title='Sáng'
                             containerStyle={{backgroundColor: theme.itemBackgroundColor}}
                             
                             bottomDivider
@@ -33,7 +33,7 @@ export default function ThemeSetting(props) {
                         />
                         <ListItem
                             key={2}
-                            title='Dark'
+                            title='Tối'
                             containerStyle={{backgroundColor: theme.itemBackgroundColor}}
                             checkmark={isCheckDark}
                             titleStyle={{

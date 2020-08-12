@@ -45,7 +45,6 @@ const Profile = ({ navigation }) => {
                     setStatus("Đổi thông tin thất bại");
                 });
         }
-
     }
 
     return (

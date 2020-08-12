@@ -7,6 +7,8 @@ import ChangePassword from './../AccountManagement/ChangePassword/change-passwor
 import Setting from './../AccountManagement/Setting/setting';
 import ThemeSetting from './../AccountManagement/Setting/theme-setting';
 import { ThemeContext } from '../../provider/theme-provider';
+import ChangePasswordSuccessfully from './../AccountManagement/ChangePassword/change-password-successfully';
+import Login from './../Authentication/Login/login';
 
 const Stack = createStackNavigator();
 
@@ -37,7 +39,7 @@ const ProfileStack = () => {
                 name={screenName.changePasswordScreen}
                 component={ChangePassword}
                 options={{
-                    title: "Change password",
+                    title: "Đổi mật khẩu",
                 }}
             />
 
@@ -55,6 +57,20 @@ const ProfileStack = () => {
                 options={{
                     title: "Setting",
                 }}
+            />
+
+            <Stack.Screen
+                name={screenName.changePasswordSuccessfully}
+                component={ChangePasswordSuccessfully}
+                options={{
+                    title: "Đổi mật khẩu thành công",
+                }}
+            />
+
+            <Stack.Screen
+                name={screenName.loginScreen}
+                component={Login}
+                options={{ headerShown: false }}
             />
         </Stack.Navigator>
     )

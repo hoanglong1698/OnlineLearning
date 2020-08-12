@@ -35,6 +35,7 @@ export const screenName = {
     registerSuccessfullyScreen: "RegisterSuccessfullyScreen",
     forgotPasswordScreen: "ForgotPasswordScreen",
     sendEmailSuccessfully: "SendEmailSuccessfully",
+    changePasswordSuccessfully: "ChangePasswordSuccessfully"
 }
 
 export const themes = {

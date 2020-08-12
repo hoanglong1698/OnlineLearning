@@ -28,7 +28,7 @@ const Setting = (props) => {
                     fontWeight: 'bold',
                 }
             ],
-            subtitle: 'Được chọn theo hệ thống',
+            subtitle: 'Theo ngôn ngữ của thiết bị',
         },
 
         {
@@ -64,7 +64,11 @@ const Setting = (props) => {
                             color: theme.subtitleColor,
                         }}
                         switch={item.switch}
-                        onPress={() => props.navigation.navigate(item.screenName)}
+                        onPress={() => {
+                            if (item.screenName) {
+                                props.navigation.navigate(item.screenName)
+                            }
+                        }}
                     />
                 ))
             }
