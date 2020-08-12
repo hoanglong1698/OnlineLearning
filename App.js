@@ -18,8 +18,7 @@ import { ThemeProvider, ThemeContext } from './src/provider/theme-provider';
 import Register from './src/components/Authentication/Register/register';
 import RegisterSuccessfully from './src/components/Authentication/Register/register-successfully';
 import ForgotPassword from './src/components/Authentication/ForgotPassword/forgot-password';
-
-
+import SendEmailSuccessfully from './src/components/Authentication/ForgotPassword/send-email-successfully';
 
 const MainNavigationStack = createStackNavigator();
 
@@ -135,6 +134,21 @@ const MainNavigation = () => {
         component={ForgotPassword}
         options={{
           title: "Quên mật khẩu",
+          headerTintColor: theme.headerText,
+          headerStyle: {
+            backgroundColor: theme.headerBar,
+          },
+          headerTitleStyle: {
+            color: theme.headerText,
+          },
+        }}
+      />
+
+      <MainNavigationStack.Screen
+        name={screenName.sendEmailSuccessfully}
+        component={SendEmailSuccessfully}
+        options={{
+          title: "Gửi email thành công",
           headerTintColor: theme.headerText,
           headerStyle: {
             backgroundColor: theme.headerBar,
