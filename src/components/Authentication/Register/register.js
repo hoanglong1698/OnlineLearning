@@ -31,15 +31,15 @@ const Register = (props) => {
         if (isEdited && nameIsValid && emailIsValid && passwordIsValid && confirmPasswordIsValid && phoneIsValid) {
             setIsLoading(true);
             setError({ isError: false });
-            
+
             axios.post('https://api.itedu.me​/user/register', {
-                username: info.name,
+                name: info.name,
                 email: info.email,
                 phone: info.phone,
                 password: info.password
             })
                 .then(function (response) {
-                    props.navigation.navigate(screenName.registerSuccessfullyScreen);
+                    props.navigation.navigate(screenName.registerSuccessfullyScreen, { email: info.email });
                 })
                 .catch(function (error) {
                     setTimeout(() => {
