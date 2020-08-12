@@ -1,52 +1,84 @@
-import React, { useContext } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput } from 'react-native'
+import React, { useContext, useState } from 'react'
+import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput, ActivityIndicator, KeyboardAvoidingView } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { color, screenName } from './../../../globals/constants';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
+import axios from 'axios';
 
 const Profile = ({ navigation }) => {
-    const list = [
-        {
-            title: 'Change password',
-            titleStyle: [
-                {
-                    color: color.headerText,
-                    fontWeight: 'bold',
-                }
-            ],
-        },
-        {
-            title: 'App settings',
-            titleStyle: [
-                {
-                    color: color.headerText,
-                    fontWeight: 'bold',
-                }
-            ],
-        },
-    ]
-
     const authContext = useContext(AuthenticationContext)
+    const [isLoading, setIsLoading] = useState(false);
+    const [info, setInfo] = useState({
+        name: authContext.state.userInfo.name,
+        phone: authContext.state.userInfo.phone
+    });
+    const [isValid, setIsValid] = useState({
+        name: true,
+        phone: true,
+    });
+    const [status, setStatus] = useState('');
+    const [nameHeader, setNameHeader] = useState(authContext.state.userInfo.name);
+
+    const onPressChangeInfo = () => {
+        if (isValid.name && isValid.phone) {
+            setIsLoading(true);
+            setStatus('');
+            axios.put('https://api.itedu.me/user/update-profile', {
+                name: info.name,
+                phone: info.phone
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + authContext.state.token
+                }
+            })
+                .then(function (response) {
+                    authContext.changeInfo(response.data.payload);
+                    setTimeout(() => {
+                        setIsLoading(false);
+                        setStatus("Sửa thông tin thành công");
+                        setNameHeader(response.data.payload.name);
+                    }, 1000);
+                    setTimeout(() => { setStatus('') }, 3000);
+
+                })
+                .catch(function (error) {
+                    setStatus("Đổi thông tin thất bại");
+                });
+        }
+
+    }
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} enabled behavior="height">
             <View style={styles.userInfo}>
                 <TouchableOpacity style={styles.avatarName}>
-                    <Image source={{uri: authContext.state.userInfo.avatar}}
+                    <Image source={{ uri: authContext.state.userInfo.avatar }}
                         style={styles.avatar}
                     />
-                    <Text style={styles.name}>{authContext.state.userInfo.name}</Text>
+                    <Text style={styles.name}>{nameHeader}</Text>
                 </TouchableOpacity>
 
-                <Text style={styles.labelOfInput}>Your Name</Text>
+                <Text style={styles.labelOfInput}>Họ tên</Text>
                 <View style={styles.inputView} >
                     <TextInput
                         style={styles.inputText}
-                        placeholder='Username'
+                        placeholder='Họ tên'
                         placeholderTextColor={color.placeholderTextColor}
                         defaultValue={authContext.state.userInfo.name}
+                        autoCapitalize="words"
+                        onChangeText={text => {
+                            let invalidName = /[!@#$%^&*(),.?":{}|<>\d+$]/;
+                            if (!invalidName.test(text)) {
+                                setIsValid({ ...isValid, name: true })
+                            }
+                            else {
+                                setIsValid({ ...isValid, name: false })
+                            }
+                            setInfo({ ...info, name: text })
+                        }}
                     />
                 </View>
+                {!isValid.name && <Text style={{ color: 'red' }}>Tên tối thiểu 2 ký tự và không chứa ký tự đặc biệt</Text>}
 
                 <Text style={styles.labelOfInput}>Email</Text>
                 <View style={styles.inputView} >
@@ -55,28 +87,43 @@ const Profile = ({ navigation }) => {
                         placeholder='Email'
                         placeholderTextColor={color.placeholderTextColor}
                         defaultValue={authContext.state.userInfo.email}
+                        editable={false}
                     />
                 </View>
 
-                <Text style={styles.labelOfInput}>Phone</Text>
+                <Text style={styles.labelOfInput}>Điện thoại</Text>
                 <View style={styles.inputView} >
                     <TextInput
                         style={styles.inputText}
-                        placeholder='Phone'
+                        placeholder='Điện thoại'
                         placeholderTextColor={color.placeholderTextColor}
                         defaultValue={authContext.state.userInfo.phone}
+                        keyboardType="numeric"
+                        onChangeText={text => {
+                            let validPhone = /^\d+$/;
+                            if (validPhone.test(text)) {
+                                setIsValid({ ...isValid, phone: true })
+                            }
+                            else {
+                                setIsValid({ ...isValid, phone: false })
+                            }
+                            setInfo({ ...info, phone: text })
+                        }}
                     />
                 </View>
+                {!isValid.phone && <Text style={{ color: 'red', marginBottom: 5 }}>Số điện thoại sai</Text>}
 
-                <TouchableOpacity style={styles.changeInfoButton}>
-                    <Text style={styles.changeInfoText}>Change Info</Text>
+                {isLoading === true && <ActivityIndicator size="small" />}
+                <Text style={{ color: color.headerText }}>{status}</Text>
+                <TouchableOpacity style={styles.changeInfoButton} onPress={onPressChangeInfo}>
+                    <Text style={styles.changeInfoText}>Sửa thông tin</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={{ marginTop: 30 }}>
                 <ListItem
                     key={1}
-                    title='Change password'
+                    title='Đổi mật khẩu'
                     bottomDivider
                     chevron
                     titleStyle={{
@@ -87,28 +134,39 @@ const Profile = ({ navigation }) => {
                 />
                 <ListItem
                     key={2}
-                    title='App settings'
+                    title='Đổi địa chỉ email'
                     bottomDivider
                     chevron
                     titleStyle={{
                         color: color.headerText,
                         fontWeight: 'bold',
                     }}
-                    onPress={() => navigation.navigate(screenName.settingScreen, {navigation: navigation})}
+                    onPress={() => navigation.navigate(screenName.changePasswordScreen)}
                 />
                 <ListItem
                     key={3}
-                    title='Logout'
+                    title='Cài đặt'
+                    bottomDivider
+                    chevron
+                    titleStyle={{
+                        color: color.headerText,
+                        fontWeight: 'bold',
+                    }}
+                    onPress={() => navigation.navigate(screenName.settingScreen, { navigation: navigation })}
+                />
+                <ListItem
+                    key={4}
+                    title='Đăng xuất'
                     bottomDivider
                     chevron
                     titleStyle={{
                         color: 'red',
                         fontWeight: 'bold',
                     }}
-                    //onPress={() => navigation.navigate('Setting')}
+                //onPress={() => navigation.navigate('Setting')}
                 />
             </View>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -116,6 +174,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
+        marginTop: 10,
     },
 
     userInfo: {

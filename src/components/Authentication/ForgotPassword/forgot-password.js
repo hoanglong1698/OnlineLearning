@@ -14,30 +14,25 @@ const ForgotPassword = (props) => {
     })
 
     const onPressSubmit = () => {
-        props.navigation.navigate(screenName.sendEmailSuccessfully);
-        // if (emailIsValid && isEdited) {
-        //     setIsLoading(true);
-        //     axios.post('https://api.itedu.me/user/forget-pass/send-email', {
-        //         email: email,
-        //     })
-        //         .then(function (response) {
-        //             props.navigation.navigate(screenName.registerSuccessfullyScreen);
-        //         })
-        //         .catch(function (error) {
-        //             setTimeout(() => {
-        //                 setIsLoading(false);
-        //                 setError({ isError: true, message: error.response.data.message })
-        //             }, 1000)
-        //         });
+        if (emailIsValid && isEdited) {
+            setIsLoading(true);
+            axios.post('https://api.itedu.me/user/forget-pass/send-email', {
+                email: email,
+            })
+                .then(function (response) {
+                    props.navigation.navigate(screenName.sendEmailSuccessfully);
+                })
+                .catch(function (error) {
+                    setTimeout(() => {
+                        setIsLoading(false);
+                        setError({ isError: true, message: error.response.data.message })
+                    }, 1000)
+                });
 
-        // }
-        // else {
-        //     setError({ isError: true, message: "Vui lòng nhập email" })
-        // }
-    }
-
-    const renderError = () => {
-
+        }
+        else {
+            setError({ isError: true, message: "Vui lòng nhập email" })
+        }
     }
 
     return (

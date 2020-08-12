@@ -19,3 +19,7 @@ export const login = (dispatch) => (username, password) => {
             dispatch({ type: "LOGIN_FAILED" })
         });
 }
+
+export const changeInfo = (dispatch) => (userInfo) => {
+    dispatch({ type: "CHANGE_INFO_SUCCESSFULLY", data: userInfo })
+}
