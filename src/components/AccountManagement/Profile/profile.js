@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput, ActivityIndicator, KeyboardAvoidingView } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput, ActivityIndicator, KeyboardAvoidingView, Modal } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { color, screenName } from './../../../globals/constants';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 import axios from 'axios';
 
-const Profile = ({ navigation }) => {
+const Profile = (props) => {
     const authContext = useContext(AuthenticationContext)
     const [isLoading, setIsLoading] = useState(false);
     const [info, setInfo] = useState({
@@ -18,6 +18,7 @@ const Profile = ({ navigation }) => {
     });
     const [status, setStatus] = useState('');
     const [nameHeader, setNameHeader] = useState(authContext.state.userInfo.name);
+    const [modalVisible, setModalVisible] = useState(false);
 
     const onPressChangeInfo = () => {
         if (isValid.name && isValid.phone) {
@@ -129,7 +130,7 @@ const Profile = ({ navigation }) => {
                         color: color.headerText,
                         fontWeight: 'bold',
                     }}
-                    onPress={() => navigation.navigate(screenName.changePasswordScreen)}
+                    onPress={() => props.navigation.navigate(screenName.changePasswordScreen)}
                 />
                 <ListItem
                     key={2}
@@ -140,7 +141,7 @@ const Profile = ({ navigation }) => {
                         color: color.headerText,
                         fontWeight: 'bold',
                     }}
-                    onPress={() => navigation.navigate(screenName.changePasswordScreen)}
+                    onPress={() => props.navigation.navigate(screenName.changeEmailScreen)}
                 />
                 <ListItem
                     key={3}
@@ -151,7 +152,7 @@ const Profile = ({ navigation }) => {
                         color: color.headerText,
                         fontWeight: 'bold',
                     }}
-                    onPress={() => navigation.navigate(screenName.settingScreen, { navigation: navigation })}
+                    onPress={() => props.navigation.navigate(screenName.settingScreen)}
                 />
                 <ListItem
                     key={4}
@@ -162,9 +163,29 @@ const Profile = ({ navigation }) => {
                         color: 'red',
                         fontWeight: 'bold',
                     }}
-                //onPress={() => navigation.navigate('Setting')}
+                    onPress={() => { setModalVisible(!modalVisible) }}
                 />
             </View>
+
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+            >
+                <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Xác nhận?</Text>
+
+                    <TouchableOpacity
+                        style={{ ...styles.changeInfoButton, backgroundColor: 'red', marginBottom: 20 }}
+                        onPress={() => { authContext.logout(); setModalVisible(!modalVisible); props.navigation.push(screenName.loginScreen) }}>
+                        <Text style={styles.changeInfoText}>Đăng xuất</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{ ...styles.changeInfoButton, backgroundColor: color.infoTextColor, borderColor: color.infoTextColor }} onPress={() => { setModalVisible(!modalVisible) }}>
+                        <Text style={styles.changeInfoText}>Hủy</Text>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
         </KeyboardAvoidingView>
     )
 }
@@ -225,22 +246,6 @@ const styles = StyleSheet.create({
         color: color.inputText,
     },
 
-    logoutButton: {
-        alignSelf: 'center',
-        backgroundColor: 'red',
-        borderRadius: 5,
-        height: 45,
-        width: 250,
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 30,
-    },
-
-    logoutText: {
-        fontWeight: 'bold',
-        color: color.buttonText
-    },
-
     changeInfoButton: {
         marginVertical: 0,
         alignSelf: 'stretch',
@@ -256,6 +261,29 @@ const styles = StyleSheet.create({
         color: color.buttonText,
         fontSize: 16,
     },
+
+    modalView: {
+        marginHorizontal: 50,
+        marginTop: 300,
+        padding: 40,
+        backgroundColor: "white",
+        borderRadius: 20,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center",
+        fontWeight: 'bold',
+        color: 'red',
+    }
 })
 
 

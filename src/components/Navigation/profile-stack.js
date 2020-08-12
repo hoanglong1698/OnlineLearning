@@ -8,11 +8,11 @@ import Setting from './../AccountManagement/Setting/setting';
 import ThemeSetting from './../AccountManagement/Setting/theme-setting';
 import { ThemeContext } from '../../provider/theme-provider';
 import ChangePasswordSuccessfully from './../AccountManagement/ChangePassword/change-password-successfully';
-import Login from './../Authentication/Login/login';
+import ChangeEmail from './../AccountManagement/ChangeEmail/change-email';
 
 const Stack = createStackNavigator();
 
-const ProfileStack = () => {
+const ProfileStack = (props) => {
     const { theme } = useContext(ThemeContext)
 
     return (
@@ -66,11 +66,12 @@ const ProfileStack = () => {
                     title: "Đổi mật khẩu thành công",
                 }}
             />
-
             <Stack.Screen
-                name={screenName.loginScreen}
-                component={Login}
-                options={{ headerShown: false }}
+                name={screenName.changeEmailScreen}
+                component={ChangeEmail}
+                options={{
+                    title: "Đổi địa chỉ email",
+                }}
             />
         </Stack.Navigator>
     )

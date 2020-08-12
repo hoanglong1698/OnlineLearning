@@ -159,8 +159,6 @@ const MainNavigation = () => {
         }}
       />
     </MainNavigationStack.Navigator>
-
-
   )
 }
 

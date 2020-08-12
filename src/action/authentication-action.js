@@ -2,10 +2,10 @@ import axios from 'axios';
 
 export const login = (dispatch) => (username, password) => {
     axios.post('https://api.itedu.me​/user/login', {
-        // email: username,
-        // password: password
-        email: 'hoanglong16198@gmail.com',
-        password: 'brightstar2806'
+        email: username,
+        password: password
+        // email: 'hoanglong16198@gmail.com',
+        // password: 'brightstar2806'
     })
         .then(function (response) {
             if (response.status === 200) {
@@ -22,4 +22,8 @@ export const login = (dispatch) => (username, password) => {
 
 export const changeInfo = (dispatch) => (userInfo) => {
     dispatch({ type: "CHANGE_INFO_SUCCESSFULLY", data: userInfo })
+}
+
+export const logout = (dispatch) => () => {
+    dispatch({ type: "LOGOUT" })
 }
