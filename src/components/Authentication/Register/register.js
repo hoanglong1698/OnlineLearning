@@ -12,23 +12,32 @@ const Register = (props) => {
         name: '',
         password: '',
         email: '',
-        phone: ''
+        phone: '',
+        confirm: '',
+    })
+
+    const [isValid, setIsValid] = useState({
+        name: true,
+        email: true,
+        password: true,
+        confirm: true,
+        phone: true,
     })
 
     const [isLoading, setIsLoading] = useState(false);
-    const [isEdited, setIsEdited] = useState(false);
-    const [nameIsValid, setNameIsValid] = useState(true);
-    const [emailIsValid, setEmailIsValid] = useState(true);
-    const [passwordIsValid, setPasswordIsValid] = useState(true);
-    const [confirmPasswordIsValid, setConfirmPasswordIsValid] = useState(true);
-    const [phoneIsValid, setPhoneIsValid] = useState(true);
+
     const [error, setError] = useState({
         isError: false,
         message: '',
     })
 
     const onPressSignUp = () => {
-        if (isEdited && nameIsValid && emailIsValid && passwordIsValid && confirmPasswordIsValid && phoneIsValid) {
+        if (info.name === '' || info.email === '' || info.password === '' || info.confirm === '' || info.phone === '') {
+            setError({ isError: true, message: "Vui lòng nhập đủ thông tin" });
+            return;
+        }
+
+        if (isValid.name && isValid.email && isValid.password && isValid.confirm && isValid.phone) {
             setIsLoading(true);
             setError({ isError: false });
 
@@ -48,9 +57,6 @@ const Register = (props) => {
                     }, 1000)
                 });
         }
-        else {
-            setError({ isError: true, message: "Vui lòng nhập thông tin" })
-        }
     }
 
     return (
@@ -62,18 +68,19 @@ const Register = (props) => {
                     placeholderTextColor={color.placeholderTextColor}
                     autoCapitalize='words'
                     onChangeText={text => {
-                        if (text.length < 2) {
-                            setNameIsValid(false)
+                        setError({ isError: false });
+                        let invalidName = /[!@#$%^&*(),.?":{}|<>\d+$]/;
+                        if (!invalidName.test(text) && text.length >= 2) {
+                            setIsValid({ ...isValid, name: true })
+                            setInfo({ ...info, name: text })
                         }
                         else {
-                            setNameIsValid(true)
+                            setIsValid({ ...isValid, name: false })
                         }
-                        setInfo({ ...info, name: text });
-                        setIsEdited(true);
                     }}
                 />
             </View>
-            {!nameIsValid && <Text style={{ color: 'red' }}>Họ tên ít nhất 2 ký tự</Text>}
+            {!isValid.name && <Text style={{ color: 'red' }}>Tên tối thiểu 2 ký tự và không chứa ký tự đặc biệt</Text>}
 
             <View style={styles.inputView} >
                 <TextInput
@@ -83,20 +90,21 @@ const Register = (props) => {
                     keyboardType='email-address'
                     autoCapitalize='none'
                     onChangeText={text => {
+                        setError({ isError: false });
                         text = text.trim();
                         let validEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
                         if (validEmail.test(text)) {
-                            setEmailIsValid(true)
+                            setIsValid({ ...isValid, email: true })
+                            setInfo({ ...info, email: text });
                         }
                         else {
-                            setEmailIsValid(false)
+                            setIsValid({ ...isValid, email: false })
                         }
-                        setInfo({ ...info, email: text });
                     }}
                 />
             </View>
-            {!emailIsValid && <Text style={{ color: 'red' }}>Email không đúng định dạng</Text>}
+            {!isValid.email && <Text style={{ color: 'red' }}>Email không đúng định dạng</Text>}
 
             <View style={styles.passwordView} >
                 <TextInput
@@ -106,18 +114,18 @@ const Register = (props) => {
                     placeholderTextColor={color.placeholderTextColor}
                     maxLength={20}
                     onChangeText={text => {
+                        setError({ isError: false });
                         if (text.length < 8) {
-                            setPasswordIsValid(false);
+                            setIsValid({ ...isValid, password: false })
                         }
                         else {
-                            setPasswordIsValid(true);
+                            setIsValid({ ...isValid, password: true })
+                            setInfo({ ...info, password: text });
                         }
-
-                        setInfo({ ...info, password: text });
                     }}
                 />
             </View>
-            {!passwordIsValid && <Text style={{ color: 'red' }}>Mật khẩu từ 8 đến 20 ký tự</Text>}
+            {!isValid.password && <Text style={{ color: 'red' }}>Mật khẩu từ 8 đến 20 ký tự</Text>}
 
             <View style={styles.passwordView} >
                 <TextInput
@@ -126,16 +134,18 @@ const Register = (props) => {
                     placeholder='Nhập lại mật khẩu'
                     placeholderTextColor={color.placeholderTextColor}
                     onChangeText={text => {
+                        setError({ isError: false });
                         if (text !== info.password) {
-                            setConfirmPasswordIsValid(false);
+                            setIsValid({ ...isValid, confirm: false })
                         }
                         else {
-                            setConfirmPasswordIsValid(true);
+                            setIsValid({ ...isValid, confirm: true })
+                            setInfo({ ...info, confirm: text })
                         }
                     }}
                 />
             </View>
-            {!confirmPasswordIsValid && <Text style={{ color: 'red' }}>Mật khẩu không khớp</Text>}
+            {!isValid.confirm && <Text style={{ color: 'red' }}>Mật khẩu không khớp</Text>}
 
             <View style={styles.inputView} >
                 <TextInput
@@ -143,18 +153,20 @@ const Register = (props) => {
                     placeholder='Điện thoại'
                     placeholderTextColor={color.placeholderTextColor}
                     keyboardType='numeric'
+                    maxLength={13}
                     onChangeText={text => {
+                        setError({ isError: false });
                         if (text.length < 10 || isNaN(text)) {
-                            setPhoneIsValid(false)
+                            setIsValid({ ...isValid, phone: false })
                         }
                         else {
-                            setPhoneIsValid(true)
+                            setIsValid({ ...isValid, phone: true })
+                            setInfo({ ...info, phone: text });
                         }
-                        setInfo({ ...info, phone: text });
                     }}
                 />
             </View>
-            {!phoneIsValid && <Text style={{ color: 'red' }}>Vui lòng nhập đúng số điện thoại</Text>}
+            {!isValid.phone && <Text style={{ color: 'red' }}>Vui lòng nhập đúng số điện thoại</Text>}
 
             {isLoading === true && <ActivityIndicator size="large" />}
             {error.isError && <Text style={{ marginTop: 10, textAlign: "center", color: 'red', fontWeight: 'bold' }}>{error.message}</Text>}

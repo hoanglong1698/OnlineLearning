@@ -25,7 +25,7 @@ export default function RegisterSuccessfully(props) {
             })
             .catch(function (error) {
                 setTimeout(() => {
-                    setStatus("Gửi email thất bại. Vui lòng thử lại sau");
+                    setStatus("Hệ thống gặp lỗi khi gửi email. Vui lòng thử lại sau");
                     setIsLoading(false);
                 }, 1000)
                 setTimeout(() => { setStatus("Chưa nhận được mã?") }, 5000)
