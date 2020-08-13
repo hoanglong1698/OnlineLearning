@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator, Modal } from 'react-native'
 import axios from 'axios';
 import { color, screenName } from './../../../globals/constants';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
@@ -9,42 +9,51 @@ export default function ChangeEmail(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [isValid, setIsValid] = useState(true);
-    const [error, setError] = useState({
+    const [status, setStatus] = useState({
+        isShow: false,
         isError: false,
         message: ''
     })
+    const [modalVisible, setModalVisible] = useState(false);
 
     const onPressConfirm = () => {
+        setModalVisible(!modalVisible);
+        setIsLoading(true);
+        axios.put('https://api.itedu.me/user/change-user-email', {
+            newEmail: email,
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + authContext.state.token
+            }
+        })
+            .then(function (response) {
+                authContext.logout();
+                setTimeout(() => {
+                    setStatus({ isShow: true, isError: false, message: 'Đổi email thành công, ứng dụng sẽ tự động chuyển sang màn hình đăng nhập trong 5 giây' })
+                }, 1000);
+                setTimeout(() => {
+                    props.navigation.push(screenName.loginScreen);
+                }, 5000);
+
+            })
+            .catch(function (error) {
+                setTimeout(() => {
+                    setIsLoading(false);
+                    setStatus({ isShow: true, isError: true, message: error.response.data.message })
+                }, 1000);
+            });
+    }
+
+    const onPressChangeEmail = () => {
+        setStatus({ isShow: false })
         if (email === '') {
-            setError({ isError: true, message: "Vui lòng nhập email" })
             return;
         }
 
         if (isValid) {
-            props.navigation.push(screenName.loginScreen)
-            axios.put('https://api.itedu.me/user/change-user-email', {
-                newEmail: email,
-            }, {
-                headers: {
-                    'Authorization': 'Bearer ' + authContext.state.token
-                }
-            })
-                .then(function (response) {
-                    authContext.logout();
-                    setTimeout(() => {
-                        setIsLoading(false);
-                        setStatus("Sửa thông tin thành công");
-                        setNameHeader(response.data.payload.name);
-                    }, 1000);
-                    setTimeout(() => { setStatus('') }, 3000);
-
-                })
-                .catch(function (error) {
-                    setStatus("Đổi thông tin thất bại");
-                });
+            setModalVisible(true)
         }
     }
-
     return (
         <View style={styles.container}>
             <Text style={styles.notify}>Nếu thay đổi email, tài khoản của bạn sẽ tạm thời đăng xuất sau 5 giây và ngừng hoạt động cho đến khi bạn xác nhận email mới.</Text>
@@ -56,9 +65,10 @@ export default function ChangeEmail(props) {
                     style={styles.inputText}
                     placeholder='Email mới'
                     placeholderTextColor={color.placeholderTextColor}
+                    keyboardType="email-address"
                     autoCapitalize="none"
                     onChangeText={text => {
-                        setError({ isError: false });
+                        setStatus({ isShow: false });
                         text = text.trim();
                         let validEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -73,12 +83,35 @@ export default function ChangeEmail(props) {
                 />
             </View>
             {!isValid && <Text style={{ color: 'red' }}>Email không đúng định dạng</Text>}
-            {error.isError && <Text style={{ marginTop: 10, textAlign: "center", color: 'red', fontWeight: 'bold' }}>{error.message}</Text>}
-            {/* {isLoading === true && <ActivityIndicator size="large" />} */}
-            <TouchableOpacity style={styles.button} onPress={onPressConfirm}>
-                <Text style={styles.signUpText}>XÁC NHẬN</Text>
+            {isLoading === true && <ActivityIndicator size="small" />}
+            {status.isShow && <Text style={(status.isError === true) ? styles.error : styles.status}>{status.message}</Text>}
+            <TouchableOpacity style={styles.button} onPress={onPressChangeEmail}>
+                <Text style={styles.signUpText}>Đổi email</Text>
             </TouchableOpacity>
-        </View>
+
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+            >
+                <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Xác nhận đổi email?</Text>
+
+                    <TouchableOpacity
+                        style={{ ...styles.button, backgroundColor: 'red', marginBottom: 20 }}
+                        onPress={onPressConfirm}>
+                        <Text style={styles.signUpText}>Xác nhận</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={{ ...styles.button, backgroundColor: color.infoTextColor, borderColor: color.infoTextColor }}
+                        onPress={() => { setModalVisible(!modalVisible) }}>
+                        <Text style={styles.signUpText}>Hủy</Text>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
+
+        </View >
     )
 }
 
@@ -123,5 +156,40 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'red',
         marginBottom: 5,
+    },
+
+    modalView: {
+        marginHorizontal: 50,
+        marginTop: 300,
+        padding: 40,
+        backgroundColor: "white",
+        borderRadius: 20,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center",
+        fontWeight: 'bold',
+        color: 'red',
+    },
+
+    status: {
+        color: 'green',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+
+    error: {
+        color: 'red',
+        fontWeight: 'bold',
+        textAlign: 'center',
     }
 })
