@@ -8,17 +8,34 @@ function formatDuration(num) {
     return moment().startOf('day').add(num, 'hours').format('H:mm:ss')
 }
 
+function formatPrice(price) {
+    if (price === 0) {
+        return "Miễn phí";
+    }
+    else {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' VND';
+    }
+}
+
 const GeneralInfomation = (props) => {
+    console.log(props.price);
     return (
         <View style={styles.container}>
-            <Text style={styles.info}>{props.soldNumber} học viên  {`\u00B7`}  Thời lượng {formatDuration(props.duration)}</Text>
-            <Rating style={styles.rating}
-                defaultRating={4}
-                type='custom'
-                fractions={1}
-                ratingCount={5}
-                imageSize={12}
-            />
+            <View style={styles.infoContainer}>
+                <Text style={styles.info}>{props.soldNumber} học viên  {`\u00B7`}  Thời lượng {formatDuration(props.duration)}  {`\u00B7`}  </Text>
+                <Text style={styles.price}>{formatPrice(props.price)}</Text>
+            </View>
+
+            <View style={styles.ratingContainer}>
+                <AirbnbRating
+                    starContainerStyle={styles.rating}
+                    count={5}
+                    showRating={false}
+                    defaultRating={3}
+                    size={12}
+                    isDisabled={true}
+                />
+            </View>
         </View>
     )
 }
@@ -27,12 +44,29 @@ export default GeneralInfomation
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1
+    },
+
+    infoContainer: {
         flexDirection: 'row',
-        
+    },
+    
+    info: {
+        fontSize: 15,
+    },
+
+    ratingContainer: {
+        alignSelf: 'flex-start',
+        marginTop: 10,
     },
 
     rating: {
         alignSelf: 'center',
-        marginLeft: 10,
+    },
+
+    price: {
+        color: 'red',
+        fontWeight: 'bold',
+        fontSize: 15,
     }
 })

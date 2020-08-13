@@ -29,6 +29,7 @@ const CoursesDetail = (props) => {
         soldNumber: '',
         duration: '',
         likeStatus: '',
+        price: '',
     });
     const [likeStatus, setLikeStatus] = useState(false);
     const [videoURL, setVideoURL] = useState();
@@ -60,6 +61,7 @@ const CoursesDetail = (props) => {
                     description: resCourseDetail.data.payload.description,
                     soldNumber: resCourseDetail.data.payload.soldNumber,
                     duration: resCourseDetail.data.payload.totalHours,
+                    price: resCourseDetail.data.payload.price,
                 });
             }))
 
@@ -112,7 +114,7 @@ const CoursesDetail = (props) => {
                     <Text style={styles.title}>{state.title}</Text>
 
                     <Author title={state.instructor} avatarURL={state.avatarURL}></Author>
-                    <GeneralInfomation soldNumber={state.soldNumber} duration={state.duration} ></GeneralInfomation>
+                    <GeneralInfomation soldNumber={state.soldNumber} duration={state.duration} price={state.price}></GeneralInfomation>
 
                     <View style={styles.circleButtons}>
                         {likeStatus
