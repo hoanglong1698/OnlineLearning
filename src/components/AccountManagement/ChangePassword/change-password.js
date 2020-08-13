@@ -11,6 +11,7 @@ const ChangePassword = (props) => {
     const [info, setInfo] = useState({
         old: '',
         new: '',
+        confirm: '',
     })
     const [isValid, setIsValid] = useState({
         old: true,
@@ -18,7 +19,6 @@ const ChangePassword = (props) => {
         confirm: true,
         same: false,
     });
-    const [isEdited, setIsEdited] = useState(false);
     const [error, setError] = useState({
         isError: false,
         message: '',
@@ -26,7 +26,13 @@ const ChangePassword = (props) => {
 
     const onPressConfirm = () => {
         setError({ isError: false })
-        if (isValid.old && isValid.new && isValid.confirm && !isValid.same && isEdited) {
+
+        if (info.old === '' || info.new === '' || info.confirm === '') {
+            setError({ isError: true, message: "Vui lòng nhập đầy đủ thông tin" });
+            return;
+        }
+
+        if (isValid.old && isValid.new && isValid.confirm && !isValid.same) {
             setIsLoading(true);
 
             axios.post('https://api.itedu.me​/user/change-password', {
@@ -63,7 +69,6 @@ const ChangePassword = (props) => {
                     placeholderTextColor={color.placeholderTextColor}
                     maxLength={20}
                     onChangeText={text => {
-                        setIsEdited(true);
                         setError({ isError: false })
                         if (text.length < 8) {
                             setIsValid({ ...isValid, old: false });
@@ -119,6 +124,7 @@ const ChangePassword = (props) => {
                         }
                         else {
                             setIsValid({ ...isValid, confirm: true });
+                            setInfo({ ...info, confirm: text })
                         }
                     }}
                 />
