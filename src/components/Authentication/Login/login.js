@@ -10,7 +10,6 @@ const Login = (props) => {
     const [IsLoading, setIsLoading] = useState(null);
     const authContext = useContext(AuthenticationContext);
     const [emailIsValid, setEmailIsValid] = useState(true);
-    const [isEdited, setIsEdited] = useState(false);
     const [error, setError] = useState({
         isError: false,
         message: '',
@@ -32,7 +31,12 @@ const Login = (props) => {
 
     const onPressSignIn = () => {
         setError({ isError: false });
-        if (emailIsValid && isEdited) {
+        if (username === '' || password === '') {
+            setError({ isError: true, message: "Vui lòng nhập thông tin" });
+            return;
+        }
+
+        if (emailIsValid) {
             setIsLoading(true);
             authContext.login(username, password);
 
@@ -42,9 +46,6 @@ const Login = (props) => {
                     setError({ isError: true, message: "Sai email hoặc mật khẩu" })
                 }, 1500)
             }
-        }
-        else {
-            setError({ isError: true, message: "Vui lòng nhập thông tin" })
         }
     }
 
@@ -62,18 +63,17 @@ const Login = (props) => {
                                 placeholderTextColor={color.placeholderTextColor}
                                 autoCapitalize='none'
                                 onChangeText={text => {
+                                    setError({ isError: false })
                                     text = text.trim();
                                     let validEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
                                     if (validEmail.test(text)) {
-                                        setEmailIsValid(true)
+                                        setEmailIsValid(true);
+                                        setUsername(text);
                                     }
                                     else {
-                                        setEmailIsValid(false)
+                                        setEmailIsValid(false);
                                     }
-                                    setIsEdited(true);
-                                    setError({ isError: false })
-                                    setUsername(text)
                                 }}
                             />
                         </View>
@@ -86,7 +86,8 @@ const Login = (props) => {
                                 placeholder='Mật khẩu'
                                 placeholderTextColor={color.placeholderTextColor}
                                 onChangeText={text => {
-                                    setPassword(text)
+                                    setPassword(text);
+                                    setError({ isError: false });
                                 }}
                             />
                         </View>
