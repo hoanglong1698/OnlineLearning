@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { Rating } from 'react-native-elements';
+import { AirbnbRating } from 'react-native-elements';
 import { color, screenName } from '../../../../globals/constants'
 import { ThemeContext } from '../../../../provider/theme-provider';
 import moment from 'moment';
@@ -16,8 +16,17 @@ const SectionCoursesItem = (props) => {
         return moment().startOf('day').add(num, 'hours').format('H:mm')
     }
 
-    const createAt = moment(props.item.createdAt).format('d/M/yyyy');
+    function formatPrice(price) {
+        if (price === 0) {
+            return "Miễn phí";
+        }
+        else {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' VND';
+        }
+    }
 
+    const latestLearnTime = moment(props.item.latestLearnTime, 'YYYY-MM-DD').format('D/M/YYYY');
+    const updatedAt = moment(props.item.updatedAt, 'YYYY-MM-DD').format('D/M/YYYY');
     return (
         <TouchableOpacity
             style={{ ...styles.item, backgroundColor: theme.itemBackgroundColor }}
@@ -33,17 +42,26 @@ const SectionCoursesItem = (props) => {
             <Image source={{ uri: props.item.imageUrl || props.item.courseImage }} style={styles.image} />
 
             <View style={styles.content}>
-                <Text style={{ ...styles.title, color: theme.headerText }}>{props.item.title || props.item.courseTitle}</Text>
+                <Text style={{ ...styles.title, color: theme.headerText }} numberOfLines={2}>{props.item.title || props.item.courseTitle}</Text>
                 <Text style={{ ...styles.info, color: theme.infoTextColor }}>{props.item["instructor.user.name"] || props.item.instructorName}</Text>
-                {props.item.totalHours !== undefined
-                    ? <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{`${createAt}  \u00B7  Thời lượng ${formatDuration(props.item.totalHours)}`}</Text>
-                    : <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{`${createAt}`}</Text>
-                }
-                <Rating style={{ marginTop: 5 }}
-                    type='star'
-                    imageSize={12}
-                    tintColor={theme.itemBackgroundColor}
-                />
+                {props.item.updatedAt !== undefined && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{updatedAt}  {`\u00B7`}  Thời lượng {formatDuration(props.item.totalHours)}</Text>}
+                {props.item.latestLearnTime && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>Ngày học gần nhất: {`${latestLearnTime}`}</Text>}
+                {props.item.learnLesson !== undefined && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>Đã học {props.item.learnLesson}/{props.item.total} bài</Text>}
+
+                {props.item.formalityPoint !== undefined && props.item.contentPoint !== undefined && props.item.presentationPoint !== undefined &&
+                    <View style={{ flexDirection: 'row' }}>
+                        <AirbnbRating
+                            count={5}
+                            showRating={false}
+                            defaultRating={(props.item.formalityPoint + props.item.contentPoint + props.item.presentationPoint) / 3}
+                            size={11}
+                            isDisabled={true}
+                        />
+                        <Text style={{ marginLeft: 5, color: color.infoTextColor, fontSize: 12 }}>({props.item.ratedNumber})</Text>
+                    </View>}
+
+                {props.item.price !== undefined && <Text style={styles.price}>{formatPrice(props.item.price)}</Text>}
+                {props.item.coursePrice !== undefined && <Text style={styles.price}>{formatPrice(props.item.coursePrice)}</Text>}
             </View>
         </TouchableOpacity>
     )
@@ -56,7 +74,9 @@ const styles = StyleSheet.create({
         color: color.headerText,
         marginRight: 5,
     },
-
+    subtitle: {
+        marginTop: 2,
+    },
     content: {
         marginVertical: 10,
         marginLeft: 10,
@@ -66,8 +86,8 @@ const styles = StyleSheet.create({
     item: {
         marginVertical: 10,
         marginRight: 10,
-        width: 200,
-        height: 235,
+        width: 210,
+        maxHeight: 250,
         backgroundColor: color.itemBackgroundColor,
         shadowColor: "#000",
         shadowOffset: {
@@ -76,12 +96,11 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.27,
         shadowRadius: 4.65,
-
+        paddingBottom: 5,
         elevation: 6,
     },
 
     image: {
-        width: 200,
         height: 100,
     },
 
@@ -89,6 +108,14 @@ const styles = StyleSheet.create({
         fontSize: 13,
         color: color.infoTextColor,
         marginVertical: 2,
+        fontWeight: 'bold',
+    },
+
+    price: {
+        color: 'red',
+        fontWeight: 'bold',
+        fontSize: 15,
+        marginVertical: 5,
     }
 })
 

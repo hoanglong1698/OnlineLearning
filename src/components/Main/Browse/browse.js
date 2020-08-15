@@ -25,18 +25,6 @@ const Browse = (props) => {
 
     const onPressNewRelease = () => {
         GetNewRelease().then(result => props.navigation.navigate(screenName.listCoursesScreen, { data: result, title: "New Release" }))
-        //props.navigation.navigate(screenName.listCoursesScreen, { data: response.data.payload, title: "New Release" });
-        // axios.post('https://api.itedu.me​/course/top-new', {
-        //     limit: 10,
-        //     page: 1
-        // })
-        //     .then(function (response) {
-        //         props.navigation.navigate(screenName.listCoursesScreen, { data: response.data.payload, title: "New Release" });
-        //     })
-        //     .catch(function (error) {
-        //         return (error);
-        //     });
-
     }
 
     const onPressRecommended = () => {
@@ -91,7 +79,7 @@ const Browse = (props) => {
             });
 
     }, [])
-
+    
     return <ScrollView style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
         {IsLoading === true && <ActivityIndicator size="large" />}
 
