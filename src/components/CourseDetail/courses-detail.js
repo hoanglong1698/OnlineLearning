@@ -72,7 +72,6 @@ const CoursesDetail = (props) => {
 
     const onPressCircleButton = async (nameButton) => {
         if (nameButton === "like") {
-            setLikeStatus(!likeStatus);
             axios.post('https://api.itedu.me/user/like-course', {
                 courseId: idCourse,
             }, {
@@ -81,17 +80,30 @@ const CoursesDetail = (props) => {
                 }
             })
                 .then(function (response) {
-                    console.log(response.data.message);
+                    setLikeStatus(!likeStatus);
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    Alert.alert("Lỗi", error.response.data.message);
                 });
             return;
         }
 
         if (nameButton === "buy") {
-            
-
+            axios.post('https://api.itedu.me/payment/get-free-courses', {
+                courseId: idCourse,
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + authContext.state.token
+                }
+            })
+                .then(function (response) {
+                    setOwnStatus(!ownStatus);
+                    Alert.alert("Đăng ký thành công", "Cảm ơn quý khách đã sử dụng dịch vụ");
+                })
+                .catch(function (error) {
+                    Alert.alert("Lỗi", error.response.data.message);
+                    console.log(error);
+                });
             return;
         }
 
