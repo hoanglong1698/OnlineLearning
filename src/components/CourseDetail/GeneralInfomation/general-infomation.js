@@ -18,7 +18,6 @@ function formatPrice(price) {
 }
 
 const GeneralInfomation = (props) => {
-    console.log(props.price);
     return (
         <View style={styles.container}>
             <View style={styles.infoContainer}>
@@ -31,10 +30,11 @@ const GeneralInfomation = (props) => {
                     starContainerStyle={styles.rating}
                     count={5}
                     showRating={false}
-                    defaultRating={3}
-                    size={12}
+                    defaultRating={props.averagePoint}
+                    size={15}
                     isDisabled={true}
                 />
+                <Text style={{ marginLeft: 10, color: color.headerText }}>{props.averagePoint}/5  <Text>({props.ratedNumber} bình chọn)</Text></Text>
             </View>
         </View>
     )
@@ -50,14 +50,16 @@ const styles = StyleSheet.create({
     infoContainer: {
         flexDirection: 'row',
     },
-    
+
     info: {
         fontSize: 15,
+        color: color.headerText,
     },
 
     ratingContainer: {
         alignSelf: 'flex-start',
         marginTop: 10,
+        flexDirection: 'row',
     },
 
     rating: {

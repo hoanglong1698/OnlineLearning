@@ -8,6 +8,9 @@ const Lessons = (props) => {
     const [data, setData] = useState(props.item);
     const [isPlaying, setIsPlaying] = useState(false);
     const onPressItem = (videoURL, id) => {
+        if (!videoURL) {
+            return;
+        }
         props.callbackToContents(videoURL, id);
         setIsPlaying(true);
     }
@@ -21,10 +24,7 @@ const Lessons = (props) => {
             key={data.id}
             title={data.name}
             titleStyle={{ color: color.headerText, }}
-            leftElement={<MaterialCommunityIcons
-                name='checkbox-blank-circle'
-                size={10}
-            />}
+            leftElement={<Text style={{ fontWeight: 'bold' }}>Bài {data.numberOrder}.</Text>}
             rightElement={<Text style={{ fontSize: 12 }}>{formatDuration(data.hours)}</Text>}
             badge={isPlaying}
             onPress={() => { onPressItem(data.videoUrl, data.id) }}

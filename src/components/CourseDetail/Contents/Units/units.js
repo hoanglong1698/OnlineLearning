@@ -8,7 +8,7 @@ const Units = (props) => {
     let data = props.item;
     const thumbnail = () => {
         return <View style={styles.icon}>
-            <Text style={{ fontWeight: 'bold' }}>{data.section.numberOrder}</Text>
+            <Text style={{ fontWeight: 'bold' }}>Phần {data.section.numberOrder}</Text>
         </View>
     }
 
@@ -33,7 +33,7 @@ export default Units
 
 const styles = StyleSheet.create({
     icon: {
-        width: 50,
+        width: 60,
         height: 40,
         backgroundColor: color.button,
         justifyContent: 'center',

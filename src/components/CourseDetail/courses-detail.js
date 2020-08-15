@@ -6,11 +6,12 @@ import Author from './Author/author';
 import GeneralInfomation from './GeneralInfomation/general-infomation';
 import TouchableButton from '../Common/touchable-button';
 import Contents from './Contents/contents';
-import Transcripts from './Transcripts/transcripts';
 import axios from 'axios';
 import CircleButton from './CircleButton/circle-button';
 import { Video } from 'expo-av';
 import { AuthenticationContext } from '../../provider/authentication-provider';
+import Comments from './Comments/comments';
+import Exercise from './Exercises/exercises';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -19,22 +20,16 @@ const CoursesDetail = (props) => {
     const { title } = props.route.params;
     const idCourse = props.route.params.id;
     props.navigation.setOptions({ title: title });
-    const transcripts = '';
 
-    const [state, setState] = useState({
-        title: '',
-        instructor: '',
-        avatarURL: '',
-        description: '',
-        soldNumber: '',
-        duration: '',
-        likeStatus: '',
-        price: '',
-    });
     const [likeStatus, setLikeStatus] = useState(false);
     const [videoURL, setVideoURL] = useState();
-    const [thumbnail, setThumbnail] = useState();
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [data, setData] = useState();
+    const [activeTab, setActiveTab] = useState('Contents');
+    const DefaultScreen = () => (
+        <View></View>
+    )
     const callbackToCourseDetail = (childData) => {
         setVideoURL(childData);
     }
@@ -51,21 +46,14 @@ const CoursesDetail = (props) => {
             }),
         ])
             .then(axios.spread(function (resCourseDetail, resLikeStatus) {
-                setThumbnail(resCourseDetail.data.payload.imageUrl);
                 setVideoURL(resCourseDetail.data.payload.promoVidUrl);
                 setLikeStatus(resLikeStatus.data.likeStatus);
-                setState({
-                    title: resCourseDetail.data.payload.title,
-                    instructor: resCourseDetail.data.payload.instructor.name,
-                    avatarURL: resCourseDetail.data.payload.instructor.avatar,
-                    description: resCourseDetail.data.payload.description,
-                    soldNumber: resCourseDetail.data.payload.soldNumber,
-                    duration: resCourseDetail.data.payload.totalHours,
-                    price: resCourseDetail.data.payload.price,
-                });
+                setData(resCourseDetail.data.payload);
+                setIsLoaded(true);
             }))
 
             .catch(function (error) {
+                setIsLoaded(false);
                 console.log(error);
             })
             .then(function () {
@@ -96,25 +84,25 @@ const CoursesDetail = (props) => {
     return (
         <View style={styles.container}>
             {isLoading === true && <ActivityIndicator size="large" />}
-            <Video
+            {isLoaded === true && <Video
                 source={{ uri: videoURL }}
-                posterSource={{ uri: thumbnail }}
+                posterSource={{ uri: data.imageUrl }}
                 usePoster
                 rate={1.0}
                 volume={1.0}
                 isMuted={false}
                 resizeMode="contain"
                 shouldPlay
-                isLooping
+                isLooping={false}
                 useNativeControls
                 style={styles.video}
-            />
-            <ScrollView >
+            />}
+            {isLoaded === true && <ScrollView >
                 <View style={{ marginHorizontal: 10 }}>
-                    <Text style={styles.title}>{state.title}</Text>
+                    <Text style={styles.title}>{data.title}</Text>
 
-                    <Author title={state.instructor} avatarURL={state.avatarURL}></Author>
-                    <GeneralInfomation soldNumber={state.soldNumber} duration={state.duration} price={state.price}></GeneralInfomation>
+                    <Author title={data.instructor.name} avatarURL={data.instructor.avatar}></Author>
+                    <GeneralInfomation soldNumber={data.soldNumber} duration={data.totalHours} price={data.price} ratedNumber={data.ratedNumber} averagePoint={data.averagePoint}></GeneralInfomation>
 
                     <View style={styles.circleButtons}>
                         {likeStatus
@@ -124,11 +112,22 @@ const CoursesDetail = (props) => {
                         <CircleButton iconName='cart-outline' nameButton='Mua khóa học'></CircleButton>
                         <CircleButton iconName='arrow-down-bold-circle-outline' nameButton='Tải xuống'></CircleButton>
                     </View>
+                    <View style={styles.line}></View>
 
+                    <View style={styles.containerIntro}>
+                        <Text style={styles.headerIntro}>Bạn sẽ học được</Text>
+                        {data.learnWhat.map((item) => <Text style={styles.introduction}>-    {item}</Text>)}
+                    </View>
 
-                    <Text style={styles.introduction}>
-                        {state.description}
-                    </Text>
+                    <View style={styles.containerIntro}>
+                        <Text style={styles.headerIntro}>Yêu cầu</Text>
+                        {data.requirement.map((item) => <Text style={styles.introduction}>{`\u2713`}  {item}</Text>)}
+                    </View>
+
+                    <View style={styles.containerIntro}>
+                        <Text style={styles.headerIntro}>Mô tả</Text>
+                        <Text style={styles.introduction}>{data.description}</Text>
+                    </View>
 
                     <TouchableButton title="Xem các khóa học liên quan" ></TouchableButton>
                 </View>
@@ -141,10 +140,20 @@ const CoursesDetail = (props) => {
                         labelStyle: { fontWeight: 'bold' }
                     }}
                 >
-                    <Tab.Screen name="BÀI HỌC" component={Contents} initialParams={{ idCourse: idCourse, callbackToCourseDetail }} />
-                    <Tab.Screen name="BÌNH LUẬN" component={Transcripts} initialParams={transcripts} />
+                    <Tab.Screen name="BÀI HỌC"
+                        component={activeTab === 'Contents' ? Contents : DefaultScreen}
+                        initialParams={{ data: data.section, callbackToCourseDetail }}
+                        listeners={{ focus: () => setActiveTab('Contents') }} />
+                    <Tab.Screen name="ĐÁNH GIÁ"
+                        component={activeTab === 'Comments' ? Comments : DefaultScreen}
+                        initialParams={{ data: data.averagePoint }}
+                        listeners={{ focus: () => setActiveTab('Comments') }} />
+                    <Tab.Screen name="BÀI TẬP"
+                        component={Exercise}
+                        component={activeTab === 'Exercise' ? Exercise : DefaultScreen}
+                        listeners={{ focus: () => setActiveTab('Exercise') }} />
                 </Tab.Navigator>
-            </ScrollView>
+            </ScrollView>}
         </View>
     )
 }
@@ -160,6 +169,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         marginVertical: 5,
+        fontWeight: 'bold',
+        color: color.headerText,
     },
 
     info: {
@@ -167,11 +178,21 @@ const styles = StyleSheet.create({
         color: color.infoTextColor
     },
 
+    containerIntro: {
+        marginBottom: 20,
+    },
+
+    headerIntro: {
+        color: color.headerText,
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 2,
+    },
     introduction: {
         fontSize: 14,
         color: color.headerText,
-        marginBottom: 10,
-        textAlign: 'left'
+        textAlign: 'left',
+        marginBottom: 2,
     },
 
     video: {
@@ -185,5 +206,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginHorizontal: 10,
         marginVertical: 20,
+    },
+
+    line: {
+        borderBottomColor: color.border,
+        borderBottomWidth: 0.5,
+        marginBottom: 15,
     }
 })

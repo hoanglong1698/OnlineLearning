@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     name: {
         marginLeft: 15,
         color: color.headerText,
-        fontSize: 12,
-        fontWeight: 'normal',
+        fontSize: 14,
+        fontWeight: 'bold',
         textAlign: 'center'
     },
 })
