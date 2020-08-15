@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { View, Text, Button, StyleSheet, TouchableOpacity, Image, ScrollView, ActivityIndicator, Alert } from 'react-native'
+import { View, Text, Button, StyleSheet, TouchableOpacity, Image, ScrollView, ActivityIndicator, Alert, Share } from 'react-native'
 import { color, screenName } from './../../globals/constants';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Author from './Author/author';
@@ -22,6 +22,7 @@ const CoursesDetail = (props) => {
     props.navigation.setOptions({ title: title });
 
     const [likeStatus, setLikeStatus] = useState(false);
+    const [ownStatus, setOwnStatus] = useState(false);
     const [videoURL, setVideoURL] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -37,6 +38,7 @@ const CoursesDetail = (props) => {
     useEffect(() => {
         let url1 = 'https://api.itedu.me/course/get-course-detail/' + idCourse + '/null';
         let url2 = 'https://api.itedu.me/user/get-course-like-status/' + idCourse;
+        let url3 = 'https://api.itedu.me/user/check-own-course/' + idCourse;
         axios.all([
             axios.get(url1),
             axios.get(url2, {
@@ -44,10 +46,16 @@ const CoursesDetail = (props) => {
                     'Authorization': 'Bearer ' + authContext.state.token
                 }
             }),
+            axios.get(url3, {
+                headers: {
+                    'Authorization': 'Bearer ' + authContext.state.token
+                }
+            }),
         ])
-            .then(axios.spread(function (resCourseDetail, resLikeStatus) {
+            .then(axios.spread(function (resCourseDetail, resLikeStatus, resOwnStatus) {
                 setVideoURL(resCourseDetail.data.payload.promoVidUrl);
                 setLikeStatus(resLikeStatus.data.likeStatus);
+                setOwnStatus(resOwnStatus.data.payload.isUserOwnCourse);
                 setData(resCourseDetail.data.payload);
                 setIsLoaded(true);
             }))
@@ -62,7 +70,7 @@ const CoursesDetail = (props) => {
 
     }, []);
 
-    const onPressCircleButton = (nameButton) => {
+    const onPressCircleButton = async (nameButton) => {
         if (nameButton === "like") {
             setLikeStatus(!likeStatus);
             axios.post('https://api.itedu.me/user/like-course', {
@@ -78,6 +86,34 @@ const CoursesDetail = (props) => {
                 .catch(function (error) {
                     console.log(error);
                 });
+            return;
+        }
+
+        if (nameButton === "buy") {
+            
+
+            return;
+        }
+
+        if (nameButton === "share") {
+            try {
+                const result = await Share.share({
+                    message:
+                        'https://itedu.me/course-detail/' + idCourse,
+                });
+                if (result.action === Share.sharedAction) {
+                    if (result.activityType) {
+                        // shared with activity type of result.activityType
+                    } else {
+                        // shared
+                    }
+                } else if (result.action === Share.dismissedAction) {
+                    // dismissed
+                }
+            } catch (error) {
+                alert(error.message);
+            };
+            return;
         }
     }
 
@@ -113,8 +149,12 @@ const CoursesDetail = (props) => {
                             ? <CircleButton iconName='heart' nameButton='Đã thích' onPress={() => onPressCircleButton("like")}></CircleButton>
                             : <CircleButton iconName='heart-outline' nameButton='Yêu thích' onPress={() => onPressCircleButton("like")}></CircleButton>
                         }
-                        <CircleButton iconName='cart-outline' nameButton='Mua khóa học'></CircleButton>
-                        <CircleButton iconName='arrow-down-bold-circle-outline' nameButton='Tải xuống'></CircleButton>
+                        {ownStatus
+                            ? <CircleButton iconName='check-circle' nameButton='Đã sở hữu'></CircleButton>
+                            : <CircleButton iconName='cart-outline' nameButton='Đăng ký' onPress={() => onPressCircleButton("buy")}></CircleButton>
+                        }
+
+                        <CircleButton iconName='share' nameButton='Chia sẻ' onPress={() => onPressCircleButton("share")}></CircleButton>
                     </View>
                     <View style={styles.line}></View>
 
@@ -155,7 +195,7 @@ const CoursesDetail = (props) => {
                         listeners={{ focus: () => setActiveTab('Contents') }} />
                     <Tab.Screen name="ĐÁNH GIÁ"
                         component={activeTab === 'Comments' ? Comments : DefaultScreen}
-                        initialParams={{ data: data.ratings, averagePoint: data.averagePoint, ratedNumber: data.ratedNumber }}
+                        initialParams={{ data: data.ratings, averagePoint: data.averagePoint, ratedNumber: data.ratedNumber, courseId: idCourse }}
                         listeners={{ focus: () => setActiveTab('Comments') }} />
                     <Tab.Screen name="BÀI TẬP"
                         component={Exercise}
