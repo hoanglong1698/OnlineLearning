@@ -76,7 +76,7 @@ const Home = (props) => {
             {IsLoading === true && <ActivityIndicator size="large" />}
 
             <Text style={styles.hello}>Xin chào {authContext.state.userInfo.name}!</Text>
-            {state.ContinueLearning.length != 0 && <SectionCourses title='Khóa học đang học' navigation={props.navigation} data={state.ContinueLearning} />}
+            {state.ContinueLearning.length != 0 && <SectionCourses title='Khóa học của tôi' navigation={props.navigation} data={state.ContinueLearning} />}
             {state.Favorites.length != 0 && <SectionCourses title='Khóa học yêu thích' navigation={props.navigation} data={state.Favorites} />}
             <SectionCourses title='Khóa học mới nhất' navigation={props.navigation} data={state.TopNew} />
             {state.ContinueLearning.length == 0 && state.Favorites.length == 0 && <SectionCourses title='Khóa học bán nhiều nhất' navigation={props.navigation} data={state.TopNew} />}
