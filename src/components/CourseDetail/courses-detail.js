@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, Button, StyleSheet, TouchableOpacity, Image, ScrollView, ActivityIndicator, Alert } from 'react-native'
-import { color } from './../../globals/constants';
+import { color, screenName } from './../../globals/constants';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Author from './Author/author';
 import GeneralInfomation from './GeneralInfomation/general-infomation';
@@ -81,6 +81,10 @@ const CoursesDetail = (props) => {
         }
     }
 
+    const onPressRelate = () => {
+        props.navigation.navigate(screenName.listCoursesScreen, { title: "Khóa học liên quan", data: data.coursesLikeCategory })
+    }
+
     return (
         <View style={styles.container}>
             {isLoading === true && <ActivityIndicator size="large" />}
@@ -129,7 +133,12 @@ const CoursesDetail = (props) => {
                         <Text style={styles.introduction}>{data.description}</Text>
                     </View>
 
-                    <TouchableButton title="Xem các khóa học liên quan" ></TouchableButton>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={onPressRelate}
+                    >
+                        <Text style={styles.signInText}>Xem các khóa học liên quan</Text>
+                    </TouchableOpacity>
                 </View>
 
                 <Tab.Navigator
@@ -146,7 +155,7 @@ const CoursesDetail = (props) => {
                         listeners={{ focus: () => setActiveTab('Contents') }} />
                     <Tab.Screen name="ĐÁNH GIÁ"
                         component={activeTab === 'Comments' ? Comments : DefaultScreen}
-                        initialParams={{ data: data.averagePoint }}
+                        initialParams={{ data: data.ratings, averagePoint: data.averagePoint, ratedNumber: data.ratedNumber }}
                         listeners={{ focus: () => setActiveTab('Comments') }} />
                     <Tab.Screen name="BÀI TẬP"
                         component={Exercise}
@@ -212,5 +221,21 @@ const styles = StyleSheet.create({
         borderBottomColor: color.border,
         borderBottomWidth: 0.5,
         marginBottom: 15,
-    }
+    },
+
+    button: {
+        marginVertical: 15,
+        alignSelf: 'stretch',
+        backgroundColor: color.button,
+        borderRadius: 5,
+        height: 45,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+
+    signInText: {
+        fontWeight: 'bold',
+        color: color.buttonText,
+        fontSize: 16,
+    },
 })

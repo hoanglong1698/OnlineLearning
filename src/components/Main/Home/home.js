@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, Image, ActivityIndicator, RefreshControl } from 'react-native';
+import { Text, StyleSheet, ScrollView, Image, ActivityIndicator, RefreshControl } from 'react-native';
 import SectionCourses from './SectionCourses/section-courses';
 import { color } from './../../../globals/constants';
 import SectionAuthors from './SectionAuthors/section-authors';
@@ -74,6 +74,8 @@ const Home = (props) => {
         >
             <Image style={styles.image} source={{ uri: 'https://cdn.pixabay.com/photo/2016/05/17/19/08/hyacinth-1398839_960_720.jpg' }}></Image>
             {IsLoading === true && <ActivityIndicator size="large" />}
+
+            <Text style={styles.hello}>Xin chào {authContext.state.userInfo.name}!</Text>
             {state.ContinueLearning.length != 0 && <SectionCourses title='Khóa học đang học' navigation={props.navigation} data={state.ContinueLearning} />}
             {state.Favorites.length != 0 && <SectionCourses title='Khóa học yêu thích' navigation={props.navigation} data={state.Favorites} />}
             <SectionCourses title='Khóa học mới nhất' navigation={props.navigation} data={state.TopNew} />
@@ -91,6 +93,13 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: 100,
+    },
+
+    hello: {
+        margin: 10,
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: color.headerText
     }
 })
 

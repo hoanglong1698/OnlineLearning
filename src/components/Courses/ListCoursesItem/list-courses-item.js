@@ -44,6 +44,7 @@ const ListCoursesItem = (props) => {
                     />
                     <Text style={{ marginLeft: 5, color: color.infoTextColor, fontSize: 12 }}>({props.item.ratedNumber})</Text>
                 </View>}
+            {props.item.learnLesson !== undefined && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{props.item.learnLesson}/{props.item.total} bài</Text>}
         </View>
     }
 
@@ -82,6 +83,7 @@ const styles = StyleSheet.create({
     subtitle: {
         fontSize: 13,
         color: color.subtitleColor,
+        marginVertical: 1,
     },
 
     thumbnail: {
