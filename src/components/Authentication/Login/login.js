@@ -105,6 +105,12 @@ const Login = (props) => {
                             <Text style={styles.signInText}>ĐĂNG NHẬP</Text>
                         </TouchableOpacity>
 
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={onPressSignIn}
+                        >
+                            <Text style={styles.signInText}>TEST</Text>
+                        </TouchableOpacity>
 
                         <TouchableOpacity onPress={onPressSignup}>
                             <Text style={styles.questionText}>Chưa có tài khoản?{' '}

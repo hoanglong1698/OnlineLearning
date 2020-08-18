@@ -31,6 +31,8 @@ const ListCourses = (props) => {
             <FlatList
                 data={data}
                 renderItem={({ item }) => <ListCoursesItem navigation={props.navigation} item={item} />}
+                onEndReached={() => console.log("on end reached")}
+                onEndReachedThreshold={0.5}
             />
         </View>
     )

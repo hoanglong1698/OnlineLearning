@@ -7,7 +7,7 @@ import { color } from './../../../globals/constants';
 const Content = (props) => {
     const [section, setSection] = useState(props.route.params.data.map(({ name: title, lesson: data, ...rest }) => ({ title, data, ...rest })));
     const callbackToContents = (childData, id) => {
-        props.route.params.callbackToCourseDetail(childData);
+        props.route.params.callbackToCourseDetail(childData, id);
     }
 
     return (

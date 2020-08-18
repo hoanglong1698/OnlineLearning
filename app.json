@@ -2,6 +2,10 @@
   "expo": {
     "name": "OnlineLearning",
     "slug": "OnlineLearning",
+    "android": {
+      "package": "com.HoangLong.OnlineLearning",
+      "versionCode": 1
+    },
     "platforms": [
       "ios",
       "android",
@@ -23,6 +27,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": ""
   }
 }

@@ -15,6 +15,7 @@ import Exercise from './Exercises/exercises';
 
 const Tab = createMaterialTopTabNavigator();
 
+export const LessonIDContext = React.createContext();
 const CoursesDetail = (props) => {
     const authContext = useContext(AuthenticationContext);
     const { title } = props.route.params;
@@ -24,6 +25,7 @@ const CoursesDetail = (props) => {
     const [likeStatus, setLikeStatus] = useState(false);
     const [ownStatus, setOwnStatus] = useState(false);
     const [videoURL, setVideoURL] = useState();
+    const [lessonID, setLessonID] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [isLoaded, setIsLoaded] = useState(false);
     const [data, setData] = useState();
@@ -31,8 +33,10 @@ const CoursesDetail = (props) => {
     const DefaultScreen = () => (
         <View></View>
     )
-    const callbackToCourseDetail = (childData) => {
+    const callbackToCourseDetail = (childData, id) => {
         setVideoURL(childData);
+        console.log(id);
+        setLessonID(id);
     }
 
     useEffect(() => {
@@ -134,88 +138,89 @@ const CoursesDetail = (props) => {
     }
 
     return (
-        <View style={styles.container}>
-            {isLoading === true && <ActivityIndicator size="large" />}
-            {isLoaded === true && <Video
-                source={{ uri: videoURL }}
-                posterSource={{ uri: data.imageUrl }}
-                usePoster
-                rate={1.0}
-                volume={1.0}
-                isMuted={false}
-                resizeMode="contain"
-                shouldPlay
-                isLooping={false}
-                useNativeControls
-                style={styles.video}
-            />}
-            {isLoaded === true && <ScrollView >
-                <View style={{ marginHorizontal: 10 }}>
-                    <Text style={styles.title}>{data.title}</Text>
+        <LessonIDContext.Provider value={{ lessonID }}>
+            <View style={styles.container}>
+                {isLoading === true && <ActivityIndicator size="large" />}
+                {isLoaded === true && <Video
+                    source={{ uri: videoURL }}
+                    posterSource={{ uri: data.imageUrl }}
+                    usePoster
+                    rate={1.0}
+                    volume={1.0}
+                    isMuted={false}
+                    resizeMode="contain"
+                    shouldPlay
+                    isLooping={false}
+                    useNativeControls
+                    style={styles.video}
+                />}
+                {isLoaded === true && <ScrollView >
+                    <View style={{ marginHorizontal: 10 }}>
+                        <Text style={styles.title}>{data.title}</Text>
 
-                    <Author title={data.instructor.name} avatarURL={data.instructor.avatar}></Author>
-                    <GeneralInfomation soldNumber={data.soldNumber} duration={data.totalHours} price={data.price} ratedNumber={data.ratedNumber} averagePoint={data.averagePoint}></GeneralInfomation>
+                        <Author title={data.instructor.name} avatarURL={data.instructor.avatar}></Author>
+                        <GeneralInfomation soldNumber={data.soldNumber} duration={data.totalHours} price={data.price} ratedNumber={data.ratedNumber} averagePoint={data.averagePoint}></GeneralInfomation>
 
-                    <View style={styles.circleButtons}>
-                        {likeStatus
-                            ? <CircleButton iconName='heart' nameButton='Đã thích' onPress={() => onPressCircleButton("like")}></CircleButton>
-                            : <CircleButton iconName='heart-outline' nameButton='Yêu thích' onPress={() => onPressCircleButton("like")}></CircleButton>
-                        }
-                        {ownStatus
-                            ? <CircleButton iconName='check-circle' nameButton='Đã sở hữu'></CircleButton>
-                            : <CircleButton iconName='cart-outline' nameButton='Đăng ký' onPress={() => onPressCircleButton("buy")}></CircleButton>
-                        }
+                        <View style={styles.circleButtons}>
+                            {likeStatus
+                                ? <CircleButton iconName='heart' nameButton='Đã thích' onPress={() => onPressCircleButton("like")}></CircleButton>
+                                : <CircleButton iconName='heart-outline' nameButton='Yêu thích' onPress={() => onPressCircleButton("like")}></CircleButton>
+                            }
+                            {ownStatus
+                                ? <CircleButton iconName='check-circle' nameButton='Đã sở hữu'></CircleButton>
+                                : <CircleButton iconName='cart-outline' nameButton='Đăng ký' onPress={() => onPressCircleButton("buy")}></CircleButton>
+                            }
 
-                        <CircleButton iconName='share' nameButton='Chia sẻ' onPress={() => onPressCircleButton("share")}></CircleButton>
+                            <CircleButton iconName='share' nameButton='Chia sẻ' onPress={() => onPressCircleButton("share")}></CircleButton>
+                        </View>
+                        <View style={styles.line}></View>
+
+                        <View style={styles.containerIntro}>
+                            <Text style={styles.headerIntro}>Bạn sẽ học được</Text>
+                            {data.learnWhat.map((item) => <Text style={styles.introduction}>-    {item}</Text>)}
+                        </View>
+
+                        <View style={styles.containerIntro}>
+                            <Text style={styles.headerIntro}>Yêu cầu</Text>
+                            {data.requirement.map((item) => <Text style={styles.introduction}>{`\u2713`}  {item}</Text>)}
+                        </View>
+
+                        <View style={styles.containerIntro}>
+                            <Text style={styles.headerIntro}>Mô tả</Text>
+                            <Text style={styles.introduction}>{data.description}</Text>
+                        </View>
+
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={onPressRelate}
+                        >
+                            <Text style={styles.signInText}>Xem các khóa học liên quan</Text>
+                        </TouchableOpacity>
                     </View>
-                    <View style={styles.line}></View>
 
-                    <View style={styles.containerIntro}>
-                        <Text style={styles.headerIntro}>Bạn sẽ học được</Text>
-                        {data.learnWhat.map((item) => <Text style={styles.introduction}>-    {item}</Text>)}
-                    </View>
-
-                    <View style={styles.containerIntro}>
-                        <Text style={styles.headerIntro}>Yêu cầu</Text>
-                        {data.requirement.map((item) => <Text style={styles.introduction}>{`\u2713`}  {item}</Text>)}
-                    </View>
-
-                    <View style={styles.containerIntro}>
-                        <Text style={styles.headerIntro}>Mô tả</Text>
-                        <Text style={styles.introduction}>{data.description}</Text>
-                    </View>
-
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={onPressRelate}
+                    <Tab.Navigator
+                        independent={true}
+                        initialRouteName="BÀI HỌC"
+                        tabBarOptions={{
+                            indicatorStyle: { height: 3, backgroundColor: color.headerBar },
+                            labelStyle: { fontWeight: 'bold' }
+                        }}
                     >
-                        <Text style={styles.signInText}>Xem các khóa học liên quan</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <Tab.Navigator
-                    independent={true}
-                    initialRouteName="BÀI HỌC"
-                    tabBarOptions={{
-                        indicatorStyle: { height: 3, backgroundColor: color.headerBar },
-                        labelStyle: { fontWeight: 'bold' }
-                    }}
-                >
-                    <Tab.Screen name="BÀI HỌC"
-                        component={activeTab === 'Contents' ? Contents : DefaultScreen}
-                        initialParams={{ data: data.section, callbackToCourseDetail }}
-                        listeners={{ focus: () => setActiveTab('Contents') }} />
-                    <Tab.Screen name="ĐÁNH GIÁ"
-                        component={activeTab === 'Comments' ? Comments : DefaultScreen}
-                        initialParams={{ data: data.ratings, averagePoint: data.averagePoint, ratedNumber: data.ratedNumber, courseId: idCourse }}
-                        listeners={{ focus: () => setActiveTab('Comments') }} />
-                    <Tab.Screen name="BÀI TẬP"
-                        component={Exercise}
-                        component={activeTab === 'Exercise' ? Exercise : DefaultScreen}
-                        listeners={{ focus: () => setActiveTab('Exercise') }} />
-                </Tab.Navigator>
-            </ScrollView>}
-        </View>
+                        <Tab.Screen name="BÀI HỌC"
+                            component={activeTab === 'Contents' ? Contents : DefaultScreen}
+                            initialParams={{ data: data.section, callbackToCourseDetail }}
+                            listeners={{ focus: () => setActiveTab('Contents') }} />
+                        <Tab.Screen name="ĐÁNH GIÁ"
+                            component={activeTab === 'Comments' ? Comments : DefaultScreen}
+                            initialParams={{ data: data.ratings, averagePoint: data.averagePoint, ratedNumber: data.ratedNumber, courseId: idCourse }}
+                            listeners={{ focus: () => setActiveTab('Comments') }} />
+                        <Tab.Screen name="BÀI TẬP"
+                            component={activeTab === 'Exercise' ? Exercise : DefaultScreen}
+                            listeners={{ focus: () => setActiveTab('Exercise') }} />
+                    </Tab.Navigator>
+                </ScrollView>}
+            </View>
+        </LessonIDContext.Provider>
     )
 }
 
