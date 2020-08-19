@@ -1,24 +1,15 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { StyleSheet, Text, View, Picker, ActivityIndicator, TouchableOpacity, ScrollView, FlatList } from 'react-native'
 import { SearchBar, ListItem } from 'react-native-elements';
 import { color, screenName } from './../../../globals/constants';
 import ListCourses from './../../Courses/ListCourses/list-courses';
 import axios from 'axios';
 import { ThemeContext } from '../../../provider/theme-provider';
+import { AuthenticationContext } from '../../../provider/authentication-provider';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Search = (props) => {
-    const history = [
-        {
-            title: 'React',
-        },
-        {
-            title: 'Android',
-        },
-        {
-            title: 'iOS',
-        },
-    ]
-
+    const authContext = useContext(AuthenticationContext);
     const { theme } = useContext(ThemeContext)
 
     const [search, setSearch] = useState('');
@@ -28,6 +19,7 @@ const Search = (props) => {
     const [showResult, setShowResult] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [searchHistory, setSearchHistory] = useState();
 
     const updateSearch = (string) => {
         setSearch({ string });
@@ -59,16 +51,51 @@ const Search = (props) => {
 
     const renderItem = ({ item }) => (
         <ListItem
-            key={item.title}
-            title={item.title}
+            key={item.id}
+            title={item.content}
             leftIcon={{ name: 'history' }}
             bottomDivider
             onPress={() => {
-                updateSearch(item.title);
-                onEndEditing();
+                // updateSearch(item.title);
+                // onEndEditing();
             }}
+            rightElement={<MaterialCommunityIcons
+                name='close'
+                size={24}
+                onPress={() => DeleteHistory(item.id)}
+                color={theme.infoTextColor}
+            />}
         />
     )
+
+    const DeleteHistory = (id) => {
+        let url = 'https://api.itedu.me/course/delete-search-history/' + id
+        axios.delete(url, {
+            headers: {
+                'Authorization': 'Bearer ' + authContext.state.token
+            }
+        })
+            .then(function (response) {
+                setSearchHistory({ ...searchHistory, });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    useEffect(() => {
+        axios.get('https://api.itedu.me/course/search-history', {
+            headers: {
+                'Authorization': 'Bearer ' + authContext.state.token
+            }
+        })
+            .then(function (response) {
+                setSearchHistory(response.data.payload.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, [searchHistory]);
 
     return (
         <View style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
@@ -84,16 +111,16 @@ const Search = (props) => {
             />
             {!showResult && <View style={styles.header}>
                 <Text style={styles.title}>Lịch sử</Text>
-                <TouchableOpacity style={styles.seeAll}>
-                    <Text style={styles.text}>XOÁ TẤT CẢ</Text>
-                </TouchableOpacity>
+                {!showResult && searchHistory != undefined && searchHistory == 0 && <Text style={{ marginTop: 20,textAlign: 'center'}}>Không có dữ liệu</Text>}
             </View>}
 
-            {!showResult && <FlatList
+            {!showResult && searchHistory != undefined && <FlatList
                 keyExtractor={(item, index) => index.toString()}
-                data={history}
+                data={searchHistory}
                 renderItem={renderItem}
             />}
+
+            
 
             {isLoading === true && <ActivityIndicator size="large" />}
             {isLoaded === true && showResult &&
