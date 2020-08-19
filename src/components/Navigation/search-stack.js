@@ -29,7 +29,7 @@ export default function SearchStack() {
                 name={screenName.searchScreen}
                 component={Search}
                 options={{
-                    title: "Search",
+                    title: "Tìm kiếm",
                 }}
             />
 
@@ -37,7 +37,7 @@ export default function SearchStack() {
                 name={screenName.resultScreen}
                 component={Result}
                 options={{
-                    title: "Result",
+                    title: "Kết quả tìm kiếm",
                 }}
             />
 

@@ -28,7 +28,7 @@ export default function BrowseStack() {
                 name={screenName.browseScreen}
                 component={Browse}
                 options={{
-                    title: "Browse",
+                    title: "Khám phá",
                 }}
             />
 

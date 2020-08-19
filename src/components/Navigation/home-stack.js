@@ -13,7 +13,7 @@ const HomeStack = () => {
     const { theme } = useContext(ThemeContext)
 
     return (
-        <Stack.Navigator initialRouteName="Home"
+        <Stack.Navigator initialRouteName="Trang chủ"
             screenOptions={{
                 headerStyle: {
                     backgroundColor: theme.headerBar,
@@ -28,7 +28,7 @@ const HomeStack = () => {
                 name={screenName.homeScreen}
                 component={Home}
                 options={{
-                    title: "Home",
+                    title: "Trang chủ",
                 }}
             />
 

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import SearchAll from './search-all';
 import SearchCourse from './search-course';
@@ -12,11 +12,13 @@ import axios from 'axios';
 
 const TopTab = createMaterialTopTabNavigator();
 export default function Result(props) {
-    console.log(props.route.params.string);
     const [searchString, setSearchString] = useState(props.route.params.string);
     const { theme } = useContext(ThemeContext)
     const authContext = useContext(AuthenticationContext);
 
+    const [data, setData] = useState();
+    const [isLoading, setIsLoading] = useState(true);
+    const [isLoaded, setIsLoaded] = useState(false);
     useEffect(() => {
         axios.post('https://api.itedu.me/course/searchV2', {
             token: authContext.state.token,
@@ -25,10 +27,14 @@ export default function Result(props) {
             offset: 0
         })
             .then(function (response) {
-                console.log(response.data.payload);
+                setData(response.data.payload);
+                setIsLoaded(true);
             })
             .catch(function (error) {
                 console.log(error)
+            })
+            .then(function () {
+                setIsLoading(false);
             });
     }, [])
 
@@ -41,18 +47,22 @@ export default function Result(props) {
                 lightTheme={theme.lightSeachBar}
             />
 
-            <TopTab.Navigator
-                independent={true}
-                initialRouteName="ALL"
-                tabBarOptions={{
-                    indicatorStyle: { height: 3, backgroundColor: color.headerBar },
-                    labelStyle: { fontWeight: 'bold' }
-                }}
-            >
-                <TopTab.Screen name="ALL" component={SearchAll} />
-                <TopTab.Screen name="COURSES" component={SearchCourse} />
-                <TopTab.Screen name="INSTRUCTORS" component={SearchInstructor} />
-            </TopTab.Navigator>
+            {isLoading === true && <ActivityIndicator size="large" />}
+
+            {isLoaded === true &&
+                <TopTab.Navigator
+                    independent={true}
+                    initialRouteName="TẤT CẢ"
+                    tabBarOptions={{
+                        indicatorStyle: { height: 3, backgroundColor: color.headerBar },
+                        labelStyle: { fontWeight: 'bold' }
+                    }}
+                >
+                    <TopTab.Screen name="TẤT CẢ" component={SearchAll} initialParams={{ data: data }} />
+                    <TopTab.Screen name="KHÓA HỌC" component={SearchCourse} initialParams={{ data: data.courses }} />
+                    <TopTab.Screen name="GIÁO VIÊN" component={SearchInstructor} initialParams={{ data: data.instructors }} />
+                </TopTab.Navigator>
+            }
         </View>
     )
 }
@@ -60,5 +70,5 @@ export default function Result(props) {
 const styles = StyleSheet.create({
     containter: {
         flex: 1,
-    }
+    },
 })

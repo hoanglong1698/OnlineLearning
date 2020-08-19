@@ -12,7 +12,7 @@ const FavoritesStack = () => {
     const { theme } = useContext(ThemeContext)
 
     return (
-        <Stack.Navigator initialRouteName="Favorites"
+        <Stack.Navigator initialRouteName="Khóa học yêu thích"
             screenOptions={{
                 headerStyle: {
                     backgroundColor: theme.headerBar,
@@ -27,7 +27,7 @@ const FavoritesStack = () => {
                 name={screenName.downloadScreen}
                 component={Favorites}
                 options={{
-                    title: "Favorites",
+                    title: "Khóa học yêu thích",
                 }}
             />
 

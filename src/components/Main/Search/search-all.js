@@ -1,12 +1,57 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
+import ListCourses from './../../Courses/ListCourses/list-courses';
+import { color } from './../../../globals/constants';
 
-export default function SearchAll() {
+export default function SearchAll(props) {
+    const [data, setData] = useState(props.route.params.data);
+
     return (
-        <View>
-            <Text></Text>
-        </View>
+        <ScrollView style={styles.container}>
+            <View style={styles.sectionHeader}>
+                <Text style={styles.title}>Khóa học</Text>
+                <TouchableOpacity style={styles.seeAll} onPress={() => props.navigation.navigate("KHÓA HỌC")}>
+                    <Text style={styles.text}>{data.courses.total} kết quả</Text>
+                </TouchableOpacity>
+            </View>
+            <ListCourses navigation={props.navigation} data={data.courses.data}></ListCourses>
+
+            <View style={styles.sectionHeader}>
+                <Text style={styles.title}>Giáo viên</Text>
+                <TouchableOpacity style={styles.seeAll} onPress={() => props.navigation.navigate("GIÁO VIÊN")}>
+                    <Text style={styles.text}>{data.instructors.total} kết quả</Text>
+                </TouchableOpacity>
+            </View>
+            <ListCourses navigation={props.navigation} data={data.instructors.data}></ListCourses>
+        </ScrollView>
     )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    sectionHeader: {
+        marginHorizontal: 10,
+        marginVertical: 15,
+    },
+    title: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: color.headerText,
+    },
+    seeAll: {
+        position: 'absolute',
+        right: 0,
+        bottom: 0,
+        backgroundColor: color.seeAllButtonColor,
+        borderRadius: 25,
+        width: 60,
+    },
+    text: {
+        fontSize: 12,
+        color: color.seeAllTextColor,
+        textAlign: 'center',
+    }
+
+})

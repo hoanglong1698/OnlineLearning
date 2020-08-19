@@ -31,7 +31,7 @@ const ProfileStack = (props) => {
                 name={screenName.profileScreen}
                 component={Profile}
                 options={{
-                    title: "Profile",
+                    title: "Quản lý tài khoản",
                 }}
             />
 
@@ -47,7 +47,7 @@ const ProfileStack = (props) => {
                 name={screenName.settingScreen}
                 component={Setting}
                 options={{
-                    title: "Setting",
+                    title: "Cài đặt",
                 }}
             />
 
