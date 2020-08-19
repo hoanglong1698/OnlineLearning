@@ -25,24 +25,25 @@ const Search = (props) => {
         setSearch({ string });
     };
 
-    const onEndEditing = () => {
-        setIsLoading(true);
-        setShowResult(true);
-        axios.post('https://api.itedu.me​/course/search', {
-            keyword: search.string,
-            limit: 20,
-            offset: 0
-        })
-            .then(function (response) {
-                setData(response.data.payload.rows)
-                setResultCount(response.data.payload.count)
-                setIsLoading(false);
-                setIsLoaded(true);
-            })
-            .catch(function (error) {
-                setIsLoading(false);
-                return (error);
-            });
+    const onEndEditing = (string) => {
+        props.navigation.navigate(screenName.resultScreen, { string: string })
+        // setIsLoading(true);
+        // setShowResult(true);
+        // axios.post('https://api.itedu.me​/course/search', {
+        //     keyword: search.string,
+        //     limit: 20,
+        //     offset: 0
+        // })
+        //     .then(function (response) {
+        //         setData(response.data.payload.rows)
+        //         setResultCount(response.data.payload.count)
+        //         setIsLoading(false);
+        //         setIsLoaded(true);
+        //     })
+        //     .catch(function (error) {
+        //         setIsLoading(false);
+        //         return (error);
+        //     });
     }
 
     const pickerChange = () => {
@@ -56,6 +57,7 @@ const Search = (props) => {
             leftIcon={{ name: 'history' }}
             bottomDivider
             onPress={() => {
+                props.navigation.navigate(screenName.resultScreen, { string: item.content })
                 // updateSearch(item.title);
                 // onEndEditing();
             }}
@@ -106,12 +108,12 @@ const Search = (props) => {
                 lightTheme={theme.lightSeachBar}
                 onChangeText={updateSearch}
                 value={search}
-                onEndEditing={onEndEditing}
+                onEndEditing={() => props.navigation.navigate(screenName.resultScreen, search)}
                 onFocus={() => setShowResult(false)}
             />
             {!showResult && <View style={styles.header}>
                 <Text style={styles.title}>Lịch sử</Text>
-                {!showResult && searchHistory != undefined && searchHistory == 0 && <Text style={{ marginTop: 20,textAlign: 'center'}}>Không có dữ liệu</Text>}
+                {!showResult && searchHistory != undefined && searchHistory == 0 && <Text style={{ marginTop: 20, textAlign: 'center' }}>Không có dữ liệu</Text>}
             </View>}
 
             {!showResult && searchHistory != undefined && <FlatList
@@ -120,7 +122,7 @@ const Search = (props) => {
                 renderItem={renderItem}
             />}
 
-            
+
 
             {isLoading === true && <ActivityIndicator size="large" />}
             {isLoaded === true && showResult &&
