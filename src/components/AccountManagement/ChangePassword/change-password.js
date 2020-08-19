@@ -3,10 +3,11 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator 
 import { color, screenName } from './../../../globals/constants';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 import axios from 'axios';
+import { ThemeContext } from '../../../provider/theme-provider';
 
 const ChangePassword = (props) => {
     const authContext = useContext(AuthenticationContext)
-
+    const { theme } = useContext(ThemeContext);
     const [isLoading, setIsLoading] = useState(false);
     const [info, setInfo] = useState({
         old: '',
@@ -60,13 +61,13 @@ const ChangePassword = (props) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
             <View style={styles.passwordView} >
                 <TextInput
                     secureTextEntry={true}
-                    style={styles.inputText}
+                    style={{ ...styles.inputText, color: theme.headerText }}
                     placeholder='Mật khẩu cũ'
-                    placeholderTextColor={color.placeholderTextColor}
+                    placeholderTextColor={theme.placeholderTextColor}
                     maxLength={20}
                     onChangeText={text => {
                         setError({ isError: false })
@@ -85,9 +86,9 @@ const ChangePassword = (props) => {
             <View style={styles.passwordView} >
                 <TextInput
                     secureTextEntry={true}
-                    style={styles.inputText}
+                    style={{ ...styles.inputText, color: theme.headerText }}
                     placeholder='Mật khẩu mới'
-                    placeholderTextColor={color.placeholderTextColor}
+                    placeholderTextColor={theme.placeholderTextColor}
                     maxLength={20}
                     onChangeText={text => {
                         setError({ isError: false })
@@ -113,9 +114,9 @@ const ChangePassword = (props) => {
             <View style={styles.passwordView} >
                 <TextInput
                     secureTextEntry={true}
-                    style={styles.inputText}
+                    style={{ ...styles.inputText, color: theme.headerText }}
                     placeholder='Nhập lại mật khẩu mới'
-                    placeholderTextColor={color.placeholderTextColor}
+                    placeholderTextColor={theme.placeholderTextColor}
                     maxLength={20}
                     onChangeText={text => {
                         setError({ isError: false })
@@ -151,7 +152,6 @@ const styles = StyleSheet.create({
 
     inputText: {
         height: 45,
-        color: color.inputText,
     },
 
     passwordView: {

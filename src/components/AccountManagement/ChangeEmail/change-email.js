@@ -3,9 +3,11 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator,
 import axios from 'axios';
 import { color, screenName } from './../../../globals/constants';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
+import { ThemeContext } from '../../../provider/theme-provider';
 
 export default function ChangeEmail(props) {
     const authContext = useContext(AuthenticationContext);
+    const { theme } = useContext(ThemeContext);
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [isValid, setIsValid] = useState(true);
@@ -55,14 +57,14 @@ export default function ChangeEmail(props) {
         }
     }
     return (
-        <View style={styles.container}>
+        <View style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
             <Text style={styles.notify}>Nếu thay đổi email, tài khoản của bạn sẽ tạm thời đăng xuất sau 5 giây và ngừng hoạt động cho đến khi bạn xác nhận email mới.</Text>
             <Text style={styles.notify}>Các liên kết tài khoản của bạn giữa hệ thống với Facebook và Google cũng sẽ bị hủy bỏ.</Text>
             <Text style={styles.notify}>Thông tin tài khoản khác như khóa học đã thích, lịch sử thanh toán, lịch sử học,... vẫn sẽ được giữ nguyên.</Text>
 
             <View style={styles.inputView} >
                 <TextInput
-                    style={styles.inputText}
+                    style={{ ...styles.inputText, color: theme.headerText }}
                     placeholder='Email mới'
                     placeholderTextColor={color.placeholderTextColor}
                     keyboardType="email-address"

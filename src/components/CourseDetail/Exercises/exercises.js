@@ -4,9 +4,11 @@ import { color } from './../../../globals/constants';
 import axios from 'axios';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 import { LessonIDContext } from '../courses-detail'
+import { ThemeContext } from '../../../provider/theme-provider';
 
 export default function Exercise(props) {
     const authContext = useContext(AuthenticationContext);
+    const { theme } = useContext(ThemeContext);
     const lessonIDContext = useContext(LessonIDContext);
     const [data, setData] = useState('');
 
@@ -39,26 +41,26 @@ export default function Exercise(props) {
     }, []);
 
     return (
-        <View style={styles.container}>
+        <View style={{ ...styles.container, backgroundColor: theme.itemBackgroundColor, }}>
             {lessonIDContext.lessonID != undefined
                 ? <View>
                     {data.exercises_questions != undefined
-                        ? < Text style={styles.header}>Bài tập 1.  <Text style={{ fontWeight: 'normal' }}>{data.title}</Text></Text>
-                        : <Text style={{ ...styles.header, textAlign: 'center' }}>Lesson này không có bài tập. Vui lòng chọn các lesson khác để xem bài tập</Text>
+                        ? < Text style={{ ...styles.header, color: theme.headerText }}>Bài tập 1.  <Text style={{ fontWeight: 'normal', color: theme.headerText }}>{data.title}</Text></Text>
+                        : <Text style={{ ...styles.header, textAlign: 'center', color: theme.headerText }}>Lesson này không có bài tập. Vui lòng chọn các lesson khác để xem bài tập</Text>
                     }
                     {data.exercises_questions != undefined && data.exercises_questions.map((item, index) => {
                         return (
                             <View style={styles.question}>
-                                <Text>Câu {index + 1}: {item.content}</Text>
+                                <Text style={{color: theme.headerText}}>Câu {index + 1}: {item.content}</Text>
                                 {item.exercises_answers != undefined && item.exercises_answers.map((item, index) => {
                                     return (
-                                        <Text style={styles.answer}>{String.fromCharCode(97 + index).toUpperCase()}.  {item.content}</Text>
+                                        <Text style={{ ...styles.answer, color: theme.headerText }}>{String.fromCharCode(97 + index).toUpperCase()}.  {item.content}</Text>
                                     )
                                 })}
                             </View>)
                     })}
                 </View>
-                : <Text style={{ ...styles.header, textAlign: 'center' }}>Lesson này không có bài tập. Vui lòng chọn các lesson khác để xem bài tập</Text>
+                : <Text style={{ ...styles.header, textAlign: 'center', color: theme.headerText }}>Lesson này không có bài tập. Vui lòng chọn các lesson khác để xem bài tập</Text>
             }
         </View>
     )
@@ -67,7 +69,6 @@ export default function Exercise(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: color.itemBackgroundColor,
         padding: 15,
         paddingTop: 20,
     },

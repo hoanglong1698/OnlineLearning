@@ -5,8 +5,10 @@ import CommentItem from './comment-item';
 import { AirbnbRating } from 'react-native-elements';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 import axios from 'axios';
+import { ThemeContext } from '../../../provider/theme-provider';
 
 const Comments = (props) => {
+    const { theme } = useContext(ThemeContext);
     const authContext = useContext(AuthenticationContext);
     const [data, setData] = useState(props.route.params.data);
     const [rate, setRate] = useState({
@@ -39,26 +41,26 @@ const Comments = (props) => {
             }
         })
             .then(function (response) {
-                setStatus({show: true, message: "Đã gửi"})
+                setStatus({ show: true, message: "Đã gửi" })
             })
             .catch(function (error) {
-                setStatus({show: false, message: "Gửi bình luận không thành công"})
+                setStatus({ show: false, message: "Gửi bình luận không thành công" })
             });
     }
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={{ ...styles.container, backgroundColor: theme.itemBackgroundColor, }}>
             <View style={styles.rateContainer}>
                 <Text style={styles.averagePoint}>{rate.averagePoint}</Text>
-                <Text>{rate.ratedNumber} bình chọn</Text>
-                <Text>{rate.ratedNumber} điểm nội dung</Text>
-                <Text>{rate.ratedNumber} điểm hình thức</Text>
-                <Text>{rate.ratedNumber} điểm truyền đạt</Text>
+                <Text style={{ color: theme.headerText }}>{rate.ratedNumber} bình chọn</Text>
+                <Text style={{ color: theme.headerText }}>{rate.ratedNumber} điểm nội dung</Text>
+                <Text style={{ color: theme.headerText }}>{rate.ratedNumber} điểm hình thức</Text>
+                <Text style={{ color: theme.headerText }}>{rate.ratedNumber} điểm truyền đạt</Text>
             </View>
 
             <View style={styles.userRatingContainer}>
                 <View style={styles.ratingStar}>
-                    <Text style={{ fontSize: 18, marginRight: 21 }}>Nội dung</Text>
+                    <Text style={{ fontSize: 18, marginRight: 21, color: theme.headerText }}>Nội dung</Text>
                     <AirbnbRating
                         count={5}
                         showRating={false}
@@ -69,7 +71,7 @@ const Comments = (props) => {
                 </View>
 
                 <View style={styles.ratingStar}>
-                    <Text style={{ fontSize: 18, marginRight: 15 }}>Hình thức</Text>
+                    <Text style={{ fontSize: 18, marginRight: 15, color: theme.headerText }}>Hình thức</Text>
                     <AirbnbRating
                         count={5}
                         showRating={false}
@@ -80,7 +82,7 @@ const Comments = (props) => {
                 </View>
 
                 <View style={styles.ratingStar}>
-                    <Text style={{ fontSize: 18, marginRight: 20 }}>Trình bày</Text>
+                    <Text style={{ fontSize: 18, marginRight: 20, color: theme.headerText }}>Trình bày</Text>
                     <AirbnbRating
                         count={5}
                         showRating={false}
@@ -92,7 +94,7 @@ const Comments = (props) => {
 
                 <View style={styles.inputView} >
                     <TextInput
-                        style={styles.inputText}
+                        style={{ ...styles.inputText, color: theme.headerText }}
                         placeholder='Nhập bình luận'
                         placeholderTextColor={color.placeholderTextColor}
                         autoCapitalize='sentences'
@@ -119,7 +121,6 @@ export default Comments
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: color.itemBackgroundColor,
     },
 
     rateContainer: {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Rating, AirbnbRating } from 'react-native-elements';
 import { color } from './../../../globals/constants';
@@ -36,7 +36,7 @@ const GeneralInfomation = (props) => {
                     size={15}
                     isDisabled={true}
                 />
-                <Text style={{ marginLeft: 10, color: color.headerText }}>{props.averagePoint}/5  <Text>({props.ratedNumber} bình chọn)</Text></Text>
+                <Text style={{ marginLeft: 10, color: theme.headerText }}>{props.averagePoint}/5  <Text>({props.ratedNumber} bình chọn)</Text></Text>
             </View>
         </View>
     )

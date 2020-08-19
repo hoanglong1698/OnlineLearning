@@ -87,7 +87,7 @@ const Search = (props) => {
                 onEndEditing={() => props.navigation.navigate(screenName.resultScreen, search)}
             />
             {<View style={styles.header}>
-                <Text style={styles.title}>Lịch sử</Text>
+                <Text style={{ ...styles.title, color: theme.headerText }}>Lịch sử</Text>
                 {searchHistory != undefined && searchHistory == 0 && <Text style={{ marginTop: 20, textAlign: 'center' }}>Không có dữ liệu</Text>}
             </View>}
 

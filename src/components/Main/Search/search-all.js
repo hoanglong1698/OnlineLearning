@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
 import ListCourses from './../../Courses/ListCourses/list-courses';
 import { color } from './../../../globals/constants';
+import { ThemeContext } from 'react-native-elements';
 
 export default function SearchAll(props) {
+    const { theme } = useContext(ThemeContext);
     const [data, setData] = useState(props.route.params.data);
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
             <View style={styles.sectionHeader}>
                 <Text style={styles.title}>Khóa học</Text>
                 <TouchableOpacity style={styles.seeAll} onPress={() => props.navigation.navigate("KHÓA HỌC")}>

@@ -24,9 +24,9 @@ export default function CommentItem(props) {
                         size={13}
                         isDisabled={true}
                     />
-                    <Text style={{ alignSelf: 'center', marginLeft: 10 }}>{moment(data.updatedAt).format('D/M/YYYY HH:mm:ss')}</Text>
+                    <Text style={{ alignSelf: 'center', marginLeft: 10, color: theme.headerText }}>{moment(data.updatedAt).format('D/M/YYYY HH:mm:ss')}</Text>
                 </View>
-                <Text style={{ alignSelf: 'center', marginLeft: 4, width: 230 }}>{data.content}</Text>
+                <Text style={{ alignSelf: 'center', marginLeft: 4, width: 230, color: theme.headerText }}>{data.content}</Text>
             </View>
         </View>
     )

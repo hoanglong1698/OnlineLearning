@@ -178,18 +178,18 @@ const CoursesDetail = (props) => {
                         <View style={styles.line}></View>
 
                         <View style={styles.containerIntro}>
-                            <Text style={styles.headerIntro}>Bạn sẽ học được</Text>
-                            {data.learnWhat.map((item) => <Text style={styles.introduction}>-    {item}</Text>)}
+                            <Text style={{ ...styles.headerIntro, color: theme.headerText }}>Bạn sẽ học được</Text>
+                            {data.learnWhat.map((item) => <Text style={{ ...styles.introduction, color: theme.headerText }}>-    {item}</Text>)}
                         </View>
 
                         <View style={styles.containerIntro}>
-                            <Text style={styles.headerIntro}>Yêu cầu</Text>
-                            {data.requirement.map((item) => <Text style={styles.introduction}>{`\u2713`}  {item}</Text>)}
+                            <Text style={{ ...styles.headerIntro, color: theme.headerText }}>Yêu cầu</Text>
+                            {data.requirement.map((item) => <Text style={{ ...styles.introduction, color: theme.headerText }}>{`\u2713`}  {item}</Text>)}
                         </View>
 
                         <View style={styles.containerIntro}>
-                            <Text style={styles.headerIntro}>Mô tả</Text>
-                            <Text style={styles.introduction}>{data.description}</Text>
+                            <Text style={{ ...styles.headerIntro, color: theme.headerText }}>Mô tả</Text>
+                            <Text style={{ ...styles.introduction, color: theme.headerText }}>{data.description}</Text>
                         </View>
 
                         <TouchableOpacity
