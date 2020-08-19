@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, Text, TouchableOpacity, Image } from 'react-native'
 import { color } from './../../../globals/constants';
+import { ThemeContext } from '../../../provider/theme-provider';
 
 const Author = (props) => {
+    const { theme } = useContext(ThemeContext);
+
     return (
         <TouchableOpacity style={styles.avatarName}>
             <Image source={{ uri: props.avatarURL }}
                 style={styles.avatar}
             />
-            <Text style={styles.name}>{props.title}</Text>
+            <Text style={{ ...styles.name, color: theme.headerText }}>{props.title}</Text>
 
 
         </TouchableOpacity>

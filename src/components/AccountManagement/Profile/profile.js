@@ -4,9 +4,11 @@ import { ListItem } from 'react-native-elements'
 import { color, screenName } from './../../../globals/constants';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 import axios from 'axios';
+import { ThemeContext } from '../../../provider/theme-provider';
 
 const Profile = (props) => {
     const authContext = useContext(AuthenticationContext)
+    const { theme } = useContext(ThemeContext);
     const [isLoading, setIsLoading] = useState(false);
     const [info, setInfo] = useState({
         name: authContext.state.userInfo.name,
@@ -49,19 +51,19 @@ const Profile = (props) => {
     }
 
     return (
-        <KeyboardAvoidingView style={styles.container} enabled behavior="height">
+        <KeyboardAvoidingView style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }} enabled behavior="height">
             <View style={styles.userInfo}>
                 <TouchableOpacity style={styles.avatarName}>
                     <Image source={{ uri: authContext.state.userInfo.avatar }}
                         style={styles.avatar}
                     />
-                    <Text style={styles.name}>{nameHeader}</Text>
+                    <Text style={{ ...styles.name, color: theme.headerText }}>{nameHeader}</Text>
                 </TouchableOpacity>
 
-                <Text style={styles.labelOfInput}>Họ tên</Text>
+                <Text style={{ ...styles.labelOfInput, color: theme.headerText }}>Họ tên</Text>
                 <View style={styles.inputView} >
                     <TextInput
-                        style={styles.inputText}
+                        style={{ ...styles.inputText, color: theme.headerText }}
                         placeholder='Họ tên'
                         placeholderTextColor={color.placeholderTextColor}
                         defaultValue={authContext.state.userInfo.name}
@@ -80,10 +82,10 @@ const Profile = (props) => {
                 </View>
                 {!isValid.name && <Text style={{ color: 'red' }}>Tên tối thiểu 2 ký tự và không chứa ký tự đặc biệt</Text>}
 
-                <Text style={styles.labelOfInput}>Email</Text>
+                <Text style={{ ...styles.labelOfInput, color: theme.headerText }}>Email</Text>
                 <View style={styles.inputView} >
                     <TextInput
-                        style={styles.inputText}
+                        style={{ ...styles.inputText, color: theme.headerText }}
                         placeholder='Email'
                         placeholderTextColor={color.placeholderTextColor}
                         defaultValue={authContext.state.userInfo.email}
@@ -91,10 +93,10 @@ const Profile = (props) => {
                     />
                 </View>
 
-                <Text style={styles.labelOfInput}>Điện thoại</Text>
+                <Text style={{ ...styles.labelOfInput, color: theme.headerText }}>Điện thoại</Text>
                 <View style={styles.inputView} >
                     <TextInput
-                        style={styles.inputText}
+                        style={{ ...styles.inputText, color: theme.headerText  }}
                         placeholder='Điện thoại'
                         placeholderTextColor={color.placeholderTextColor}
                         defaultValue={authContext.state.userInfo.phone}
@@ -127,9 +129,10 @@ const Profile = (props) => {
                     bottomDivider
                     chevron
                     titleStyle={{
-                        color: color.headerText,
+                        color: theme.headerText,
                         fontWeight: 'bold',
                     }}
+                    containerStyle={{ backgroundColor: theme.itemBackgroundColor }}
                     onPress={() => props.navigation.navigate(screenName.changePasswordScreen)}
                 />
                 <ListItem
@@ -138,9 +141,10 @@ const Profile = (props) => {
                     bottomDivider
                     chevron
                     titleStyle={{
-                        color: color.headerText,
+                        color: theme.headerText,
                         fontWeight: 'bold',
                     }}
+                    containerStyle={{ backgroundColor: theme.itemBackgroundColor }}
                     onPress={() => props.navigation.navigate(screenName.changeEmailScreen)}
                 />
                 <ListItem
@@ -149,9 +153,10 @@ const Profile = (props) => {
                     bottomDivider
                     chevron
                     titleStyle={{
-                        color: color.headerText,
+                        color: theme.headerText,
                         fontWeight: 'bold',
                     }}
+                    containerStyle={{ backgroundColor: theme.itemBackgroundColor }}
                     onPress={() => props.navigation.navigate(screenName.settingScreen)}
                 />
                 <ListItem
@@ -163,6 +168,7 @@ const Profile = (props) => {
                         color: 'red',
                         fontWeight: 'bold',
                     }}
+                    containerStyle={{ backgroundColor: theme.itemBackgroundColor }}
                     onPress={() => { setModalVisible(!modalVisible) }}
                 />
             </View>
@@ -194,7 +200,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        marginTop: 10,
+        paddingTop: 10,
     },
 
     userInfo: {

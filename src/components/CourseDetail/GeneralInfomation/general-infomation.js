@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Rating, AirbnbRating } from 'react-native-elements';
 import { color } from './../../../globals/constants';
 import moment from 'moment';
+import { ThemeContext } from '../../../provider/theme-provider';
 
 function formatDuration(num) {
     return moment().startOf('day').add(num, 'hours').format('H:mm:ss')
@@ -18,10 +19,11 @@ function formatPrice(price) {
 }
 
 const GeneralInfomation = (props) => {
+    const { theme } = useContext(ThemeContext);
     return (
         <View style={styles.container}>
             <View style={styles.infoContainer}>
-                <Text style={styles.info}>{props.soldNumber} học viên  {`\u00B7`}  Thời lượng {formatDuration(props.duration)}  {`\u00B7`}  </Text>
+                <Text style={{ ...styles.info, color: theme.headerText }}>{props.soldNumber} học viên  {`\u00B7`}  Thời lượng {formatDuration(props.duration)}  {`\u00B7`}  </Text>
                 <Text style={styles.price}>{formatPrice(props.price)}</Text>
             </View>
 

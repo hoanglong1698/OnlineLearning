@@ -12,12 +12,14 @@ import { Video } from 'expo-av';
 import { AuthenticationContext } from '../../provider/authentication-provider';
 import Comments from './Comments/comments';
 import Exercise from './Exercises/exercises';
+import { ThemeContext } from '../../provider/theme-provider';
 
 const Tab = createMaterialTopTabNavigator();
 
 export const LessonIDContext = React.createContext();
 const CoursesDetail = (props) => {
     const authContext = useContext(AuthenticationContext);
+    const { theme } = useContext(ThemeContext);
     const { title } = props.route.params;
     const idCourse = props.route.params.id;
     props.navigation.setOptions({ title: title });
@@ -139,7 +141,7 @@ const CoursesDetail = (props) => {
 
     return (
         <LessonIDContext.Provider value={{ lessonID }}>
-            <View style={styles.container}>
+            <View style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
                 {isLoading === true && <ActivityIndicator size="large" />}
                 {isLoaded === true && <Video
                     source={{ uri: videoURL }}
@@ -156,7 +158,7 @@ const CoursesDetail = (props) => {
                 />}
                 {isLoaded === true && <ScrollView >
                     <View style={{ marginHorizontal: 10 }}>
-                        <Text style={styles.title}>{data.title}</Text>
+                        <Text style={{ ...styles.title, color: theme.headerText }}>{data.title}</Text>
 
                         <Author title={data.instructor.name} avatarURL={data.instructor.avatar}></Author>
                         <GeneralInfomation soldNumber={data.soldNumber} duration={data.totalHours} price={data.price} ratedNumber={data.ratedNumber} averagePoint={data.averagePoint}></GeneralInfomation>
@@ -229,7 +231,6 @@ export default CoursesDetail
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
     },
 
     title: {

@@ -75,7 +75,7 @@ const Home = (props) => {
             <Image style={styles.image} source={{ uri: 'https://cdn.pixabay.com/photo/2016/05/17/19/08/hyacinth-1398839_960_720.jpg' }}></Image>
             {IsLoading === true && <ActivityIndicator size="large" />}
 
-            <Text style={styles.hello}>Xin chào {authContext.state.userInfo.name}!</Text>
+            <Text style={{ ...styles.hello, color: theme.headerText }}>Xin chào {authContext.state.userInfo.name}!</Text>
             {state.ContinueLearning.length != 0 && <SectionCourses title='Khóa học của tôi' navigation={props.navigation} data={state.ContinueLearning} />}
             {state.Favorites.length != 0 && <SectionCourses title='Khóa học yêu thích' navigation={props.navigation} data={state.Favorites} />}
             <SectionCourses title='Khóa học mới nhất' navigation={props.navigation} data={state.TopNew} />
