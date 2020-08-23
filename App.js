@@ -20,6 +20,7 @@ import RegisterSuccessfully from './src/components/Authentication/Register/regis
 import ForgotPassword from './src/components/Authentication/ForgotPassword/forgot-password';
 import SendEmailSuccessfully from './src/components/Authentication/ForgotPassword/send-email-successfully';
 
+
 const MainNavigationStack = createStackNavigator();
 
 const BottomTab = createBottomTabNavigator();

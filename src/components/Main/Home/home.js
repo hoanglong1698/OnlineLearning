@@ -1,11 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Text, StyleSheet, ScrollView, Image, ActivityIndicator, RefreshControl } from 'react-native';
 import SectionCourses from './SectionCourses/section-courses';
-import { color } from './../../../globals/constants';
+import { color, localize } from './../../../globals/constants';
 import SectionAuthors from './SectionAuthors/section-authors';
 import { ThemeContext } from '../../../provider/theme-provider';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 import axios from 'axios';
+import i18n from './../../../../utils/i18n';
 
 const Home = (props) => {
     const { theme } = useContext(ThemeContext)
@@ -75,7 +76,7 @@ const Home = (props) => {
             <Image style={styles.image} source={{ uri: 'https://cdn.pixabay.com/photo/2016/05/17/19/08/hyacinth-1398839_960_720.jpg' }}></Image>
             {IsLoading === true && <ActivityIndicator size="large" />}
 
-            <Text style={{ ...styles.hello, color: theme.headerText }}>Xin chào {authContext.state.userInfo.name}!</Text>
+            <Text style={{ ...styles.hello, color: theme.headerText }}>{i18n.t(localize.WelcomeTitle)} {authContext.state.userInfo.name}!</Text>
             {state.ContinueLearning.length != 0 && <SectionCourses title='Khóa học của tôi' navigation={props.navigation} data={state.ContinueLearning} />}
             {state.Favorites.length != 0 && <SectionCourses title='Khóa học yêu thích' navigation={props.navigation} data={state.Favorites} />}
             <SectionCourses title='Khóa học mới nhất' navigation={props.navigation} data={state.TopNew} />

@@ -9,6 +9,7 @@ import ThemeSetting from './../AccountManagement/Setting/theme-setting';
 import { ThemeContext } from '../../provider/theme-provider';
 import ChangePasswordSuccessfully from './../AccountManagement/ChangePassword/change-password-successfully';
 import ChangeEmail from './../AccountManagement/ChangeEmail/change-email';
+import LanguageSetting from './../AccountManagement/Setting/language-setting';
 
 const Stack = createStackNavigator();
 
@@ -56,6 +57,14 @@ const ProfileStack = (props) => {
                 component={ThemeSetting}
                 options={{
                     title: "Setting",
+                }}
+            />
+
+            <Stack.Screen
+                name={screenName.languageSettingScreen}
+                component={LanguageSetting}
+                options={{
+                    title: "Ngôn ngữ",
                 }}
             />
 

@@ -37,7 +37,7 @@ export const screenName = {
     sendEmailSuccessfully: "SendEmailSuccessfully",
     changePasswordSuccessfully: "ChangePasswordSuccessfully",
     changeEmailScreen: "changeEmailScreen",
-    
+    languageSettingScreen: "LanguageSettingScreen",
 }
 
 export const themes = {
@@ -80,4 +80,8 @@ export const themes = {
         inactiveTintColor: '#393e46',
         lightSeachBar: false,
     }
+}
+
+export const localize = {
+    WelcomeTitle: "WelcomeTitle",
 }

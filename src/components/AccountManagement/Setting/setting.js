@@ -28,7 +28,7 @@ const Setting = (props) => {
                     fontWeight: 'bold',
                 }
             ],
-            subtitle: 'Theo ngôn ngữ của thiết bị',
+            screenName: screenName.languageSettingScreen,
         },
 
         {
@@ -45,7 +45,7 @@ const Setting = (props) => {
 
 
     return (
-        <ScrollView style={{flex: 1, backgroundColor: theme.mainBackgroundColor}}>
+        <ScrollView style={{ flex: 1, backgroundColor: theme.mainBackgroundColor }}>
             {
                 list.map((item, i) => (
                     <ListItem
