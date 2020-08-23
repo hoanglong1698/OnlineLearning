@@ -1,27 +1,23 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import SectionAuthorsItem from './../SectionAuthorsItem/section-authors-item';
 import { color } from '../../../../globals/constants'
 import { ThemeContext } from '../../../../provider/theme-provider';
+import axios from 'axios';
+import i18n from './../../../../../utils/i18n';
 
 const SectionAuthors = (props) => {
-    const authors = [
-        {
-            id: 1,
-            author: 'Gorden Ramsay',
-        },
+    const [authors, setAuthors] = useState([]);
 
-        {
-            id: 2,
-            author: 'Hoang Long',
-        },
-
-        {
-            id: 3,
-            author: 'Phuong My',
-        }
-
-    ]
+    useEffect(() => {
+        axios.get('https://api.itedu.me​/instructor')
+            .then(function (response) {
+                setAuthors(response.data.payload);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, [])
 
     const renderListItems = (authors) => {
         return authors.map(item => <SectionAuthorsItem item={item} />)
@@ -34,7 +30,7 @@ const SectionAuthors = (props) => {
             <View>
                 <Text style={{ ...styles.title, color: theme.headerText }}>{props.title}</Text>
                 <TouchableOpacity style={{ ...styles.seeAll, backgroundColor: theme.seeAllButtonColor }}>
-                    <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>See all {">"}</Text>
+                    <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>{i18n.t("SeeMore")}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -64,7 +60,7 @@ const styles = StyleSheet.create({
         marginRight: 15,
         backgroundColor: color.seeAllButtonColor,
         borderRadius: 25,
-        width: 60,
+        width: 70,
     },
 
     text: {

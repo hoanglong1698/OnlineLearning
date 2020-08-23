@@ -9,10 +9,10 @@ const SectionAuthorsItem = (props) => {
 
     return (
         <TouchableOpacity style={styles.container}>
-            <Image source={require('../../../../../assets/gorden-ramsay.jpg')}
+            <Image source={{uri: props.item["user.avatar"]}}
                 style={styles.avatar}
             />
-            <Text style={{ ...styles.text, color: theme.headerText }}>{props.item.author}</Text>
+            <Text style={{ ...styles.text, color: theme.headerText }}>{props.item["user.name"]}</Text>
         </TouchableOpacity>
     )
 }
@@ -27,9 +27,9 @@ const styles = StyleSheet.create({
     },
 
     avatar: {
-        width: 70,
-        height: 70,
-        borderRadius: 35,
+        width: 60,
+        height: 60,
+        borderRadius: 30,
     },
 
     text: {

@@ -4,6 +4,7 @@ export const color = {
     button: '#ffc226',
     buttonText: 'white',
     border: '#a1a1a1',
+    borderNotValid: 'red',
     inputText: '#2c3051',
     placeholderTextColor: '#a1a1a1',
     mainBackgroundColor: '#ededef',
@@ -30,6 +31,13 @@ export const screenName = {
     themeSettingScreen: "ThemeSettingScreen",
     profileScreen: "ProfileScreen",
     settingScreen: "SettingScreen",
+    signupScreen: "SignUpScreen",
+    registerSuccessfullyScreen: "RegisterSuccessfullyScreen",
+    forgotPasswordScreen: "ForgotPasswordScreen",
+    sendEmailSuccessfully: "SendEmailSuccessfully",
+    changePasswordSuccessfully: "ChangePasswordSuccessfully",
+    changeEmailScreen: "changeEmailScreen",
+    languageSettingScreen: "LanguageSettingScreen",
 }
 
 export const themes = {
@@ -48,10 +56,13 @@ export const themes = {
         seeAllButtonColor: '#d8d8d8',
         seeAllTextColor: '#353535',
         backgroundBottomBar: 'white',
+        activeTintColor: '#ffc226',
+        inactiveTintColor: '#6d6d6d',
+        lightSeachBar: true,
     },
 
     dark: {
-        headerBar: '#393e46',
+        headerBar: '#121212',
         headerText: 'white',
         button: '#ffc226',
         buttonText: 'white',
@@ -64,6 +75,9 @@ export const themes = {
         subtitleColor: '#d6d6d6',
         seeAllButtonColor: '#393e46',
         seeAllTextColor: 'white',
-        backgroundBottomBar: '#121212'
+        backgroundBottomBar: '#121212',
+        activeTintColor: 'white',
+        inactiveTintColor: '#393e46',
+        lightSeachBar: false,
     }
 }

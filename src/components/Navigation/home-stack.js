@@ -6,6 +6,7 @@ import CoursesDetail from './../CourseDetail/courses-detail';
 import { color, screenName } from './../../globals/constants';
 import ListCourses from './../Courses/ListCourses/list-courses';
 import { ThemeContext } from '../../provider/theme-provider';
+import i18n from './../../../utils/i18n';
 
 const Stack = createStackNavigator();
 
@@ -13,7 +14,7 @@ const HomeStack = () => {
     const { theme } = useContext(ThemeContext)
 
     return (
-        <Stack.Navigator initialRouteName="Home"
+        <Stack.Navigator initialRouteName={i18n.t("Home")}
             screenOptions={{
                 headerStyle: {
                     backgroundColor: theme.headerBar,
@@ -28,7 +29,7 @@ const HomeStack = () => {
                 name={screenName.homeScreen}
                 component={Home}
                 options={{
-                    title: "Home",
+                    title: i18n.t("Home"),
                 }}
             />
 

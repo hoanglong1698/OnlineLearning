@@ -8,20 +8,25 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { color, screenName, themes } from './src/globals/constants';
 import ProfileStack from './src/components/Navigation/profile-stack';
 import HomeStack from './src/components/Navigation/home-stack';
-import DownloadStack from './src/components/Navigation/download-stack';
+import FavoritesStack from './src/components/Navigation/favorites-stack';
 import BrowseStack from './src/components/Navigation/browse-stack';
 import SearchStack from './src/components/Navigation/search-stack';
 import SplashScreen from './src/components/Others/Splashscreen/splash-screen';
 import Login from './src/components/Authentication/Login/login';
 import { AuthenticationProvider } from './src/provider/authentication-provider';
 import { ThemeProvider, ThemeContext } from './src/provider/theme-provider';
+import Register from './src/components/Authentication/Register/register';
+import RegisterSuccessfully from './src/components/Authentication/Register/register-successfully';
+import ForgotPassword from './src/components/Authentication/ForgotPassword/forgot-password';
+import SendEmailSuccessfully from './src/components/Authentication/ForgotPassword/send-email-successfully';
+import i18n from './utils/i18n';
 
 const MainNavigationStack = createStackNavigator();
 
 const BottomTab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext)
 
   return (
     <BottomTab.Navigator
@@ -29,23 +34,23 @@ const BottomTabNavigator = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'Home') {
+          if (route.name === i18n.t("Home")) {
             iconName = focused
               ? 'home'
               : 'home-outline';
-          } else if (route.name === 'Download') {
+          } else if (route.name === i18n.t("Favorite")) {
             iconName = focused
-              ? 'arrow-down-bold-circle'
-              : 'arrow-down-bold-circle-outline';
-          } else if (route.name === 'Browse') {
+              ? 'heart-circle'
+              : 'heart-circle-outline';
+          } else if (route.name === i18n.t("Browse")) {
             iconName = focused
               ? 'view-list'
               : 'format-list-bulleted';
-          } else if (route.name === 'Search') {
+          } else if (route.name === i18n.t("Search")) {
             iconName = focused
               ? 'magnify'
               : 'magnify';
-          } else if (route.name === 'Profile') {
+          } else if (route.name === i18n.t("Profile")) {
             iconName = focused
               ? 'account-circle'
               : 'account-circle-outline';
@@ -57,22 +62,24 @@ const BottomTabNavigator = () => {
       })}
 
       tabBarOptions={{
-        activeTintColor: theme.headerBar,
-        inactiveTintColor: theme.infoTextColor,
+        activeTintColor: theme.activeTintColor,
+        inactiveTintColor: theme.inactiveTintColor,
         activeBackgroundColor: theme.backgroundBottomBar,
         inactiveBackgroundColor: theme.backgroundBottomBar
       }}
     >
-      <BottomTab.Screen name="Home" component={HomeStack} />
-      <BottomTab.Screen name="Download" component={DownloadStack} />
-      <BottomTab.Screen name="Browse" component={BrowseStack} />
-      <BottomTab.Screen name="Search" component={SearchStack} />
-      <BottomTab.Screen name="Profile" component={ProfileStack} />
+      <BottomTab.Screen name={i18n.t("Home")} component={HomeStack} />
+      <BottomTab.Screen name={i18n.t("Favorite")} component={FavoritesStack} />
+      <BottomTab.Screen name={i18n.t("Browse")} component={BrowseStack} />
+      <BottomTab.Screen name={i18n.t("Search")} component={SearchStack} />
+      <BottomTab.Screen name={i18n.t("Profile")} component={ProfileStack} />
     </BottomTab.Navigator>
   )
 }
 
 const MainNavigation = () => {
+  const { theme } = useContext(ThemeContext)
+
   return (
     <MainNavigationStack.Navigator>
       <MainNavigationStack.Screen
@@ -91,6 +98,66 @@ const MainNavigation = () => {
         name={screenName.bottomTabScreen}
         component={BottomTabNavigator}
         options={{ headerShown: false }}
+      />
+
+      <MainNavigationStack.Screen
+        name={screenName.signupScreen}
+        component={Register}
+        options={{
+          title: i18n.t("Register"),
+          headerTintColor: theme.headerText,
+          headerStyle: {
+            backgroundColor: theme.headerBar,
+          },
+          headerTitleStyle: {
+            color: theme.headerText,
+          },
+        }}
+      />
+
+      <MainNavigationStack.Screen
+        name={screenName.registerSuccessfullyScreen}
+        component={RegisterSuccessfully}
+        options={{
+          title: "Đăng ký thành công",
+          headerTintColor: theme.headerText,
+          headerStyle: {
+            backgroundColor: theme.headerBar,
+          },
+          headerTitleStyle: {
+            color: theme.headerText,
+          },
+        }}
+      />
+
+      <MainNavigationStack.Screen
+        name={screenName.forgotPasswordScreen}
+        component={ForgotPassword}
+        options={{
+          title: i18n.t("ForgotPassword"),
+          headerTintColor: theme.headerText,
+          headerStyle: {
+            backgroundColor: theme.headerBar,
+          },
+          headerTitleStyle: {
+            color: theme.headerText,
+          },
+        }}
+      />
+
+      <MainNavigationStack.Screen
+        name={screenName.sendEmailSuccessfully}
+        component={SendEmailSuccessfully}
+        options={{
+          title: "Gửi email thành công",
+          headerTintColor: theme.headerText,
+          headerStyle: {
+            backgroundColor: theme.headerBar,
+          },
+          headerTitleStyle: {
+            color: theme.headerText,
+          },
+        }}
       />
     </MainNavigationStack.Navigator>
   )

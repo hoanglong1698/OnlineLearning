@@ -3,8 +3,8 @@ import { Text, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-nati
 import SectionCoursesItem from '../SectionCoursesItem/section-courses-item'
 import { color, screenName } from '../../../../globals/constants'
 import { createStackNavigator } from '@react-navigation/stack';
-import { courses, continueLearning } from './../../../../globals/database';
 import { ThemeContext } from '../../../../provider/theme-provider';
+import i18n from './../../../../../utils/i18n';
 
 const Stack = createStackNavigator();
 
@@ -25,7 +25,7 @@ const SectionCourses = (props) => {
             <View>
                 <Text style={{ ...styles.title, color: theme.headerText }}>{props.title}</Text>
                 <TouchableOpacity style={{ ...styles.seeAll, backgroundColor: theme.seeAllButtonColor }} onPress={onPressSeeAll}>
-                    <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>See all {">"}</Text>
+                    <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>{i18n.t("SeeMore")}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         marginRight: 15,
         backgroundColor: color.seeAllButtonColor,
         borderRadius: 25,
-        width: 60,
+        width: 70,
     },
 
     text: {

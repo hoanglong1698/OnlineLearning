@@ -1,0 +1,4 @@
+Keystore credentials
+  Keystore password: b993e5ee2efe4e5e8985bfbcfa37284e
+  Key alias:         QGhvYW5nbG9uZzE2MTk4L09ubGluZUxlYXJuaW5n
+  Key password:      d6f34946322243fcb3b0157771e10634

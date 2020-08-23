@@ -1,29 +1,22 @@
-import React from "react";
-import { StyleSheet, Text, View, SectionList } from "react-native";
+import React, { useState, useContext } from "react";
+import { StyleSheet, Text, View, SectionList, ActivityIndicator, ScrollView } from "react-native";
 import Units from "./Units/units";
 import Lessons from './Lessons/lessons';
-import { units } from './../../../globals/database';
 import { color } from './../../../globals/constants';
-
-const Item = ({ title }) => (
-    <View style={styles.item}>
-        <Text style={styles.title}>{title}</Text>
-    </View>
-);
+import { ThemeContext } from "../../../provider/theme-provider";
 
 const Content = (props) => {
-    let data = props.route.params;
-    
-    var array = [];
-    for (var i in data) {
-        array.push(data[i]);
+    const [section, setSection] = useState(props.route.params.data.map(({ name: title, lesson: data, ...rest }) => ({ title, data, ...rest })));
+    const callbackToContents = (childData, id) => {
+        props.route.params.callbackToCourseDetail(childData, id);
     }
-
+    const { theme } = useContext(ThemeContext);
     return (
-        <View style={styles.container}>
+        <View style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
             <SectionList
-                sections={array}
-                renderItem={({ item }) => <Lessons item={item} />}
+                sections={section}
+                keyExtractor={(item, index) => item + index}
+                renderItem={({ item }) => <Lessons item={item} callbackToContents={callbackToContents} />}
                 renderSectionHeader={(item) => <Units item={item} />}
                 renderSectionFooter={() => <View style={{ borderBottomColor: color.border, borderBottomWidth: 1 }} />}
             />

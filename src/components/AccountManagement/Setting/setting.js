@@ -4,51 +4,14 @@ import { ListItem } from 'react-native-elements'
 import { color, screenName } from './../../../globals/constants';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ThemeContext } from '../../../provider/theme-provider';
+import i18n from './../../../../utils/i18n';
 
 const Setting = (props) => {
     const { theme } = useContext(ThemeContext);
 
     const list = [
         {
-            title: 'Account',
-            titleStyle: [
-                {
-                    color: color.headerText,
-                    fontWeight: 'bold',
-                }
-            ],
-        },
-        {
-            title: 'Subscription',
-            titleStyle: [
-                {
-                    color: color.headerText,
-                    fontWeight: 'bold',
-                }
-            ],
-            subtitle: 'Free',
-        },
-        {
-            title: 'Communication Preferences',
-            titleStyle: [
-                {
-                    color: color.headerText,
-                    fontWeight: 'bold',
-                }
-            ],
-        },
-        {
-            title: 'Default caption language',
-            titleStyle: [
-                {
-                    color: color.headerText,
-                    fontWeight: 'bold',
-                }
-            ],
-            subtitle: 'English'
-        },
-        {
-            title: 'Theme',
+            title: i18n.t("Theme"),
             titleStyle: [
                 {
                     color: color.headerText,
@@ -57,94 +20,21 @@ const Setting = (props) => {
             ],
             screenName: screenName.themeSettingScreen,
         },
+
         {
-            title: 'Require Wi-Fi for streaming',
+            title: i18n.t("Language"),
             titleStyle: [
                 {
                     color: color.headerText,
                     fontWeight: 'bold',
                 }
             ],
-            switch: 'false',
+            screenName: screenName.languageSettingScreen,
+            subtitle: i18n.t("LanguageSubtitle")
         },
 
         {
-            title: 'Require Wi-Fi for downloading',
-            titleStyle: [
-                {
-                    color: color.headerText,
-                    fontWeight: 'bold',
-                }
-            ],
-            switch: 'false',
-        },
-
-        {
-            title: 'Recommended content push notifications',
-            titleStyle: [
-                {
-                    color: color.headerText,
-                    fontWeight: 'bold',
-                }
-            ],
-            switch: 'false',
-            subtitle: 'Receive notifications about recommended content'
-        },
-
-        {
-            title: 'Show quiz at the end of video',
-            titleStyle: [
-                {
-                    color: color.headerText,
-                    fontWeight: 'bold',
-                }
-            ],
-            switch: 'true',
-        },
-
-        {
-            title: 'Download location',
-            titleStyle: [
-                {
-                    color: color.headerText,
-                    fontWeight: 'bold',
-                }
-            ],
-            subtitle: 'Default location (32 GB free of 64 GB)',
-        },
-
-        {
-            title: 'Captions',
-            titleStyle: [
-                {
-                    color: color.headerText,
-                    fontWeight: 'bold',
-                }
-            ],
-        },
-
-        {
-            title: 'Notifications',
-            titleStyle: [
-                {
-                    color: color.headerText,
-                    fontWeight: 'bold',
-                }
-            ],
-        },
-
-        {
-            title: 'Advance settings',
-            titleStyle: [
-                {
-                    color: color.headerText,
-                    fontWeight: 'bold',
-                }
-            ],
-        },
-
-        {
-            title: 'App version',
+            title: i18n.t("AppVersion"),
             titleStyle: [
                 {
                     color: color.headerText,
@@ -157,7 +47,7 @@ const Setting = (props) => {
 
 
     return (
-        <ScrollView>
+        <ScrollView style={{ flex: 1, backgroundColor: theme.mainBackgroundColor }}>
             {
                 list.map((item, i) => (
                     <ListItem
@@ -176,7 +66,11 @@ const Setting = (props) => {
                             color: theme.subtitleColor,
                         }}
                         switch={item.switch}
-                        onPress={() => props.navigation.navigate(item.screenName)}
+                        onPress={() => {
+                            if (item.screenName) {
+                                props.navigation.navigate(item.screenName)
+                            }
+                        }}
                     />
                 ))
             }

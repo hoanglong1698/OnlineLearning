@@ -1,25 +1,38 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { color } from './../../../../globals/constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import moment from 'moment';
+import { ThemeContext } from '../../../../provider/theme-provider';
+import i18n from './../../../../../utils/i18n';
 
 const Lessons = (props) => {
-    let data = props.item || [];
+    const { theme } = useContext(ThemeContext);
+    const [data, setData] = useState(props.item);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const onPressItem = (videoURL, id) => {
+        if (!videoURL) {
+            return;
+        }
+        props.callbackToContents(videoURL, id);
+        setIsPlaying(true);
+    }
 
-    const subMenu = (props) => {
-        console.log('3 dot')
+    function formatDuration(num) {
+        return moment().startOf('day').add(num, 'hours').format('H:mm:ss')
     }
 
     return (
         <ListItem
-            title={data.title}
-            titleStyle={{ color: color.headerText, }}
-            leftElement={<MaterialCommunityIcons
-                name='checkbox-blank-circle'
-                size={10}
-                onPress={subMenu} />}
-            rightElement={<Text style={{ fontSize: 12 }}>{data.time}</Text>}
+            key={data.id}
+            title={data.name}
+            titleStyle={{ color: theme.headerText, }}
+            containerStyle={{ backgroundColor: theme.itemBackgroundColor }}
+            leftElement={<Text style={{ fontWeight: 'bold', color: theme.headerText }}>{i18n.t("LessonInUnit")} {data.numberOrder}.</Text>}
+            rightElement={<Text style={{ fontSize: 12, color: theme.headerText }}>{formatDuration(data.hours)}</Text>}
+            badge={isPlaying}
+            onPress={() => { onPressItem(data.videoUrl, data.id) }}
         />
     )
 }

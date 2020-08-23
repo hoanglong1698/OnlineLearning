@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { color } from './../../../globals/constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { ThemeContext } from '../../../provider/theme-provider';
 
 const CircleButton = (props) => {
+    const { theme } = useContext(ThemeContext);
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity
+            style={styles.container}
+            onPress={props.onPress}
+        >
             <View style={styles.icon}>
-                <MaterialCommunityIcons name={props.item.iconName} size={30} color='white' />
+                <MaterialCommunityIcons name={props.iconName} size={30} color='white' />
             </View>
-            <Text style={styles.nameButton}>{props.item.nameButton}</Text>
+            <Text style={{ ...styles.nameButton, color: theme.headerText }}>{props.nameButton}</Text>
         </TouchableOpacity>
     )
 }
@@ -28,7 +33,7 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         backgroundColor: color.button,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     nameButton: {
