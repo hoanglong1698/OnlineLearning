@@ -10,7 +10,7 @@ const PasswordView = (props) => {
                 style={styles.inputText}
                 placeholder={props.title}
                 placeholderTextColor={color.placeholderTextColor}
-            //onChangeText={text => this.setState({ email: text })} 
+                defaultValue={props.data}
             />
         </View>
     )

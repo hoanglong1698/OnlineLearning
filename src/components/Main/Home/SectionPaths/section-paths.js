@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Text, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
 import { render } from 'react-dom'
 import { color } from '../../../../globals/constants'
 import { paths } from '../../../../globals/database'
 import SectionPathsItem from './../SectionPathsItem/section-paths-item';
+import { ThemeContext } from '../../../../provider/theme-provider'
 
 const SectionPaths = (props) => {
 
@@ -11,12 +12,14 @@ const SectionPaths = (props) => {
         return courses.map(item => <SectionPathsItem item={item} />)
     }
 
+    const { theme } = useContext(ThemeContext)
+
     return (
         <View style={styles.container}>
             <View>
-                <Text style={styles.title}>{props.title}</Text>
-                <TouchableOpacity style={styles.seeAll}>
-                     <Text style={styles.text}>See all ></Text>
+                <Text style={{ ...styles.title, color: theme.headerText }}>{props.title}</Text>
+                <TouchableOpacity style={{ ...styles.seeAll, backgroundColor: theme.seeAllButtonColor }}>
+                    <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>See all {">"}</Text>
                 </TouchableOpacity>
             </View>
 

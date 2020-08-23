@@ -1,9 +1,8 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView, SectionList} from "react-native";
+import { StyleSheet, Text, View, SectionList } from "react-native";
 import Units from "./Units/units";
 import Lessons from './Lessons/lessons';
-import { unitsData } from './../../../globals/database';
-import { ListItem } from 'react-native-elements';
+import { units } from './../../../globals/database';
 import { color } from './../../../globals/constants';
 
 const Item = ({ title }) => (
@@ -12,18 +11,27 @@ const Item = ({ title }) => (
     </View>
 );
 
-const App = () => (
-    <View style={styles.container}>
-        <SectionList
-            sections={unitsData}
-            renderItem={() => <Lessons />}
-            renderSectionHeader={(item) => <Units item={item} />}
-            renderSectionFooter={() => <View style={{borderBottomColor: color.border, borderBottomWidth: 1}}/>}
-        />
-    </View>
-);
+const Content = (props) => {
+    let data = props.route.params;
+    
+    var array = [];
+    for (var i in data) {
+        array.push(data[i]);
+    }
 
-export default App;
+    return (
+        <View style={styles.container}>
+            <SectionList
+                sections={array}
+                renderItem={({ item }) => <Lessons item={item} />}
+                renderSectionHeader={(item) => <Units item={item} />}
+                renderSectionFooter={() => <View style={{ borderBottomColor: color.border, borderBottomWidth: 1 }} />}
+            />
+        </View>
+    );
+}
+
+export default Content;
 
 const styles = StyleSheet.create({
     container: {

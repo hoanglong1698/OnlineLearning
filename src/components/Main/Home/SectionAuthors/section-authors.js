@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import SectionAuthorsItem from './../SectionAuthorsItem/section-authors-item';
 import { color } from '../../../../globals/constants'
+import { ThemeContext } from '../../../../provider/theme-provider';
 
 const SectionAuthors = (props) => {
     const authors = [
@@ -26,12 +27,14 @@ const SectionAuthors = (props) => {
         return authors.map(item => <SectionAuthorsItem item={item} />)
     }
 
+    const { theme } = useContext(ThemeContext);
+
     return (
         <View style={styles.container}>
             <View>
-                <Text style={styles.title}>{props.title}</Text>
-                <TouchableOpacity style={styles.seeAll}>
-                     <Text style={styles.text}>See all ></Text>
+                <Text style={{ ...styles.title, color: theme.headerText }}>{props.title}</Text>
+                <TouchableOpacity style={{ ...styles.seeAll, backgroundColor: theme.seeAllButtonColor }}>
+                    <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>See all {">"}</Text>
                 </TouchableOpacity>
             </View>
 

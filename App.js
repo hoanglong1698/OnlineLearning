@@ -1,102 +1,112 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import Home from './src/components/Main/Home/home';
-import ListCourses from './src/components/Courses/ListCourses/list-courses';
+import React, { useState, useContext } from 'react';
+import { StyleSheet, Button } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CoursesDetail from './src/components/CourseDetail/courses-detail';
-import Download from './src/components/Main/Download/download';
-import Search from './src/components/Main/Search/search';
-import Profile from './src/components/AccountManagement/Profile/profile';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { color } from './src/globals/constants';
-import Result from './src/components/Main/Search/result';
-import Browse from './src/components/Main/Browse/browse';
+import { color, screenName, themes } from './src/globals/constants';
+import ProfileStack from './src/components/Navigation/profile-stack';
+import HomeStack from './src/components/Navigation/home-stack';
+import DownloadStack from './src/components/Navigation/download-stack';
+import BrowseStack from './src/components/Navigation/browse-stack';
+import SearchStack from './src/components/Navigation/search-stack';
+import SplashScreen from './src/components/Others/Splashscreen/splash-screen';
+import Login from './src/components/Authentication/Login/login';
+import { AuthenticationProvider } from './src/provider/authentication-provider';
+import { ThemeProvider, ThemeContext } from './src/provider/theme-provider';
 
-const MainStack = createStackNavigator();
-
-const ListCoursesStack = () => {
-  return (
-    <MainStack.Navigator initialRouteName="ListCourse"
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: '#ffc226',
-        }
-      }}>
-      <MainStack.Screen
-        name="ListCourses"
-        component={ListCourses}
-        options={{
-          title: "List Courses",
-          headerRight: () => (
-            <Button
-              onPress={() => alert('This is a button!')}
-              title="Info"
-              color="#2c3051"
-            />
-          ),
-        }} />
-
-      <MainStack.Screen
-        name="CoursesDetail"
-        component={CoursesDetail}
-        options={({ route }) => ({ title: route.params.item.title })} />
-
-    </MainStack.Navigator>
-  )
-}
+const MainNavigationStack = createStackNavigator();
 
 const BottomTab = createBottomTabNavigator();
 
-export default function App() {
+const BottomTabNavigator = () => {
+  const { theme } = useContext(ThemeContext);
+
   return (
-    <NavigationContainer>
-      <BottomTab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+    <BottomTab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
-            if (route.name === 'Home') {
-              iconName = focused
-                ? 'home'
-                : 'home-outline';
-            } else if (route.name === 'Download') {
-              iconName = focused
-                ? 'arrow-down-bold-circle'
-                : 'arrow-down-bold-circle-outline';
-            } else if (route.name === 'Browse') {
-              iconName = focused
-                ? 'view-list'
-                : 'format-list-bulleted';
-            } else if (route.name === 'Search') {
-              iconName = focused
-                ? 'magnify'
-                : 'magnify';
-            } else if (route.name === 'Profile') {
-              iconName = focused
-                ? 'account-circle'
-                : 'account-circle-outline';
-            }
+          if (route.name === 'Home') {
+            iconName = focused
+              ? 'home'
+              : 'home-outline';
+          } else if (route.name === 'Download') {
+            iconName = focused
+              ? 'arrow-down-bold-circle'
+              : 'arrow-down-bold-circle-outline';
+          } else if (route.name === 'Browse') {
+            iconName = focused
+              ? 'view-list'
+              : 'format-list-bulleted';
+          } else if (route.name === 'Search') {
+            iconName = focused
+              ? 'magnify'
+              : 'magnify';
+          } else if (route.name === 'Profile') {
+            iconName = focused
+              ? 'account-circle'
+              : 'account-circle-outline';
+          }
 
-            // You can return any component that you like here!
-            return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
-          },
-        })}
+          // You can return any component that you like here!
+          return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+        },
+      })}
 
-        tabBarOptions={{
-          activeTintColor: color.headerBar,
-          inactiveTintColor: color.infoTextColor,
-        }}
-      >
-        <BottomTab.Screen name="Home" component={Home} />
-        <BottomTab.Screen name="Download" component={Download} />
-        <BottomTab.Screen name="Browse" component={Browse} />
-        <BottomTab.Screen name="Search" component={Result} />
-        <BottomTab.Screen name="Profile" component={Profile} />
-      </BottomTab.Navigator>
-    </NavigationContainer>
+      tabBarOptions={{
+        activeTintColor: theme.headerBar,
+        inactiveTintColor: theme.infoTextColor,
+        activeBackgroundColor: theme.backgroundBottomBar,
+        inactiveBackgroundColor: theme.backgroundBottomBar
+      }}
+    >
+      <BottomTab.Screen name="Home" component={HomeStack} />
+      <BottomTab.Screen name="Download" component={DownloadStack} />
+      <BottomTab.Screen name="Browse" component={BrowseStack} />
+      <BottomTab.Screen name="Search" component={SearchStack} />
+      <BottomTab.Screen name="Profile" component={ProfileStack} />
+    </BottomTab.Navigator>
+  )
+}
+
+const MainNavigation = () => {
+  return (
+    <MainNavigationStack.Navigator>
+      <MainNavigationStack.Screen
+        name={screenName.splashScreen}
+        component={SplashScreen}
+        options={{ headerShown: false }}
+      />
+
+      <MainNavigationStack.Screen
+        name={screenName.loginScreen}
+        component={Login}
+        options={{ headerShown: false }}
+      />
+
+      <MainNavigationStack.Screen
+        name={screenName.bottomTabScreen}
+        component={BottomTabNavigator}
+        options={{ headerShown: false }}
+      />
+    </MainNavigationStack.Navigator>
+  )
+}
+
+export default function App() {
+  console.disableYellowBox = true;
+
+  return (
+    <ThemeProvider>
+      <AuthenticationProvider>
+        <NavigationContainer>
+          <MainNavigation />
+        </NavigationContainer>
+      </AuthenticationProvider>
+    </ThemeProvider>
   );
 }
 

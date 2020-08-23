@@ -1,32 +1,37 @@
-import React from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity, Alert, Share } from 'react-native'
-import { Rating, AirbnbRating } from 'react-native-elements';
-import { color } from './../../../globals/constants';
+import React, { useContext } from 'react'
+import { View, Text, Image, StyleSheet } from 'react-native'
+import { Rating } from 'react-native-elements';
+import { color, screenName } from './../../../globals/constants';
 import { ListItem } from 'react-native-elements'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { ThemeContext } from '../../../provider/theme-provider';
 
 const ListCoursesItem = (props) => {
+    const { theme } = useContext(ThemeContext)
+
     const onPressListItem = () => {
-        props.navigation.navigate("CoursesDetail")
+        props.navigation.navigate(screenName.coursesDetailScreen, { item: props.item })
     }
 
-    const thumbnail = (props) => {
-        return <Image style={styles.thumbnail}
-            source={require('../../../../assets/icon-course.png')}>
-        </Image>
+    const thumbnail = (imageURL) => {
+        return <View style={styles.thumbnail}>
+            <Image style={styles.thumbnail}
+                source={{ uri: imageURL }}>
+            </Image>
+        </View>
     }
 
     const subtitle = (props) => {
         return <View>
-            <Text style={styles.subtitle}>{props.item.author}</Text>
-            <Text style={styles.subtitle}>{`${props.item.level} \u00B7 ${props.item.released} \u00B7 ${props.item.duration}`}</Text>
+            <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{props.item.author}</Text>
+            <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{`${props.item.level} \u00B7 ${props.item.released} \u00B7 ${props.item.duration}`}</Text>
             <Rating style={styles.rating}
-                    defaultRating={4}
-                    type='star'
-                    fractions={1}
-                    ratingCount={5}
-                    imageSize={12}
-                />
+                defaultRating={4}
+                type='star'
+                fractions={1}
+                ratingCount={5}
+                imageSize={12}
+            />
         </View>
     }
 
@@ -37,15 +42,21 @@ const ListCoursesItem = (props) => {
     return (
         <ListItem
             title={props.item.title}
-            titleStyle={{ color: color.headerText, }}
-            leftElement={() => thumbnail()}
+            titleStyle={{ color: theme.headerText, }}
+            containerStyle={{backgroundColor: theme.itemBackgroundColor}}
+            leftElement={() => thumbnail(props.item.image)}
             subtitle={() => subtitle(props)}
             bottomDivider
             rightElement={<MaterialCommunityIcons
                 name='dots-vertical'
                 size={24}
-                onPress={subMenu} />}
-            onPress={onPressListItem}
+                onPress={subMenu}
+                color={theme.headerText}
+            />
+            }
+            onPress={() => {
+                props.onPressListItem(props.item)
+            }}
         />
     )
 };
@@ -55,7 +66,7 @@ const styles = StyleSheet.create({
         fontSize: 13,
         color: color.subtitleColor,
     },
-    
+
     thumbnail: {
         width: 90,
         height: 60,

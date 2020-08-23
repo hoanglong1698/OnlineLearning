@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, TextInput, StyleSheet } from 'react-native'
 import { color } from '../../globals/constants'
+
 const InputView = (props) => {
     return (
         <View style={styles.inputView} >
@@ -8,7 +9,7 @@ const InputView = (props) => {
                 style={styles.inputText}
                 placeholder={props.title}
                 placeholderTextColor={color.placeholderTextColor}
-            //onChangeText={text => this.setState({ email: text })} 
+                defaultValue={props.data}
             />
         </View>
     )

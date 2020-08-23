@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, Picker } from 'react-native'
-import { courses } from './../../../../globals/database';
+import { bookmarks } from './../../../../globals/database';
 import { color } from './../../../../globals/constants';
 import ListCourses from '../../../Courses/ListCourses/list-courses';
 
 const SearchCourses = (props) => {
     const [selectedValue, setSelectedValue] = useState("Newest");
-
+    let data = bookmarks;
     return (
         <View style={styles.container}>
             <View style={styles.sort}>
-                <Text style={styles.resultCount}>{courses.length} result</Text>
+                <Text style={styles.resultCount}>{data.length} result</Text>
                 <Picker
                     selectedValue={selectedValue}
                     style={styles.picker}
@@ -22,7 +22,7 @@ const SearchCourses = (props) => {
                 </Picker>
             </View>
 
-            <ListCourses></ListCourses>
+            <ListCourses navigation={props.navigation} data={data}></ListCourses>
         </View>
     )
 }

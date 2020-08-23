@@ -1,12 +1,10 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native'
+import React, { useContext } from 'react'
+import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput } from 'react-native'
 import { ListItem } from 'react-native-elements'
-import { color } from './../../../globals/constants';
-import InputView from '../../Common/input-view'
-import PasswordView from '../../Common/password-view'
-import LogoutButton from '../../Common/log-out-button';
+import { color, screenName } from './../../../globals/constants';
+import { AuthenticationContext } from '../../../provider/authentication-provider';
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
     const list = [
         {
             title: 'Change password',
@@ -28,29 +26,54 @@ const Profile = () => {
         },
     ]
 
-    const onPressTest = () =>
-        console.log('clicked')
+    const { authentication } = useContext(AuthenticationContext)
 
     return (
         <View style={styles.container}>
             <View style={styles.userInfo}>
-                <TouchableOpacity style={styles.avtarName}>
+                <TouchableOpacity style={styles.avatarName}>
                     <Image source={require('../../../../assets/gorden-ramsay.jpg')}
                         style={styles.avatar}
                     />
-                    <Text style={styles.name}>Hoang Long Nguyen</Text>
+                    <Text style={styles.name}>{authentication.user.fullname}</Text>
                 </TouchableOpacity>
 
-                <Text style={styles.nameOfInput}>Your Name</Text>
-                <InputView title="Hoang Long Nguyen"></InputView>
+                <Text style={styles.labelOfInput}>Your Name</Text>
+                <View style={styles.inputView} >
+                    <TextInput
+                        style={styles.inputText}
+                        placeholder='Username'
+                        placeholderTextColor={color.placeholderTextColor}
+                        defaultValue={authentication.user.fullname}
+                    //onChangeText={text => setUsername(text)}
+                    />
+                </View>
 
-                <Text style={styles.nameOfInput}>Username</Text>
-                <InputView title="hoanglong1698"></InputView>
+                <Text style={styles.labelOfInput}>Username</Text>
+                <View style={styles.inputView} >
+                    <TextInput
+                        style={styles.inputText}
+                        placeholder='Username'
+                        placeholderTextColor={color.placeholderTextColor}
+                        defaultValue={authentication.user.username}
+                    //onChangeText={text => setUsername(text)}
+                    />
+                </View>
 
-                <Text style={styles.nameOfInput}>Email</Text>
-                <InputView title="hoanglong16198@gmail.com"></InputView>
+                <Text style={styles.labelOfInput}>Email</Text>
+                <View style={styles.inputView} >
+                    <TextInput
+                        style={styles.inputText}
+                        placeholder='Username'
+                        placeholderTextColor={color.placeholderTextColor}
+                        defaultValue='hoanglong16198@gmail.com'
+                    //onChangeText={text => setUsername(text)}
+                    />
+                </View>
 
-                <LogoutButton title="Log out"></LogoutButton>
+                <TouchableOpacity style={styles.changeInfoButton}>
+                    <Text style={styles.changeInfoText}>Change Info</Text>
+                </TouchableOpacity>
             </View>
 
             <View style={{ marginTop: 30 }}>
@@ -63,7 +86,7 @@ const Profile = () => {
                         color: color.headerText,
                         fontWeight: 'bold',
                     }}
-                    onPress={onPressTest}
+                    onPress={() => navigation.navigate(screenName.changePasswordScreen)}
                 />
                 <ListItem
                     key={2}
@@ -74,7 +97,18 @@ const Profile = () => {
                         color: color.headerText,
                         fontWeight: 'bold',
                     }}
-                    onPress={onPressTest}
+                    onPress={() => navigation.navigate(screenName.settingScreen, {navigation: navigation})}
+                />
+                <ListItem
+                    key={3}
+                    title='Logout'
+                    bottomDivider
+                    chevron
+                    titleStyle={{
+                        color: 'red',
+                        fontWeight: 'bold',
+                    }}
+                    //onPress={() => navigation.navigate('Setting')}
                 />
             </View>
         </View>
@@ -94,10 +128,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 50,
     },
 
-    avtarName: {
+    avatarName: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 10,
+        alignSelf: 'flex-start'
     },
 
     avatar: {
@@ -114,13 +149,58 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
 
-    nameOfInput: {
+    labelOfInput: {
         color: color.headerText,
         fontSize: 16,
         fontWeight: 'bold',
         alignSelf: 'flex-start',
         marginBottom: -10,
-    }
+    },
+
+    inputView: {
+        alignSelf: 'stretch',
+        height: 40,
+        marginBottom: 30,
+        borderBottomColor: color.border,
+        borderBottomWidth: 1,
+    },
+
+    inputText: {
+        height: 45,
+        color: color.inputText,
+    },
+
+    logoutButton: {
+        alignSelf: 'center',
+        backgroundColor: 'red',
+        borderRadius: 5,
+        height: 45,
+        width: 250,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 30,
+    },
+
+    logoutText: {
+        fontWeight: 'bold',
+        color: color.buttonText
+    },
+
+    changeInfoButton: {
+        marginVertical: 0,
+        alignSelf: 'stretch',
+        backgroundColor: color.button,
+        borderRadius: 5,
+        height: 45,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+
+    changeInfoText: {
+        fontWeight: 'bold',
+        color: color.buttonText,
+        fontSize: 16,
+    },
 })
 
 

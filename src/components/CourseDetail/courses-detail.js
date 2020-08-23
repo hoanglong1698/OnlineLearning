@@ -10,26 +10,33 @@ import Contents from './Contents/contents';
 import Transcripts from './Transcripts/transcripts';
 
 const Tab = createMaterialTopTabNavigator();
+
 const CoursesDetail = (props) => {
-    //let item = props.route.params.item
+    const title = props.route.params.item.title;
+    const author = props.route.params.item.author;
+    const duration = props.route.params.item.duration;
+    const level = props.route.params.item.level;
+    const released = props.route.params.item.released;
+    const description = props.route.params.item.description;
+    const units = props.route.params.item.units;
+    const transcripts = props.route.params.item.transcripts;
+    const image = props.route.params.item.image;
+    props.navigation.setOptions({ title: title });
 
     return (
         <View style={styles.container}>
-            <Image style={styles.video} source={require('../../../assets/icon-course.png')}></Image>
+            <Image style={styles.video} source={{uri: image}}></Image>
             <ScrollView >
                 <View style={{ marginHorizontal: 10 }}>
-                    <Text style={styles.title}>React Native: Getting Started</Text>
+                    <Text style={styles.title}>{title}</Text>
 
-                    <Author title="Hoang Long Nguyen"></Author>
-                    <GeneralInfomation></GeneralInfomation>
+                    <Author title={author}></Author>
+                    <GeneralInfomation level={level} released={released} duration={duration} ></GeneralInfomation>
                     <CircleButtonList></CircleButtonList>
 
                     <Text style={styles.introduction}>
-                        Create native apps for Android and iOS using React.
-                        React Native combines the best parts of native development
-                        with React, a best-in-class JavaScript library for building
-                        user interfaces.
-                </Text>
+                        {description}
+                    </Text>
 
 
                     <TouchableButton title="Take a learning check" ></TouchableButton>
@@ -45,8 +52,8 @@ const CoursesDetail = (props) => {
                         labelStyle: { fontWeight: 'bold' }
                     }}
                 >
-                    <Tab.Screen name="CONTENTS" component={Contents} />
-                    <Tab.Screen name="TRANSCRIPTS" component={Transcripts} />
+                    <Tab.Screen name="CONTENTS" component={Contents} initialParams={units} />
+                    <Tab.Screen name="TRANSCRIPTS" component={Transcripts} initialParams={transcripts} />
                 </Tab.Navigator>
             </ScrollView>
         </View>
@@ -74,7 +81,7 @@ const styles = StyleSheet.create({
     introduction: {
         fontSize: 14,
         color: color.headerText,
-        marginVertical: 10,
+        marginBottom: 10,
         textAlign: 'left'
     },
 

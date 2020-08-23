@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { View, Text, TouchableOpacity, Switch } from 'react-native'
 import { ListItem } from 'react-native-elements'
-import { color } from './../../../globals/constants';
+import { color, screenName } from './../../../globals/constants';
 import { ScrollView } from 'react-native-gesture-handler';
+import { ThemeContext } from '../../../provider/theme-provider';
 
-const Setting = () => {
+const Setting = (props) => {
+    const { theme } = useContext(ThemeContext);
+
     const list = [
         {
             title: 'Account',
@@ -43,6 +46,16 @@ const Setting = () => {
                 }
             ],
             subtitle: 'English'
+        },
+        {
+            title: 'Theme',
+            titleStyle: [
+                {
+                    color: color.headerText,
+                    fontWeight: 'bold',
+                }
+            ],
+            screenName: screenName.themeSettingScreen,
         },
         {
             title: 'Require Wi-Fi for streaming',
@@ -86,7 +99,7 @@ const Setting = () => {
                     fontWeight: 'bold',
                 }
             ],
-            switch: 'false',
+            switch: 'true',
         },
 
         {
@@ -142,24 +155,31 @@ const Setting = () => {
         },
     ]
 
+
     return (
         <ScrollView>
-            <TouchableOpacity>
-                {
-                    list.map((item, i) => (
-                        <ListItem
-                            key={i}
-                            title={item.title}
-                            //leftIcon={{ name: item.icon }}
-                            bottomDivider
-                            chevron={item.chevron}
-                            subtitle={item.subtitle}
-                            titleStyle={item.titleStyle}
-                            switch={item.switch}
-                        />
-                    ))
-                }
-            </TouchableOpacity >
+            {
+                list.map((item, i) => (
+                    <ListItem
+                        key={i}
+                        title={item.title}
+                        containerStyle={{ backgroundColor: theme.itemBackgroundColor }}
+                        //leftIcon={{ name: item.icon }}
+                        bottomDivider
+                        chevron={item.chevron}
+                        subtitle={item.subtitle}
+                        titleStyle={{
+                            color: theme.headerText,
+                            fontWeight: 'bold',
+                        }}
+                        subtitleStyle={{
+                            color: theme.subtitleColor,
+                        }}
+                        switch={item.switch}
+                        onPress={() => props.navigation.navigate(item.screenName)}
+                    />
+                ))
+            }
         </ScrollView>
     )
 }

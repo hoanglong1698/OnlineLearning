@@ -2,17 +2,19 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View, ScrollView } from 'react-native'
 import ListCourses from './../../../../Courses/ListCourses/list-courses';
 import { color } from './../../../../../globals/constants';
+import { paths } from '../../../../../globals/database';
 
-const SearchSectionPaths = () => {
+const SearchSectionPaths = (props) => {
+    let data = paths;
     return (
         <ScrollView style={{marginBottom: 10}}>
             <View style={styles.sectionHeader}>
                 <Text style={styles.title}>Paths</Text>
                 <TouchableOpacity style={styles.seeAll}>
-                    <Text style={styles.text}>2 result ></Text>
+                    <Text style={styles.text}>2 result {">"}</Text>
                 </TouchableOpacity>
             </View>
-            <ListCourses></ListCourses>
+            <ListCourses navigation={props.navigation} data={data}></ListCourses>
         </ScrollView>
     )
 }

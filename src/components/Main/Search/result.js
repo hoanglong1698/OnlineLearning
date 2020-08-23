@@ -11,7 +11,7 @@ import { color } from './../../../globals/constants';
 
 const TopTab = createMaterialTopTabNavigator();
 
-const Result = () => {
+const Result = (props) => {
     const searchView = () => {
         return <SearchBarView>
 
@@ -24,7 +24,7 @@ const Result = () => {
 
             <TopTab.Navigator
                 independent={true}
-                initialRouteName="COURSES"
+                initialRouteName="ALL"
                 tabBarOptions={{
                     indicatorStyle: { height: 3, backgroundColor: color.headerBar },
                     labelStyle: {fontWeight: 'bold'}
