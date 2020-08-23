@@ -6,6 +6,7 @@ import axios from 'axios';
 import { ThemeContext } from '../../../provider/theme-provider';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import i18n from './../../../../utils/i18n';
 
 const Search = (props) => {
     const authContext = useContext(AuthenticationContext);
@@ -78,7 +79,7 @@ const Search = (props) => {
     return (
         <View style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
             <SearchBar
-                placeholder="Tìm kiếm..."
+                placeholder={i18n.t("PlaceHolderSearch")}
                 clearIcon
                 platform='default'
                 lightTheme={theme.lightSeachBar}
@@ -87,7 +88,7 @@ const Search = (props) => {
                 onEndEditing={() => props.navigation.navigate(screenName.resultScreen, search)}
             />
             {<View style={styles.header}>
-                <Text style={{ ...styles.title, color: theme.headerText }}>Lịch sử</Text>
+                <Text style={{ ...styles.title, color: theme.headerText }}>{i18n.t("History")}</Text>
                 {searchHistory != undefined && searchHistory == 0 && <Text style={{ marginTop: 20, textAlign: 'center' }}>Không có dữ liệu</Text>}
             </View>}
 

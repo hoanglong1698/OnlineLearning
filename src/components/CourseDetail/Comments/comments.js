@@ -6,6 +6,7 @@ import { AirbnbRating } from 'react-native-elements';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 import axios from 'axios';
 import { ThemeContext } from '../../../provider/theme-provider';
+import i18n from './../../../../utils/i18n';
 
 const Comments = (props) => {
     const { theme } = useContext(ThemeContext);
@@ -13,7 +14,10 @@ const Comments = (props) => {
     const [data, setData] = useState(props.route.params.data);
     const [rate, setRate] = useState({
         averagePoint: props.route.params.averagePoint,
-        ratedNumber: props.route.params.ratedNumber
+        ratedNumber: props.route.params.ratedNumber,
+        formalityPoint: Math.round(props.route.params.formalityPoint),
+        contentPoint: Math.round(props.route.params.contentPoint),
+        presentationPoint: Math.round(props.route.params.presentationPoint),
     });
     const [rating, setRating] = useState({
         courseId: props.route.params.courseId,
@@ -52,15 +56,15 @@ const Comments = (props) => {
         <ScrollView style={{ ...styles.container, backgroundColor: theme.itemBackgroundColor, }}>
             <View style={styles.rateContainer}>
                 <Text style={styles.averagePoint}>{rate.averagePoint}</Text>
-                <Text style={{ color: theme.headerText }}>{rate.ratedNumber} bình chọn</Text>
-                <Text style={{ color: theme.headerText }}>{rate.ratedNumber} điểm nội dung</Text>
-                <Text style={{ color: theme.headerText }}>{rate.ratedNumber} điểm hình thức</Text>
-                <Text style={{ color: theme.headerText }}>{rate.ratedNumber} điểm truyền đạt</Text>
+                <Text style={{ color: theme.headerText }}>{rate.ratedNumber} {i18n.t("Ratings")}</Text>
+                <Text style={{ color: theme.headerText }}>{rate.contentPoint} điểm nội dung</Text>
+                <Text style={{ color: theme.headerText }}>{rate.formalityPoint} điểm hình thức</Text>
+                <Text style={{ color: theme.headerText }}>{rate.presentationPoint} điểm truyền đạt</Text>
             </View>
 
             <View style={styles.userRatingContainer}>
                 <View style={styles.ratingStar}>
-                    <Text style={{ fontSize: 18, marginRight: 21, color: theme.headerText }}>Nội dung</Text>
+                    <Text style={{ fontSize: 18, marginRight: 21, color: theme.headerText }}>{i18n.t("ContentRating")}</Text>
                     <AirbnbRating
                         count={5}
                         showRating={false}
@@ -71,7 +75,7 @@ const Comments = (props) => {
                 </View>
 
                 <View style={styles.ratingStar}>
-                    <Text style={{ fontSize: 18, marginRight: 15, color: theme.headerText }}>Hình thức</Text>
+                    <Text style={{ fontSize: 18, marginRight: 15, color: theme.headerText }}>{i18n.t("FormalityRating")}</Text>
                     <AirbnbRating
                         count={5}
                         showRating={false}
@@ -82,7 +86,7 @@ const Comments = (props) => {
                 </View>
 
                 <View style={styles.ratingStar}>
-                    <Text style={{ fontSize: 18, marginRight: 20, color: theme.headerText }}>Trình bày</Text>
+                    <Text style={{ fontSize: 18, marginRight: 20, color: theme.headerText }}>{i18n.t("PresentationRating")}</Text>
                     <AirbnbRating
                         count={5}
                         showRating={false}
@@ -95,7 +99,7 @@ const Comments = (props) => {
                 <View style={styles.inputView} >
                     <TextInput
                         style={{ ...styles.inputText, color: theme.headerText }}
-                        placeholder='Nhập bình luận'
+                        placeholder={i18n.t("TypeComment")}
                         placeholderTextColor={color.placeholderTextColor}
                         autoCapitalize='sentences'
                         onChangeText={(text) => setRating({ ...rating, content: text })}
@@ -103,12 +107,12 @@ const Comments = (props) => {
                 </View>
             </View>
 
-            {status.show && <Text>{status.message}</Text>}
+            {status.show && <Text style={{textAlign: 'center'}}>{status.message}</Text>}
             <TouchableOpacity
                 style={styles.button}
                 onPress={onPressSubmit}
             >
-                <Text style={styles.signInText}>Gửi bình luận</Text>
+                <Text style={styles.signInText}>{i18n.t("SendComment")}</Text>
             </TouchableOpacity>
 
             {data.ratingList.map(item => <CommentItem item={item} />)}

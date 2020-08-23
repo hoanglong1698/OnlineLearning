@@ -4,6 +4,7 @@ import axios from 'axios';
 import { color, screenName } from './../../../globals/constants';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 import { ThemeContext } from '../../../provider/theme-provider';
+import i18n from './../../../../utils/i18n';
 
 export default function ChangeEmail(props) {
     const authContext = useContext(AuthenticationContext);
@@ -65,7 +66,7 @@ export default function ChangeEmail(props) {
             <View style={styles.inputView} >
                 <TextInput
                     style={{ ...styles.inputText, color: theme.headerText }}
-                    placeholder='Email mới'
+                    placeholder={i18n.t("NewEmail")}
                     placeholderTextColor={color.placeholderTextColor}
                     keyboardType="email-address"
                     autoCapitalize="none"
@@ -88,7 +89,7 @@ export default function ChangeEmail(props) {
             {isLoading === true && <ActivityIndicator size="small" />}
             {status.isShow && <Text style={(status.isError === true) ? styles.error : styles.status}>{status.message}</Text>}
             <TouchableOpacity style={styles.button} onPress={onPressChangeEmail}>
-                <Text style={styles.signUpText}>Đổi email</Text>
+                <Text style={styles.signUpText}>{i18n.t("ChangeEmail")}</Text>
             </TouchableOpacity>
 
             <Modal

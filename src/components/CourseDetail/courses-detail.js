@@ -13,6 +13,7 @@ import { AuthenticationContext } from '../../provider/authentication-provider';
 import Comments from './Comments/comments';
 import Exercise from './Exercises/exercises';
 import { ThemeContext } from '../../provider/theme-provider';
+import i18n from './../../../utils/i18n';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -136,7 +137,7 @@ const CoursesDetail = (props) => {
     }
 
     const onPressRelate = () => {
-        props.navigation.navigate(screenName.listCoursesScreen, { title: "Khóa học liên quan", data: data.coursesLikeCategory })
+        props.navigation.navigate(screenName.listCoursesScreen, { title: i18n.t("RelateCourses"), data: data.coursesLikeCategory })
     }
 
     return (
@@ -165,30 +166,30 @@ const CoursesDetail = (props) => {
 
                         <View style={styles.circleButtons}>
                             {likeStatus
-                                ? <CircleButton iconName='heart' nameButton='Đã thích' onPress={() => onPressCircleButton("like")}></CircleButton>
-                                : <CircleButton iconName='heart-outline' nameButton='Yêu thích' onPress={() => onPressCircleButton("like")}></CircleButton>
+                                ? <CircleButton iconName='heart' nameButton={i18n.t("Liked")} onPress={() => onPressCircleButton("like")}></CircleButton>
+                                : <CircleButton iconName='heart-outline' nameButton={i18n.t("Like")} onPress={() => onPressCircleButton("like")}></CircleButton>
                             }
                             {ownStatus
-                                ? <CircleButton iconName='check-circle' nameButton='Đã sở hữu'></CircleButton>
-                                : <CircleButton iconName='cart-outline' nameButton='Đăng ký' onPress={() => onPressCircleButton("buy")}></CircleButton>
+                                ? <CircleButton iconName='check-circle' nameButton={i18n.t("OwnedCourse")}></CircleButton>
+                                : <CircleButton iconName='cart-outline' nameButton={i18n.t("RegisterCourse")} onPress={() => onPressCircleButton("buy")}></CircleButton>
                             }
 
-                            <CircleButton iconName='share' nameButton='Chia sẻ' onPress={() => onPressCircleButton("share")}></CircleButton>
+                            <CircleButton iconName='share' nameButton={i18n.t("Share")} onPress={() => onPressCircleButton("share")}></CircleButton>
                         </View>
                         <View style={styles.line}></View>
 
                         <View style={styles.containerIntro}>
-                            <Text style={{ ...styles.headerIntro, color: theme.headerText }}>Bạn sẽ học được</Text>
+                            <Text style={{ ...styles.headerIntro, color: theme.headerText }}>{i18n.t("YouWillLearn")}</Text>
                             {data.learnWhat.map((item) => <Text style={{ ...styles.introduction, color: theme.headerText }}>-    {item}</Text>)}
                         </View>
 
                         <View style={styles.containerIntro}>
-                            <Text style={{ ...styles.headerIntro, color: theme.headerText }}>Yêu cầu</Text>
+                            <Text style={{ ...styles.headerIntro, color: theme.headerText }}>{i18n.t("Requirement")}</Text>
                             {data.requirement.map((item) => <Text style={{ ...styles.introduction, color: theme.headerText }}>{`\u2713`}  {item}</Text>)}
                         </View>
 
                         <View style={styles.containerIntro}>
-                            <Text style={{ ...styles.headerIntro, color: theme.headerText }}>Mô tả</Text>
+                            <Text style={{ ...styles.headerIntro, color: theme.headerText }}>{i18n.t("Description")}</Text>
                             <Text style={{ ...styles.introduction, color: theme.headerText }}>{data.description}</Text>
                         </View>
 
@@ -196,27 +197,32 @@ const CoursesDetail = (props) => {
                             style={styles.button}
                             onPress={onPressRelate}
                         >
-                            <Text style={styles.signInText}>Xem các khóa học liên quan</Text>
+                            <Text style={styles.signInText}>{i18n.t("ViewRelateCourses")}</Text>
                         </TouchableOpacity>
                     </View>
 
                     <Tab.Navigator
                         independent={true}
-                        initialRouteName="BÀI HỌC"
+                        initialRouteName={i18n.t("ContentTab")}
                         tabBarOptions={{
                             indicatorStyle: { height: 3, backgroundColor: color.headerBar },
                             labelStyle: { fontWeight: 'bold' }
                         }}
                     >
-                        <Tab.Screen name="BÀI HỌC"
+                        <Tab.Screen name={i18n.t("ContentTab")}
                             component={activeTab === 'Contents' ? Contents : DefaultScreen}
                             initialParams={{ data: data.section, callbackToCourseDetail }}
                             listeners={{ focus: () => setActiveTab('Contents') }} />
-                        <Tab.Screen name="ĐÁNH GIÁ"
+                        <Tab.Screen name={i18n.t("RatingTab")}
                             component={activeTab === 'Comments' ? Comments : DefaultScreen}
-                            initialParams={{ data: data.ratings, averagePoint: data.averagePoint, ratedNumber: data.ratedNumber, courseId: idCourse }}
+                            initialParams={{
+                                data: data.ratings, averagePoint: data.averagePoint,
+                                ratedNumber: data.ratedNumber, formalityPoint: data.formalityPoint,
+                                contentPoint: data.contentPoint, presentationPoint: data.presentationPoint,
+                                courseId: idCourse
+                            }}
                             listeners={{ focus: () => setActiveTab('Comments') }} />
-                        <Tab.Screen name="BÀI TẬP"
+                        <Tab.Screen name={i18n.t("ExerciseTab")}
                             component={activeTab === 'Exercise' ? Exercise : DefaultScreen}
                             listeners={{ focus: () => setActiveTab('Exercise') }} />
                     </Tab.Navigator>

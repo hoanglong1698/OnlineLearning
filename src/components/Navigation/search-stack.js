@@ -5,7 +5,7 @@ import Result from './../Main/Search/result';
 import { color, screenName } from '../../globals/constants';
 import CoursesDetail from './../CourseDetail/courses-detail';
 import { ThemeContext } from '../../provider/theme-provider';
-
+import i18n from './../../../utils/i18n';
 
 const Stack = createStackNavigator();
 
@@ -29,7 +29,7 @@ export default function SearchStack() {
                 name={screenName.searchScreen}
                 component={Search}
                 options={{
-                    title: "Tìm kiếm",
+                    title: i18n.t("Search"),
                 }}
             />
 
@@ -37,7 +37,7 @@ export default function SearchStack() {
                 name={screenName.resultScreen}
                 component={Result}
                 options={{
-                    title: "Kết quả tìm kiếm",
+                    title: i18n.t("ResultMain"),
                 }}
             />
 

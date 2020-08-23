@@ -5,6 +5,7 @@ import axios from 'axios';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 import { LessonIDContext } from '../courses-detail'
 import { ThemeContext } from '../../../provider/theme-provider';
+import i18n from './../../../../utils/i18n';
 
 export default function Exercise(props) {
     const authContext = useContext(AuthenticationContext);
@@ -45,8 +46,8 @@ export default function Exercise(props) {
             {lessonIDContext.lessonID != undefined
                 ? <View>
                     {data.exercises_questions != undefined
-                        ? < Text style={{ ...styles.header, color: theme.headerText }}>Bài tập 1.  <Text style={{ fontWeight: 'normal', color: theme.headerText }}>{data.title}</Text></Text>
-                        : <Text style={{ ...styles.header, textAlign: 'center', color: theme.headerText }}>Lesson này không có bài tập. Vui lòng chọn các lesson khác để xem bài tập</Text>
+                        ? < Text style={{ ...styles.header, color: theme.headerText }}>{i18n.t("Exercise")} 1.  <Text style={{ fontWeight: 'normal', color: theme.headerText }}>{data.title}</Text></Text>
+                        : <Text style={{ ...styles.header, textAlign: 'center', color: theme.headerText }}>{i18n.t("NoExercise")}</Text>
                     }
                     {data.exercises_questions != undefined && data.exercises_questions.map((item, index) => {
                         return (

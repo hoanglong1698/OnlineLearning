@@ -4,6 +4,7 @@ import { color, screenName } from './../../../globals/constants';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 import axios from 'axios';
 import { ThemeContext } from '../../../provider/theme-provider';
+import i18n from './../../../../utils/i18n';
 
 const ChangePassword = (props) => {
     const authContext = useContext(AuthenticationContext)
@@ -29,7 +30,7 @@ const ChangePassword = (props) => {
         setError({ isError: false })
 
         if (info.old === '' || info.new === '' || info.confirm === '') {
-            setError({ isError: true, message: "Vui lòng nhập đầy đủ thông tin" });
+            setError({ isError: true, message: i18n.t("PleaseFill") });
             return;
         }
 
@@ -56,7 +57,7 @@ const ChangePassword = (props) => {
                 });
         }
         else {
-            setError({ isError: true, message: "Vui lòng nhập thông tin" })
+            setError({ isError: true, message: i18n.t("PleaseFill") })
         }
     }
 
@@ -66,7 +67,7 @@ const ChangePassword = (props) => {
                 <TextInput
                     secureTextEntry={true}
                     style={{ ...styles.inputText, color: theme.headerText }}
-                    placeholder='Mật khẩu cũ'
+                    placeholder={i18n.t("OldPassword")}
                     placeholderTextColor={theme.placeholderTextColor}
                     maxLength={20}
                     onChangeText={text => {
@@ -81,13 +82,13 @@ const ChangePassword = (props) => {
                     }}
                 />
             </View>
-            {!isValid.old && <Text style={{ color: 'red' }}>Mật khẩu từ 8 đến 20 ký tự</Text>}
+            {!isValid.old && <Text style={{ color: 'red' }}>{i18n.t("WrongPassword")}</Text>}
 
             <View style={styles.passwordView} >
                 <TextInput
                     secureTextEntry={true}
                     style={{ ...styles.inputText, color: theme.headerText }}
-                    placeholder='Mật khẩu mới'
+                    placeholder={i18n.t("NewPassword")}
                     placeholderTextColor={theme.placeholderTextColor}
                     maxLength={20}
                     onChangeText={text => {
@@ -108,14 +109,14 @@ const ChangePassword = (props) => {
                     }}
                 />
             </View>
-            {!isValid.new && <Text style={{ color: 'red' }}>Mật khẩu từ 8 đến 20 ký tự</Text>}
-            {isValid.same && <Text style={{ color: 'red' }}>Mật khẩu mới phải khác mật khẩu cũ</Text>}
+            {!isValid.new && <Text style={{ color: 'red' }}>{i18n.t("WrongPassword")}</Text>}
+            {isValid.same && <Text style={{ color: 'red' }}>{i18n.t("NewSameOld")}</Text>}
 
             <View style={styles.passwordView} >
                 <TextInput
                     secureTextEntry={true}
                     style={{ ...styles.inputText, color: theme.headerText }}
-                    placeholder='Nhập lại mật khẩu mới'
+                    placeholder={i18n.t("ConfirmPassword")}
                     placeholderTextColor={theme.placeholderTextColor}
                     maxLength={20}
                     onChangeText={text => {
@@ -130,11 +131,11 @@ const ChangePassword = (props) => {
                     }}
                 />
             </View>
-            {!isValid.confirm && <Text style={{ color: 'red' }}>Mật khẩu không khớp</Text>}
+            {!isValid.confirm && <Text style={{ color: 'red' }}>{i18n.t("WrongConfirmPassword")}</Text>}
             {error.isError && <Text style={{ marginTop: 10, textAlign: "center", color: 'red', fontWeight: 'bold' }}>{error.message}</Text>}
             {isLoading === true && <ActivityIndicator size="large" />}
             <TouchableOpacity style={styles.button} onPress={onPressConfirm}>
-                <Text style={styles.signUpText}>XÁC NHẬN</Text>
+                <Text style={styles.signUpText}>{i18n.t("ConfirmChange")}</Text>
             </TouchableOpacity>
         </View>
     )

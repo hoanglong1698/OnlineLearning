@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { color, screenName } from './../../../globals/constants';
 import { ThemeContext } from '../../../provider/theme-provider';
+import i18n from './../../../../utils/i18n';
 
 export default function ChangePasswordSuccessfully(props) {
     let [loading, setLoading] = useState(5);
@@ -24,12 +25,12 @@ export default function ChangePasswordSuccessfully(props) {
 
     return (
         <View style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
-            <Text style={{ ...styles.header, color: theme.headerText }}>THÀNH CÔNG</Text>
+            <Text style={{ ...styles.header, color: theme.headerText }}>{i18n.t("Success")}</Text>
 
             <Image source={require('../../../../assets/success.png')}
                 style={styles.success}
             />
-            <Text style={{ ...styles.text, color: theme.headerText }}>Trở lại màn hình Profile trong {loading} giây</Text>
+            <Text style={{ ...styles.text, color: theme.headerText }}>{i18n.t("ReturnProfile")} {loading} {i18n.t("Second")}</Text>
         </View>
     )
 }

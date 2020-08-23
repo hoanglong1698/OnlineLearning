@@ -4,6 +4,7 @@ import { AirbnbRating } from 'react-native-elements';
 import { color, screenName } from '../../../../globals/constants'
 import { ThemeContext } from '../../../../provider/theme-provider';
 import moment from 'moment';
+import i18n from './../../../../../utils/i18n';
 
 const SectionCoursesItem = (props) => {
     const onPressSectionItem = (id, title) => {
@@ -18,7 +19,7 @@ const SectionCoursesItem = (props) => {
 
     function formatPrice(price) {
         if (price === 0) {
-            return "Miễn phí";
+            return i18n.t("Free");
         }
         else {
             return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' VND';
@@ -44,9 +45,9 @@ const SectionCoursesItem = (props) => {
             <View style={styles.content}>
                 <Text style={{ ...styles.title, color: theme.headerText }} numberOfLines={2}>{props.item.title || props.item.courseTitle}</Text>
                 <Text style={{ ...styles.info, color: theme.infoTextColor }}>{props.item["instructor.user.name"] || props.item.instructorName}</Text>
-                {props.item.updatedAt !== undefined && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{updatedAt}  {`\u00B7`}  Thời lượng {formatDuration(props.item.totalHours)}</Text>}
-                {props.item.latestLearnTime && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>Ngày học gần nhất: {`${latestLearnTime}`}</Text>}
-                {props.item.learnLesson !== undefined && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>Đã học {props.item.learnLesson}/{props.item.total} bài</Text>}
+                {props.item.updatedAt !== undefined && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{updatedAt}  {`\u00B7`}  {i18n.t("Duration")} {formatDuration(props.item.totalHours)}</Text>}
+                {props.item.latestLearnTime && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{i18n.t("LastedLearnTime")}: {`${latestLearnTime}`}</Text>}
+                {props.item.learnLesson !== undefined && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{i18n.t("Learned")} {props.item.learnLesson}/{props.item.total} {i18n.t("Lesson")}</Text>}
 
                 {props.item.formalityPoint !== undefined && props.item.contentPoint !== undefined && props.item.presentationPoint !== undefined &&
                     <View style={{ flexDirection: 'row' }}>

@@ -5,6 +5,7 @@ import { color, screenName } from './../../../globals/constants';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 import axios from 'axios';
 import { ThemeContext } from '../../../provider/theme-provider';
+import i18n from './../../../../utils/i18n';
 
 const Profile = (props) => {
     const authContext = useContext(AuthenticationContext)
@@ -60,11 +61,11 @@ const Profile = (props) => {
                     <Text style={{ ...styles.name, color: theme.headerText }}>{nameHeader}</Text>
                 </TouchableOpacity>
 
-                <Text style={{ ...styles.labelOfInput, color: theme.headerText }}>Họ tên</Text>
+                <Text style={{ ...styles.labelOfInput, color: theme.headerText }}>{i18n.t("FullName")}</Text>
                 <View style={styles.inputView} >
                     <TextInput
                         style={{ ...styles.inputText, color: theme.headerText }}
-                        placeholder='Họ tên'
+                        placeholder={i18n.t("FullName")}
                         placeholderTextColor={color.placeholderTextColor}
                         defaultValue={authContext.state.userInfo.name}
                         autoCapitalize="words"
@@ -80,7 +81,7 @@ const Profile = (props) => {
                         }}
                     />
                 </View>
-                {!isValid.name && <Text style={{ color: 'red' }}>Tên tối thiểu 2 ký tự và không chứa ký tự đặc biệt</Text>}
+                {!isValid.name && <Text style={{ color: 'red' }}>{i18n.t("WrongName")}</Text>}
 
                 <Text style={{ ...styles.labelOfInput, color: theme.headerText }}>Email</Text>
                 <View style={styles.inputView} >
@@ -93,11 +94,11 @@ const Profile = (props) => {
                     />
                 </View>
 
-                <Text style={{ ...styles.labelOfInput, color: theme.headerText }}>Điện thoại</Text>
+                <Text style={{ ...styles.labelOfInput, color: theme.headerText }}>{i18n.t("Phone")}</Text>
                 <View style={styles.inputView} >
                     <TextInput
                         style={{ ...styles.inputText, color: theme.headerText  }}
-                        placeholder='Điện thoại'
+                        placeholder={i18n.t("Phone")}
                         placeholderTextColor={color.placeholderTextColor}
                         defaultValue={authContext.state.userInfo.phone}
                         keyboardType="numeric"
@@ -113,19 +114,19 @@ const Profile = (props) => {
                         }}
                     />
                 </View>
-                {!isValid.phone && <Text style={{ color: 'red', marginBottom: 5 }}>Số điện thoại sai</Text>}
+                {!isValid.phone && <Text style={{ color: 'red', marginBottom: 5 }}>{i18n.t("WrongNumber")}</Text>}
 
                 {isLoading === true && <ActivityIndicator size="small" />}
                 <Text style={{ color: color.headerText }}>{status}</Text>
                 <TouchableOpacity style={styles.changeInfoButton} onPress={onPressChangeInfo}>
-                    <Text style={styles.changeInfoText}>Sửa thông tin</Text>
+                    <Text style={styles.changeInfoText}>{i18n.t("EditInfo")}</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={{ marginTop: 30 }}>
                 <ListItem
                     key={1}
-                    title='Đổi mật khẩu'
+                    title={i18n.t("ChangePassword")}
                     bottomDivider
                     chevron
                     titleStyle={{
@@ -137,7 +138,7 @@ const Profile = (props) => {
                 />
                 <ListItem
                     key={2}
-                    title='Đổi địa chỉ email'
+                    title={i18n.t("ChangeEmail")}
                     bottomDivider
                     chevron
                     titleStyle={{
@@ -149,7 +150,7 @@ const Profile = (props) => {
                 />
                 <ListItem
                     key={3}
-                    title='Cài đặt'
+                    title={i18n.t("Settings")}
                     bottomDivider
                     chevron
                     titleStyle={{
@@ -161,7 +162,7 @@ const Profile = (props) => {
                 />
                 <ListItem
                     key={4}
-                    title='Đăng xuất'
+                    title={i18n.t("Logout")}
                     bottomDivider
                     chevron
                     titleStyle={{
@@ -179,16 +180,16 @@ const Profile = (props) => {
                 visible={modalVisible}
             >
                 <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Xác nhận?</Text>
+                    <Text style={styles.modalText}>{i18n.t("Confirm")}</Text>
 
                     <TouchableOpacity
                         style={{ ...styles.changeInfoButton, backgroundColor: 'red', marginBottom: 20 }}
                         onPress={() => { authContext.logout(); setModalVisible(!modalVisible); props.navigation.push(screenName.loginScreen) }}>
-                        <Text style={styles.changeInfoText}>Đăng xuất</Text>
+                        <Text style={styles.changeInfoText}>{i18n.t("Logout")}</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={{ ...styles.changeInfoButton, backgroundColor: color.infoTextColor, borderColor: color.infoTextColor }} onPress={() => { setModalVisible(!modalVisible) }}>
-                        <Text style={styles.changeInfoText}>Hủy</Text>
+                        <Text style={styles.changeInfoText}>{i18n.t("Cancel")}</Text>
                     </TouchableOpacity>
                 </View>
             </Modal>

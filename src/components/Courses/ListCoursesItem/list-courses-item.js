@@ -6,6 +6,7 @@ import { ListItem } from 'react-native-elements'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ThemeContext } from '../../../provider/theme-provider';
 import moment from 'moment';
+import i18n from './../../../../utils/i18n';
 
 const ListCoursesItem = (props) => {
     const { theme } = useContext(ThemeContext)
@@ -31,8 +32,8 @@ const ListCoursesItem = (props) => {
 
         return <View>
             <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{props.item["instructor.user.name"] || props.item.instructorName || props.item.name}</Text>
-            {props.item.updatedAt !== undefined && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{updatedAt}  {`\u00B7`}  Thời lượng {formatDuration(props.item.totalHours)}</Text>}
-            {props.item.latestLearnTime && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>Ngày học gần nhất: {`${latestLearnTime}`}</Text>}
+            {props.item.updatedAt !== undefined && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{updatedAt}  {`\u00B7`}  {i18n.t("Duration")} {formatDuration(props.item.totalHours)}</Text>}
+            {props.item.latestLearnTime && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{i18n.t("LastedLearnTime")}: {`${latestLearnTime}`}</Text>}
             {props.item.formalityPoint !== undefined && props.item.contentPoint !== undefined && props.item.presentationPoint !== undefined &&
                 <View style={{ flexDirection: 'row' }}>
                     <AirbnbRating
@@ -44,7 +45,7 @@ const ListCoursesItem = (props) => {
                     />
                     <Text style={{ marginLeft: 5, color: color.infoTextColor, fontSize: 12 }}>({props.item.ratedNumber})</Text>
                 </View>}
-            {props.item.learnLesson !== undefined && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{props.item.learnLesson}/{props.item.total} bài</Text>}
+            {props.item.learnLesson !== undefined && <Text style={{ ...styles.subtitle, color: theme.subtitleColor }}>{props.item.learnLesson}/{props.item.total} {i18n.t("Lesson")}</Text>}
         </View>
     }
 

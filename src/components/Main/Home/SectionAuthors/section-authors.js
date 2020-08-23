@@ -4,6 +4,7 @@ import SectionAuthorsItem from './../SectionAuthorsItem/section-authors-item';
 import { color } from '../../../../globals/constants'
 import { ThemeContext } from '../../../../provider/theme-provider';
 import axios from 'axios';
+import i18n from './../../../../../utils/i18n';
 
 const SectionAuthors = (props) => {
     const [authors, setAuthors] = useState([]);
@@ -29,7 +30,7 @@ const SectionAuthors = (props) => {
             <View>
                 <Text style={{ ...styles.title, color: theme.headerText }}>{props.title}</Text>
                 <TouchableOpacity style={{ ...styles.seeAll, backgroundColor: theme.seeAllButtonColor }}>
-                    <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>Xem thêm</Text>
+                    <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>{i18n.t("SeeMore")}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
         marginRight: 15,
         backgroundColor: color.seeAllButtonColor,
         borderRadius: 25,
-        width: 60,
+        width: 70,
     },
 
     text: {

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator } from 'react-native'
 import { color, screenName } from '../../../globals/constants'
 import axios from 'axios';
+import i18n from './../../../../utils/i18n';
 
 const Register = (props) => {
     const onPressSignin = () => {
@@ -33,7 +34,7 @@ const Register = (props) => {
 
     const onPressSignUp = () => {
         if (info.name === '' || info.email === '' || info.password === '' || info.confirm === '' || info.phone === '') {
-            setError({ isError: true, message: "Vui lòng nhập đủ thông tin" });
+            setError({ isError: true, message: i18n.t("PleaseFill") });
             return;
         }
 
@@ -64,7 +65,7 @@ const Register = (props) => {
             <View style={styles.inputView} >
                 <TextInput
                     style={styles.inputText}
-                    placeholder='Họ tên'
+                    placeholder={i18n.t("FullName")}
                     placeholderTextColor={color.placeholderTextColor}
                     autoCapitalize='words'
                     onChangeText={text => {
@@ -80,7 +81,7 @@ const Register = (props) => {
                     }}
                 />
             </View>
-            {!isValid.name && <Text style={{ color: 'red' }}>Tên tối thiểu 2 ký tự và không chứa ký tự đặc biệt</Text>}
+            {!isValid.name && <Text style={{ color: 'red' }}>{i18n.t("WrongName")}</Text>}
 
             <View style={styles.inputView} >
                 <TextInput
@@ -104,13 +105,13 @@ const Register = (props) => {
                     }}
                 />
             </View>
-            {!isValid.email && <Text style={{ color: 'red' }}>Email không đúng định dạng</Text>}
+            {!isValid.email && <Text style={{ color: 'red' }}>{i18n.t("WrongEmail")}</Text>}
 
             <View style={styles.passwordView} >
                 <TextInput
                     secureTextEntry={true}
                     style={styles.inputText}
-                    placeholder='Mật khẩu'
+                    placeholder={i18n.t("Password")}
                     placeholderTextColor={color.placeholderTextColor}
                     maxLength={20}
                     onChangeText={text => {
@@ -125,13 +126,13 @@ const Register = (props) => {
                     }}
                 />
             </View>
-            {!isValid.password && <Text style={{ color: 'red' }}>Mật khẩu từ 8 đến 20 ký tự</Text>}
+            {!isValid.password && <Text style={{ color: 'red' }}>{i18n.t("WrongPassword")}</Text>}
 
             <View style={styles.passwordView} >
                 <TextInput
                     secureTextEntry={true}
                     style={styles.inputText}
-                    placeholder='Nhập lại mật khẩu'
+                    placeholder={i18n.t("ConfirmPassword")}
                     placeholderTextColor={color.placeholderTextColor}
                     onChangeText={text => {
                         setError({ isError: false });
@@ -145,12 +146,12 @@ const Register = (props) => {
                     }}
                 />
             </View>
-            {!isValid.confirm && <Text style={{ color: 'red' }}>Mật khẩu không khớp</Text>}
+            {!isValid.confirm && <Text style={{ color: 'red' }}>{i18n.t("PasswordNotMatch")}</Text>}
 
             <View style={styles.inputView} >
                 <TextInput
                     style={styles.inputText}
-                    placeholder='Điện thoại'
+                    placeholder={i18n.t("Phone")}
                     placeholderTextColor={color.placeholderTextColor}
                     keyboardType='numeric'
                     maxLength={13}
@@ -166,20 +167,20 @@ const Register = (props) => {
                     }}
                 />
             </View>
-            {!isValid.phone && <Text style={{ color: 'red' }}>Vui lòng nhập đúng số điện thoại</Text>}
+            {!isValid.phone && <Text style={{ color: 'red' }}>{i18n.t("WrongNumber")}</Text>}
 
             {isLoading === true && <ActivityIndicator size="large" />}
             {error.isError && <Text style={{ marginTop: 10, textAlign: "center", color: 'red', fontWeight: 'bold' }}>{error.message}</Text>}
             <TouchableOpacity style={styles.button} onPress={onPressSignUp}>
-                <Text style={styles.signUpText}>ĐĂNG KÝ</Text>
+                <Text style={styles.signUpText}>{i18n.t("RegisterButton")}</Text>
             </TouchableOpacity>
 
 
             <TouchableOpacity onPress={onPressSignin}>
-                <Text style={styles.questionText}>Đã có tài khoản?{' '}
+                <Text style={styles.questionText}>{i18n.t("HaveAccount")}{' '}
                     <Text style={styles.signInText}>
-                        Đăng nhập.
-                     </Text>
+                        {i18n.t("GobackLogin")}
+                    </Text>
                 </Text>
             </TouchableOpacity>
         </KeyboardAvoidingView>

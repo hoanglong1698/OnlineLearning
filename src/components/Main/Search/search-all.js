@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-nati
 import ListCourses from './../../Courses/ListCourses/list-courses';
 import { color } from './../../../globals/constants';
 import { ThemeContext } from 'react-native-elements';
+import i18n from './../../../../utils/i18n';
 
 export default function SearchAll(props) {
     const { theme } = useContext(ThemeContext);
@@ -11,17 +12,17 @@ export default function SearchAll(props) {
     return (
         <ScrollView style={{ ...styles.container, backgroundColor: theme.mainBackgroundColor }}>
             <View style={styles.sectionHeader}>
-                <Text style={styles.title}>Khóa học</Text>
-                <TouchableOpacity style={styles.seeAll} onPress={() => props.navigation.navigate("KHÓA HỌC")}>
-                    <Text style={styles.text}>{data.courses.total} kết quả</Text>
+                <Text style={styles.title}>{i18n.t("Courses")}</Text>
+                <TouchableOpacity style={styles.seeAll} onPress={() => props.navigation.navigate(i18n.t("CoursesTab"))}>
+                    <Text style={styles.text}>{data.courses.total} {i18n.t("Result")}</Text>
                 </TouchableOpacity>
             </View>
             <ListCourses navigation={props.navigation} data={data.courses.data}></ListCourses>
 
             <View style={styles.sectionHeader}>
-                <Text style={styles.title}>Giáo viên</Text>
-                <TouchableOpacity style={styles.seeAll} onPress={() => props.navigation.navigate("GIÁO VIÊN")}>
-                    <Text style={styles.text}>{data.instructors.total} kết quả</Text>
+                <Text style={styles.title}>{i18n.t("Instructor")}</Text>
+                <TouchableOpacity style={styles.seeAll} onPress={() => props.navigation.navigate(i18n.t("InstructorsTab"))}>
+                    <Text style={styles.text}>{data.instructors.total} {i18n.t("Result")}</Text>
                 </TouchableOpacity>
             </View>
             <ListCourses navigation={props.navigation} data={data.instructors.data}></ListCourses>

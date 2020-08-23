@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert, ActivityInd
 import { color, screenName } from '../../../globals/constants'
 import { AuthenticationContext } from '../../../provider/authentication-provider'
 import { ThemeContext } from '../../../provider/theme-provider';
+import i18n from './../../../../utils/i18n';
 
 const Login = (props) => {
     const [username, setUsername] = useState('');
@@ -32,7 +33,7 @@ const Login = (props) => {
     const onPressSignIn = () => {
         setError({ isError: false });
         if (username === '' || password === '') {
-            setError({ isError: true, message: "Vui lòng nhập thông tin" });
+            setError({ isError: true, message: i18n.t("PleaseFill") });
             return;
         }
 
@@ -43,7 +44,7 @@ const Login = (props) => {
             if (!authContext.state.isAuthenticated) {
                 setTimeout(() => {
                     setIsLoading(false);
-                    setError({ isError: true, message: "Sai email hoặc mật khẩu" })
+                    setError({ isError: true, message: i18n.t("WrongEmailOrPassword") })
                 }, 1500)
             }
         }
@@ -59,7 +60,7 @@ const Login = (props) => {
                         <View style={styles.inputView} >
                             <TextInput
                                 style={styles.inputText}
-                                placeholder='Tài khoản'
+                                placeholder={i18n.t("Username")}
                                 placeholderTextColor={color.placeholderTextColor}
                                 autoCapitalize='none'
                                 onChangeText={text => {
@@ -77,13 +78,13 @@ const Login = (props) => {
                                 }}
                             />
                         </View>
-                        {!emailIsValid && <Text style={{ color: 'red' }}>Email không đúng định dạng</Text>}
+                        {!emailIsValid && <Text style={{ color: 'red' }}>{i18n.t("WrongEmail")}</Text>}
 
                         <View style={styles.passwordView} >
                             <TextInput
                                 secureTextEntry={true}
                                 style={styles.inputText}
-                                placeholder='Mật khẩu'
+                                placeholder={i18n.t("Password")}
                                 placeholderTextColor={color.placeholderTextColor}
                                 onChangeText={text => {
                                     setPassword(text);
@@ -93,7 +94,7 @@ const Login = (props) => {
                         </View>
 
                         <TouchableOpacity onPress={onPressForgotPassword}>
-                            <Text style={styles.forgot}>Quên mật khẩu?</Text>
+                            <Text style={styles.forgot}>{i18n.t("ForgotPassword")}</Text>
                         </TouchableOpacity>
 
                         {IsLoading === true && <ActivityIndicator size="large" />}
@@ -102,13 +103,13 @@ const Login = (props) => {
                             style={styles.button}
                             onPress={onPressSignIn}
                         >
-                            <Text style={styles.signInText}>ĐĂNG NHẬP</Text>
+                            <Text style={styles.signInText}>{i18n.t("Login")}</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={onPressSignup}>
-                            <Text style={styles.questionText}>Chưa có tài khoản?{' '}
+                            <Text style={styles.questionText}>{i18n.t("DontHaveAccount")}{' '}
                                 <Text style={styles.signUpText}>
-                                    Đăng ký ngay.
+                                    {i18n.t("RegisterNow")}
                                 </Text>
                             </Text>
                         </TouchableOpacity>

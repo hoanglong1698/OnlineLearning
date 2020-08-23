@@ -5,6 +5,7 @@ import { color } from './../../../../globals/constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import moment from 'moment';
 import { ThemeContext } from '../../../../provider/theme-provider';
+import i18n from './../../../../../utils/i18n';
 
 const Lessons = (props) => {
     const { theme } = useContext(ThemeContext);
@@ -28,7 +29,7 @@ const Lessons = (props) => {
             title={data.name}
             titleStyle={{ color: theme.headerText, }}
             containerStyle={{ backgroundColor: theme.itemBackgroundColor }}
-            leftElement={<Text style={{ fontWeight: 'bold', color: theme.headerText }}>Bài {data.numberOrder}.</Text>}
+            leftElement={<Text style={{ fontWeight: 'bold', color: theme.headerText }}>{i18n.t("LessonInUnit")} {data.numberOrder}.</Text>}
             rightElement={<Text style={{ fontSize: 12, color: theme.headerText }}>{formatDuration(data.hours)}</Text>}
             badge={isPlaying}
             onPress={() => { onPressItem(data.videoUrl, data.id) }}

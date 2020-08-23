@@ -5,6 +5,7 @@ import Browse from './../Main/Browse/browse';
 import ListCourses from './../Courses/ListCourses/list-courses';
 import CoursesDetail from './../CourseDetail/courses-detail';
 import { ThemeContext } from '../../provider/theme-provider';
+import i18n from './../../../utils/i18n';
 
 const Stack = createStackNavigator();
 
@@ -28,7 +29,7 @@ export default function BrowseStack() {
                 name={screenName.browseScreen}
                 component={Browse}
                 options={{
-                    title: "Khám phá",
+                    title: i18n.t("Browse"),
                 }}
             />
 

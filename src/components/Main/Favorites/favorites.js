@@ -5,6 +5,7 @@ import ListCourses from '../../Courses/ListCourses/list-courses';
 import { ThemeContext } from '../../../provider/theme-provider';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 import axios from 'axios';
+import i18n from './../../../../utils/i18n';
 
 const Favorites = (props) => {
     const authContext = useContext(AuthenticationContext);
@@ -55,7 +56,7 @@ const Favorites = (props) => {
                 <Image source={require('../../../../assets/empty.png')}
                     style={styles.empty}
                 />
-                <Text style={{ ...styles.emptyText, color: theme.headerText }}>Bạn chưa thích khóa học nào!</Text>
+                <Text style={{ ...styles.emptyText, color: theme.headerText }}>{i18n.t("NoFavoriteCourse")}</Text>
             </ScrollView>
         )
     }

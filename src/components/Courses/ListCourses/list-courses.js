@@ -3,6 +3,7 @@ import { FlatList, View, Text, StyleSheet, Image } from 'react-native'
 import ListCoursesItem from '../ListCoursesItem/list-courses-item'
 import { screenName } from '../../../globals/constants';
 import { ThemeContext } from '../../../provider/theme-provider';
+import i18n from './../../../../utils/i18n';
 
 const ListCourses = (props) => {
     let data = props.data;
@@ -21,7 +22,7 @@ const ListCourses = (props) => {
                 <Image source={require('../../../../assets/empty.png')}
                     style={styles.empty}
                 />
-                <Text style={{ ...styles.text, color: theme.headerText }}>Không có dữ liệu</Text>
+                <Text style={{ ...styles.text, color: theme.headerText }}>{i18n.t("NoData")}</Text>
             </View>
         )
     }

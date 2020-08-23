@@ -5,6 +5,7 @@ import { color, screenName } from '../../globals/constants';
 import Favorites from '../Main/Favorites/favorites';
 import CoursesDetail from '../CourseDetail/courses-detail';
 import { ThemeContext } from '../../provider/theme-provider';
+import i18n from './../../../utils/i18n';
 
 const Stack = createStackNavigator();
 
@@ -12,7 +13,7 @@ const FavoritesStack = () => {
     const { theme } = useContext(ThemeContext)
 
     return (
-        <Stack.Navigator initialRouteName="Khóa học yêu thích"
+        <Stack.Navigator initialRouteName={i18n.t("FavoriteCourses")}
             screenOptions={{
                 headerStyle: {
                     backgroundColor: theme.headerBar,
@@ -27,7 +28,7 @@ const FavoritesStack = () => {
                 name={screenName.downloadScreen}
                 component={Favorites}
                 options={{
-                    title: "Khóa học yêu thích",
+                    title: i18n.t("FavoriteCourses"),
                 }}
             />
 

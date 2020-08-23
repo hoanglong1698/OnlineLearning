@@ -4,13 +4,14 @@ import { ListItem } from 'react-native-elements'
 import { color } from './../../../../globals/constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ThemeContext } from '../../../../provider/theme-provider';
+import i18n from './../../../../../utils/i18n';
 
 const Units = (props) => {
     const { theme } = useContext(ThemeContext);
     let data = props.item;
     const thumbnail = () => {
         return <View style={styles.icon}>
-            <Text style={{ fontWeight: 'bold', color: theme.headerText }}>Phần {data.section.numberOrder}</Text>
+            <Text style={{ fontWeight: 'bold', color: theme.headerText }}>{i18n.t("Unit")} {data.section.numberOrder}</Text>
         </View>
     }
 

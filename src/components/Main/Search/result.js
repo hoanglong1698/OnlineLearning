@@ -9,6 +9,7 @@ import { SearchBar } from 'react-native-elements';
 import { ThemeContext } from '../../../provider/theme-provider';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 import axios from 'axios';
+import i18n from './../../../../utils/i18n';
 
 const TopTab = createMaterialTopTabNavigator();
 export default function Result(props) {
@@ -52,15 +53,15 @@ export default function Result(props) {
             {isLoaded === true &&
                 <TopTab.Navigator
                     independent={true}
-                    initialRouteName="TẤT CẢ"
+                    initialRouteName={i18n.t("AllTab")}
                     tabBarOptions={{
                         indicatorStyle: { height: 3, backgroundColor: color.headerBar },
                         labelStyle: { fontWeight: 'bold' }
                     }}
                 >
-                    <TopTab.Screen name="TẤT CẢ" component={SearchAll} initialParams={{ data: data }} />
-                    <TopTab.Screen name="KHÓA HỌC" component={SearchCourse} initialParams={{ data: data.courses }} />
-                    <TopTab.Screen name="GIÁO VIÊN" component={SearchInstructor} initialParams={{ data: data.instructors }} />
+                    <TopTab.Screen name={i18n.t("AllTab")} component={SearchAll} initialParams={{ data: data }} />
+                    <TopTab.Screen name={i18n.t("CoursesTab")} component={SearchCourse} initialParams={{ data: data.courses }} />
+                    <TopTab.Screen name={i18n.t("InstructorsTab")} component={SearchInstructor} initialParams={{ data: data.instructors }} />
                 </TopTab.Navigator>
             }
         </View>

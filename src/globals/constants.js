@@ -81,7 +81,3 @@ export const themes = {
         lightSeachBar: false,
     }
 }
-
-export const localize = {
-    WelcomeTitle: "WelcomeTitle",
-}

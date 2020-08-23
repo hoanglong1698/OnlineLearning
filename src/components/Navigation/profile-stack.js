@@ -10,6 +10,7 @@ import { ThemeContext } from '../../provider/theme-provider';
 import ChangePasswordSuccessfully from './../AccountManagement/ChangePassword/change-password-successfully';
 import ChangeEmail from './../AccountManagement/ChangeEmail/change-email';
 import LanguageSetting from './../AccountManagement/Setting/language-setting';
+import i18n from './../../../utils/i18n';
 
 const Stack = createStackNavigator();
 
@@ -32,7 +33,7 @@ const ProfileStack = (props) => {
                 name={screenName.profileScreen}
                 component={Profile}
                 options={{
-                    title: "Quản lý tài khoản",
+                    title: i18n.t("Profile"),
                 }}
             />
 
@@ -40,7 +41,7 @@ const ProfileStack = (props) => {
                 name={screenName.changePasswordScreen}
                 component={ChangePassword}
                 options={{
-                    title: "Đổi mật khẩu",
+                    title: i18n.t("ChangePassword"),
                 }}
             />
 
@@ -48,7 +49,7 @@ const ProfileStack = (props) => {
                 name={screenName.settingScreen}
                 component={Setting}
                 options={{
-                    title: "Cài đặt",
+                    title: i18n.t("Settings"),
                 }}
             />
 
@@ -56,7 +57,7 @@ const ProfileStack = (props) => {
                 name={screenName.themeSettingScreen}
                 component={ThemeSetting}
                 options={{
-                    title: "Setting",
+                    title: i18n.t("Theme"),
                 }}
             />
 
@@ -64,7 +65,7 @@ const ProfileStack = (props) => {
                 name={screenName.languageSettingScreen}
                 component={LanguageSetting}
                 options={{
-                    title: "Ngôn ngữ",
+                    title: i18n.t("Language"),
                 }}
             />
 
@@ -79,7 +80,7 @@ const ProfileStack = (props) => {
                 name={screenName.changeEmailScreen}
                 component={ChangeEmail}
                 options={{
-                    title: "Đổi địa chỉ email",
+                    title: i18n.t("ChangeEmail"),
                 }}
             />
         </Stack.Navigator>

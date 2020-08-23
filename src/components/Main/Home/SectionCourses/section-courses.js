@@ -4,6 +4,7 @@ import SectionCoursesItem from '../SectionCoursesItem/section-courses-item'
 import { color, screenName } from '../../../../globals/constants'
 import { createStackNavigator } from '@react-navigation/stack';
 import { ThemeContext } from '../../../../provider/theme-provider';
+import i18n from './../../../../../utils/i18n';
 
 const Stack = createStackNavigator();
 
@@ -24,7 +25,7 @@ const SectionCourses = (props) => {
             <View>
                 <Text style={{ ...styles.title, color: theme.headerText }}>{props.title}</Text>
                 <TouchableOpacity style={{ ...styles.seeAll, backgroundColor: theme.seeAllButtonColor }} onPress={onPressSeeAll}>
-                    <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>Xem thêm ›</Text>
+                    <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>{i18n.t("SeeMore")}</Text>
                 </TouchableOpacity>
             </View>
 

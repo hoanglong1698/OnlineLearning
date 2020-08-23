@@ -19,7 +19,7 @@ import Register from './src/components/Authentication/Register/register';
 import RegisterSuccessfully from './src/components/Authentication/Register/register-successfully';
 import ForgotPassword from './src/components/Authentication/ForgotPassword/forgot-password';
 import SendEmailSuccessfully from './src/components/Authentication/ForgotPassword/send-email-successfully';
-
+import i18n from './utils/i18n';
 
 const MainNavigationStack = createStackNavigator();
 
@@ -34,23 +34,23 @@ const BottomTabNavigator = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'Home') {
+          if (route.name === i18n.t("Home")) {
             iconName = focused
               ? 'home'
               : 'home-outline';
-          } else if (route.name === 'Favorite') {
+          } else if (route.name === i18n.t("Favorite")) {
             iconName = focused
               ? 'heart-circle'
               : 'heart-circle-outline';
-          } else if (route.name === 'Browse') {
+          } else if (route.name === i18n.t("Browse")) {
             iconName = focused
               ? 'view-list'
               : 'format-list-bulleted';
-          } else if (route.name === 'Search') {
+          } else if (route.name === i18n.t("Search")) {
             iconName = focused
               ? 'magnify'
               : 'magnify';
-          } else if (route.name === 'Profile') {
+          } else if (route.name === i18n.t("Profile")) {
             iconName = focused
               ? 'account-circle'
               : 'account-circle-outline';
@@ -68,11 +68,11 @@ const BottomTabNavigator = () => {
         inactiveBackgroundColor: theme.backgroundBottomBar
       }}
     >
-      <BottomTab.Screen name="Home" component={HomeStack} />
-      <BottomTab.Screen name="Favorite" component={FavoritesStack} />
-      <BottomTab.Screen name="Browse" component={BrowseStack} />
-      <BottomTab.Screen name="Search" component={SearchStack} />
-      <BottomTab.Screen name="Profile" component={ProfileStack} />
+      <BottomTab.Screen name={i18n.t("Home")} component={HomeStack} />
+      <BottomTab.Screen name={i18n.t("Favorite")} component={FavoritesStack} />
+      <BottomTab.Screen name={i18n.t("Browse")} component={BrowseStack} />
+      <BottomTab.Screen name={i18n.t("Search")} component={SearchStack} />
+      <BottomTab.Screen name={i18n.t("Profile")} component={ProfileStack} />
     </BottomTab.Navigator>
   )
 }
@@ -104,7 +104,7 @@ const MainNavigation = () => {
         name={screenName.signupScreen}
         component={Register}
         options={{
-          title: "Đăng ký",
+          title: i18n.t("Register"),
           headerTintColor: theme.headerText,
           headerStyle: {
             backgroundColor: theme.headerBar,
@@ -134,7 +134,7 @@ const MainNavigation = () => {
         name={screenName.forgotPasswordScreen}
         component={ForgotPassword}
         options={{
-          title: "Quên mật khẩu",
+          title: i18n.t("ForgotPassword"),
           headerTintColor: theme.headerText,
           headerStyle: {
             backgroundColor: theme.headerBar,

@@ -4,13 +4,14 @@ import { ListItem } from 'react-native-elements'
 import { color, screenName } from './../../../globals/constants';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ThemeContext } from '../../../provider/theme-provider';
+import i18n from './../../../../utils/i18n';
 
 const Setting = (props) => {
     const { theme } = useContext(ThemeContext);
 
     const list = [
         {
-            title: 'Chủ đề',
+            title: i18n.t("Theme"),
             titleStyle: [
                 {
                     color: color.headerText,
@@ -21,7 +22,7 @@ const Setting = (props) => {
         },
 
         {
-            title: 'Ngôn ngữ',
+            title: i18n.t("Language"),
             titleStyle: [
                 {
                     color: color.headerText,
@@ -29,10 +30,11 @@ const Setting = (props) => {
                 }
             ],
             screenName: screenName.languageSettingScreen,
+            subtitle: i18n.t("LanguageSubtitle")
         },
 
         {
-            title: 'Phiên bản ứng dụng',
+            title: i18n.t("AppVersion"),
             titleStyle: [
                 {
                     color: color.headerText,

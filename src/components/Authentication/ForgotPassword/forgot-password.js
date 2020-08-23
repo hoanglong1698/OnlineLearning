@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, TextInput, TouchableOpacity, Text, ActivityIndicator } from 'react-native'
 import { color, screenName } from '../../../globals/constants'
 import axios from 'axios';
+import i18n from './../../../../utils/i18n';
 
 const ForgotPassword = (props) => {
     const [emailIsValid, setEmailIsValid] = useState(true);
@@ -31,7 +32,7 @@ const ForgotPassword = (props) => {
 
         }
         else {
-            setError({ isError: true, message: "Vui lòng nhập email" })
+            setError({ isError: true, message: i18n.t("PleaseFill") })
         }
     }
 
@@ -60,12 +61,12 @@ const ForgotPassword = (props) => {
                     }}
                 />
             </View>
-            {!emailIsValid && <Text style={{ color: 'red' }}>Email không đúng định dạng</Text>}
+            {!emailIsValid && <Text style={{ color: 'red' }}>{i18n.t("WrongEmail")}</Text>}
 
             {isLoading === true && <ActivityIndicator size="large" />}
             {error.isError && <Text style={{ marginTop: 10, textAlign: "center", color: 'red', fontWeight: 'bold' }}>{error.message}</Text>}
             <TouchableOpacity style={styles.button} onPress={onPressSubmit}>
-                <Text style={styles.signUpText}>Gửi mã xác nhận</Text>
+                <Text style={styles.signUpText}>{i18n.t("SendCode")}</Text>
             </TouchableOpacity>
         </View>
     )

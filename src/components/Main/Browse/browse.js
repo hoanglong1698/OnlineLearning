@@ -9,6 +9,7 @@ import { ThemeContext } from '../../../provider/theme-provider';
 import axios from 'axios';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
 import { GetNewRelease } from './../../../core/services/courses-services';
+import i18n from './../../../../utils/i18n';
 
 
 const Browse = (props) => {
@@ -84,36 +85,36 @@ const Browse = (props) => {
         {IsLoading === true && <ActivityIndicator size="large" />}
 
         <ImageButton
-            title="KHÓA HỌC MỚI NHẤT"
+            title={i18n.t("BannerTopNew")}
             onPress={onPressNewRelease}
             sourceImage="https://cdn.pixabay.com/photo/2020/01/14/16/26/lavender-4765498_960_720.jpg"
         />
         <ImageButton
-            title="KHÓA HỌC DÀNH CHO BẠN"
+            title={i18n.t("BannerRecommend")}
             onPress={onPressRecommended}
             sourceImage="https://cdn.pixabay.com/photo/2020/05/30/01/49/sea-5237374_960_720.jpg"
         />
 
         <View style={styles.category}>
             <CategoryButton
-                title="Lập trình Web"
+                title={i18n.t("BannerWeb")}
                 sourceImage="https://sogo.edu.vn/wp-content/uploads/2019/04/lap-trinh-web.jpg"
                 onPress={() => { onPressCategoryButton("4eb0c150-8212-44ef-a90b-fcd40130ac01", "Lập trình Web") }}
             />
             <CategoryButton
-                title="Lập trình Mobile"
+                title={i18n.t("BannerMobile")}
                 sourceImage="https://www.stimes.qa/wp-content/uploads/2019/04/mobile-app-development-technologies.png"
                 onPress={() => { onPressCategoryButton("847dce36-f43b-4714-982d-e65812b40b5e", "Lập trình Mobile") }}
             />
         </View>
         <View style={styles.category}>
             <CategoryButton
-                title="Lập trình Windows"
+                title={i18n.t("BannerWindows")}
                 sourceImage="https://congngheviet.com/wp-content/uploads/2018/10/mswindows2_2040.0.0.jpg"
                 onPress={() => { onPressCategoryButton("eaa881b9-def6-429b-94e2-27b466862bc0", "Lập trình Windows") }}
             />
             <CategoryButton
-                title="Lập trình Game"
+                title={i18n.t("BannerGame")}
                 sourceImage="https://blog.gnt.com.vn/wp-content/uploads/2019/04/How-to-get-start-game-development-compan-1024x576.png"
                 onPress={() => { onPressCategoryButton('a4015252-542a-4482-b087-4cfa85f2b953', "Lập trình Game") }}
             />
@@ -121,34 +122,34 @@ const Browse = (props) => {
 
         <View style={styles.category}>
             <CategoryButton
-                title="Cơ sở dữ liệu"
+                title={i18n.t("BannerDatabase")}
                 sourceImage="https://www.appilab.com/img/database-new-image.png"
                 onPress={() => { onPressCategoryButton('edbc17da-ef55-4e83-a028-ba9657600f0b', "Cơ sở dữ liệu") }}
             />
             <CategoryButton
-                title="Testing"
+                title={i18n.t("BannerTesting")}
                 sourceImage="https://topdev.vn/blog/wp-content/uploads/2017/09/usertesting.jpg"
                 onPress={() => { onPressCategoryButton('93959023-5ff2-4bb8-beb2-c42dbe3dc2dd', "Testing") }}
             />
         </View>
         <View style={styles.category}>
             <CategoryButton
-                title="Quản lý dự án"
+                title={i18n.t("BannerProjectManager")}
                 sourceImage="https://www.whizlabs.com/blog/wp-content/uploads/2019/01/role-of-project-manager.png"
                 onPress={() => { onPressCategoryButton('8d919542-d44d-444c-8623-4d9c4063ed82', "Quản lý dự án") }}
             />
             <CategoryButton
-                title="Đồ họa"
+                title={i18n.t("BannerGraphicsDesign")}
                 sourceImage="https://arena.fpt.edu.vn/wp-content/uploads/2018/12/4Iz9oqQ.jpg"
                 onPress={() => { onPressCategoryButton('b8a345df-3b8e-4a4f-b592-6c6c2f230fdc', "Đồ họa") }}
             />
         </View>
 
 
-        <SectionCourses title='Khóa học bán nhiều nhất' navigation={props.navigation} data={state.TopSell} />
-        <SectionCourses title='Khóa học đánh giá cao nhất' navigation={props.navigation} data={state.TopRate} />
+        <SectionCourses title={i18n.t("TopSell")} navigation={props.navigation} data={state.TopSell} />
+        <SectionCourses title={i18n.t("TopRate")} navigation={props.navigation} data={state.TopRate} />
 
-        <SectionAuthors title='Giảng viên' />
+        <SectionAuthors title={i18n.t("Instructor")} />
     </ScrollView>
 };
 

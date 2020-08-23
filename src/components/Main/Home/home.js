@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Text, StyleSheet, ScrollView, Image, ActivityIndicator, RefreshControl } from 'react-native';
 import SectionCourses from './SectionCourses/section-courses';
-import { color, localize } from './../../../globals/constants';
+import { color } from './../../../globals/constants';
 import SectionAuthors from './SectionAuthors/section-authors';
 import { ThemeContext } from '../../../provider/theme-provider';
 import { AuthenticationContext } from '../../../provider/authentication-provider';
@@ -76,12 +76,12 @@ const Home = (props) => {
             <Image style={styles.image} source={{ uri: 'https://cdn.pixabay.com/photo/2016/05/17/19/08/hyacinth-1398839_960_720.jpg' }}></Image>
             {IsLoading === true && <ActivityIndicator size="large" />}
 
-            <Text style={{ ...styles.hello, color: theme.headerText }}>{i18n.t(localize.WelcomeTitle)} {authContext.state.userInfo.name}!</Text>
-            {state.ContinueLearning.length != 0 && <SectionCourses title='Khóa học của tôi' navigation={props.navigation} data={state.ContinueLearning} />}
-            {state.Favorites.length != 0 && <SectionCourses title='Khóa học yêu thích' navigation={props.navigation} data={state.Favorites} />}
-            <SectionCourses title='Khóa học mới nhất' navigation={props.navigation} data={state.TopNew} />
-            {state.ContinueLearning.length == 0 && state.Favorites.length == 0 && <SectionCourses title='Khóa học bán nhiều nhất' navigation={props.navigation} data={state.TopNew} />}
-            <SectionAuthors title='Giảng viên' />
+            <Text style={{ ...styles.hello, color: theme.headerText }}>{i18n.t("WelcomeTitle")} {authContext.state.userInfo.name}!</Text>
+            {state.ContinueLearning.length != 0 && <SectionCourses title={i18n.t("MyCourse")} navigation={props.navigation} data={state.ContinueLearning} />}
+            {state.Favorites.length != 0 && <SectionCourses title={i18n.t("FavoriteCourses")} navigation={props.navigation} data={state.Favorites} />}
+            <SectionCourses title={i18n.t("TopNew")} navigation={props.navigation} data={state.TopNew} />
+            {state.ContinueLearning.length == 0 && state.Favorites.length == 0 && <SectionCourses title={i18n.t("TopSell")} navigation={props.navigation} data={state.TopSell} />}
+            <SectionAuthors title={i18n.t("Instructor")} />
         </ScrollView>
     )
 
