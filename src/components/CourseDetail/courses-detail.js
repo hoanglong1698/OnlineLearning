@@ -14,7 +14,6 @@ import Exercise from './Exercises/exercises';
 import { ThemeContext } from '../../provider/theme-provider';
 import i18n from './../../../utils/i18n';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import { FULLSCREEN_UPDATE_PLAYER_DID_DISMISS, FULLSCREEN_UPDATE_PLAYER_DID_PRESENT } from 'expo-av/build/Video';
 
 const Tab = createMaterialTopTabNavigator();
 

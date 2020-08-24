@@ -54,7 +54,7 @@ const Search = (props) => {
             }
         })
             .then(function (response) {
-                setSearchHistory({ ...searchHistory, });
+                console.log("deleted");
             })
             .catch(function (error) {
                 console.log(error);
