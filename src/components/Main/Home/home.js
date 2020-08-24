@@ -81,7 +81,7 @@ const Home = (props) => {
             {state.Favorites.length != 0 && <SectionCourses title={i18n.t("FavoriteCourses")} navigation={props.navigation} data={state.Favorites} />}
             <SectionCourses title={i18n.t("TopNew")} navigation={props.navigation} data={state.TopNew} />
             {state.ContinueLearning.length == 0 && state.Favorites.length == 0 && <SectionCourses title={i18n.t("TopSell")} navigation={props.navigation} data={state.TopSell} />}
-            <SectionAuthors title={i18n.t("Instructor")} />
+            <SectionAuthors navigation={props.navigation} title={i18n.t("Instructor")} />
         </ScrollView>
     )
 

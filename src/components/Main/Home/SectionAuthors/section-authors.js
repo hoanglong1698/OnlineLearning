@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import SectionAuthorsItem from './../SectionAuthorsItem/section-authors-item';
-import { color } from '../../../../globals/constants'
+import { color, screenName } from '../../../../globals/constants'
 import { ThemeContext } from '../../../../provider/theme-provider';
 import axios from 'axios';
 import i18n from './../../../../../utils/i18n';
@@ -20,16 +20,19 @@ const SectionAuthors = (props) => {
     }, [])
 
     const renderListItems = (authors) => {
-        return authors.map(item => <SectionAuthorsItem item={item} />)
+        return authors.map(item => <SectionAuthorsItem navigation={props.navigation} item={item} />)
     }
 
     const { theme } = useContext(ThemeContext);
 
+    const onPressSeeAll = () => {
+        props.navigation.navigate(screenName.listAuthorsScreen);
+    }
     return (
         <View style={styles.container}>
             <View>
                 <Text style={{ ...styles.title, color: theme.headerText }}>{props.title}</Text>
-                <TouchableOpacity style={{ ...styles.seeAll, backgroundColor: theme.seeAllButtonColor }}>
+                <TouchableOpacity style={{ ...styles.seeAll, backgroundColor: theme.seeAllButtonColor }} onPress={onPressSeeAll}>
                     <Text style={{ ...styles.text, color: theme.seeAllTextColor }}>{i18n.t("SeeMore")}</Text>
                 </TouchableOpacity>
             </View>

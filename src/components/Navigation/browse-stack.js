@@ -6,6 +6,8 @@ import ListCourses from './../Courses/ListCourses/list-courses';
 import CoursesDetail from './../CourseDetail/courses-detail';
 import { ThemeContext } from '../../provider/theme-provider';
 import i18n from './../../../utils/i18n';
+import ListAuthors from './../Authors/ListAuthors/list-authors';
+import AuthorDetail from './../Authors/AuthorDetail/author-detail';
 
 const Stack = createStackNavigator();
 
@@ -45,6 +47,19 @@ export default function BrowseStack() {
                 name={screenName.coursesDetailScreen}
                 component={CoursesDetail}
             //options={}
+            />
+
+            <Stack.Screen
+                name={screenName.listAuthorsScreen}
+                component={ListAuthors}
+                options={{
+                    title: i18n.t("Instructor"),
+                }}
+            />
+
+            <Stack.Screen
+                name={screenName.authorDetailScreen}
+                component={AuthorDetail}
             />
         </Stack.Navigator>
     )

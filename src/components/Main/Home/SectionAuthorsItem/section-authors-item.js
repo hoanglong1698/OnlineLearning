@@ -1,15 +1,15 @@
 import React, { useContext } from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { color } from './../../../../globals/constants';
+import { color, screenName } from './../../../../globals/constants';
 import { ThemeContext } from '../../../../provider/theme-provider';
 
 const SectionAuthorsItem = (props) => {
     const { theme } = useContext(ThemeContext)
 
     return (
-        <TouchableOpacity style={styles.container}>
-            <Image source={{uri: props.item["user.avatar"]}}
+        <TouchableOpacity style={styles.container} onPress={() => { props.navigation.navigate(screenName.authorDetailScreen, { id: props.item.id, title: props.item["user.name"] }) }}>
+            <Image source={{ uri: props.item["user.avatar"] }}
                 style={styles.avatar}
             />
             <Text style={{ ...styles.text, color: theme.headerText }}>{props.item["user.name"]}</Text>

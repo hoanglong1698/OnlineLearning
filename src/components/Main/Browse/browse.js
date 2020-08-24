@@ -149,7 +149,7 @@ const Browse = (props) => {
         <SectionCourses title={i18n.t("TopSell")} navigation={props.navigation} data={state.TopSell} />
         <SectionCourses title={i18n.t("TopRate")} navigation={props.navigation} data={state.TopRate} />
 
-        <SectionAuthors title={i18n.t("Instructor")} />
+        <SectionAuthors title={i18n.t("Instructor")} navigation={props.navigation}/>
     </ScrollView>
 };
 

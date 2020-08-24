@@ -173,7 +173,7 @@ const CoursesDetail = (props) => {
                     <View style={{ marginHorizontal: 10 }}>
                         <Text style={{ ...styles.title, color: theme.headerText }}>{data.title}</Text>
 
-                        <Author title={data.instructor.name} avatarURL={data.instructor.avatar}></Author>
+                        <Author navigation={props.navigation} title={data.instructor.name} avatarURL={data.instructor.avatar} id={data.instructor.id}></Author>
                         <GeneralInfomation soldNumber={data.soldNumber} duration={data.totalHours} price={data.price} ratedNumber={data.ratedNumber} averagePoint={data.averagePoint}></GeneralInfomation>
 
                         <View style={styles.circleButtons}>

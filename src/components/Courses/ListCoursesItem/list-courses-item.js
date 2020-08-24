@@ -56,7 +56,7 @@ const ListCoursesItem = (props) => {
     return (
         <ListItem
             title={props.item.title || props.item.courseTitle}
-            titleStyle={{ color: theme.headerText, }}
+            titleStyle={{ color: theme.headerText, fontWeight: 'bold' }}
             containerStyle={{ backgroundColor: theme.itemBackgroundColor }}
             leftElement={() => thumbnail(props.item.imageUrl || props.item.courseImage)}
             subtitle={() => subtitle(props)}

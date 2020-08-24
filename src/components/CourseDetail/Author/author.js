@@ -1,13 +1,13 @@
 import React, { useContext } from 'react'
 import { StyleSheet, Text, TouchableOpacity, Image } from 'react-native'
-import { color } from './../../../globals/constants';
+import { color, screenName } from './../../../globals/constants';
 import { ThemeContext } from '../../../provider/theme-provider';
 
 const Author = (props) => {
     const { theme } = useContext(ThemeContext);
 
     return (
-        <TouchableOpacity style={styles.avatarName}>
+        <TouchableOpacity style={styles.avatarName} onPress={() => props.navigation.navigate(screenName.authorDetailScreen, { id: props.id, title: props.title })}>
             <Image source={{ uri: props.avatarURL }}
                 style={styles.avatar}
             />

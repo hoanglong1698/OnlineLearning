@@ -38,6 +38,8 @@ export const screenName = {
     changePasswordSuccessfully: "ChangePasswordSuccessfully",
     changeEmailScreen: "changeEmailScreen",
     languageSettingScreen: "LanguageSettingScreen",
+    listAuthorsScreen: "ListAuthorScreen",
+    authorDetailScreen: "AuthorDetailScreen"
 }
 
 export const themes = {

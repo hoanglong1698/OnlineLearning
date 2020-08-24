@@ -6,6 +6,7 @@ import Favorites from '../Main/Favorites/favorites';
 import CoursesDetail from '../CourseDetail/courses-detail';
 import { ThemeContext } from '../../provider/theme-provider';
 import i18n from './../../../utils/i18n';
+import AuthorDetail from './../Authors/AuthorDetail/author-detail';
 
 const Stack = createStackNavigator();
 
@@ -46,6 +47,11 @@ const FavoritesStack = () => {
                 options={{
                     title: "Courses Detail",
                 }}
+            />
+
+            <Stack.Screen
+                name={screenName.authorDetailScreen}
+                component={AuthorDetail}
             />
         </Stack.Navigator>
     )
